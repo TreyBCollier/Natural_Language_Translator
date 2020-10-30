@@ -263,15 +263,14 @@ class SignUpScreen extends React.Component {
             <View style={styles.fieldContainerBottom} />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => this.refs.Email.focus()}>
+          <TouchableOpacity onPress={() => this.refs.username.focus()}>
             <View style={styles.fieldContainer}>
-              <Text style={styles.inputHeader}>Email</Text>
+              <Text style={styles.inputHeader}>Username</Text>
               <Input
-                ref="Email"
+                ref="username"
                 containerStyle={styles.inputContainer}
-                value={this.state.email}
-                keyboardType="email-address"
-                onChangeText={(text) => this.setState({ email: text })}
+                value={this.state.username}
+                onChangeText={(text) => this.setState({ username: text })}
                 inputStyle={styles.input}
                 inputContainerStyle={{ borderBottomWidth: 0 }}
                 placeholder=". . ."
@@ -280,15 +279,15 @@ class SignUpScreen extends React.Component {
             <View style={styles.fieldContainerBottom} />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => this.refs.username.focus()}>
+          <TouchableOpacity onPress={() => this.refs.email.focus()}>
             <View style={styles.fieldContainer}>
-              <Text style={styles.inputHeader}>Username</Text>
+              <Text style={styles.inputHeader}>Email</Text>
               <Input
-                ref="username"
+                ref="email"
                 containerStyle={styles.inputContainer}
-                value={this.state.username}
+                value={this.state.email}
                 keyboardType="email-address"
-                onChangeText={(text) => this.setState({ username: text })}
+                onChangeText={(text) => this.setState({ email: text })}
                 inputStyle={styles.input}
                 inputContainerStyle={{ borderBottomWidth: 0 }}
                 placeholder=". . ."
@@ -486,7 +485,7 @@ class SignUpScreen extends React.Component {
               />
               <ScrollView
                 showsVerticalScrollIndicator={false}
-                style={{ height: "90%" }}
+                style={{ height: "95%" }}
               >
                 <Text style={styles.text3}>Terms of use</Text>
                 <Text style={styles.text4}>
@@ -635,12 +634,14 @@ class SignUpScreen extends React.Component {
               </Text>
             </Text>
           </View>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={[styles.buttonContainer, styles.emailBtn]}
-          >
-            <Text style={styles.appButtonText}>Next</Text>
-          </TouchableOpacity>
+          <View style={{ height: "100%", marginBottom: "15%" }}>
+            <TouchableOpacity
+              activeOpacity={0.8}
+              style={styles.buttonContainer}
+            >
+              <Text style={styles.appButtonText}>Next</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
       </SafeAreaView>
     );
@@ -648,6 +649,9 @@ class SignUpScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+  },
   titleText: {
     fontSize: 30,
     paddingTop: 20,
@@ -655,7 +659,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: 1,
-    elevation: 8,
+
     borderRadius: 10,
     paddingVertical: 0,
     paddingHorizontal: 5,
