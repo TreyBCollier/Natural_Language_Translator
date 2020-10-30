@@ -27,9 +27,8 @@ function WelcomeScreen(props) {
         <SafeAreaView style={[styles.imgContainer]}>
           <Image
             style={styles.logo}
-            source={require("../assets/logo.png")}
+            source={require("../assets/logo_white.png")}
           ></Image>
-          <Text style={[styles.text, styles.title]}>SpeakEazy</Text>
 
           <TouchableOpacity
             activeOpacity={0.8}
