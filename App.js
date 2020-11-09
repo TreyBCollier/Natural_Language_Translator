@@ -17,7 +17,8 @@ import { createStackNavigator } from "react-navigation-stack";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 import SignUpScreen from "./app/screens/SignUpScreen";
-import SignUpScreen2 from "./app/screens/SignUp";
+import engFre from "./app/screens/EnglishToFrench";
+import freEng from "./app/screens/FrenchToEnglish";
 import colours from "./app/config/colours";
 
 const windowWidth = Dimensions.get("window").width;
@@ -40,6 +41,7 @@ class StartScreen extends React.Component {
 
             <TouchableOpacity
               activeOpacity={0.8}
+              onPress={() => this.props.navigation.navigate("EngToFre")}
               style={[styles.buttonContainer, styles.faceboookBtn]}
             >
               <Text style={styles.appButtonText}>Log In With Facebook</Text>
@@ -80,8 +82,14 @@ const AppNavigator = createStackNavigator({
       headerShown: false,
     },
   },
-  SignUp2: {
-    screen: SignUpScreen2,
+  EngToFre: {
+    screen: engFre,
+    navigationOptions: {
+      headerShown: false,
+    },
+  },
+  FreToEng: {
+    screen: freEng,
     navigationOptions: {
       headerShown: false,
     },

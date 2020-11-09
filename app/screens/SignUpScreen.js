@@ -18,6 +18,8 @@ import { BarPasswordStrengthDisplay } from "react-native-password-strength-meter
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
 import colours from "../config/colours";
+import { createUser, verifyUser } from "../Firebase/firebaseSignup";
+import { loadExistingEmails, emails } from "../Firebase/firebaseSignup";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -183,7 +185,8 @@ class SignUpScreen extends React.Component {
     global.email = this.state.email;
     global.password = this.state.password;
     global.is_org = false;
-    this.props.navigation.navigate("Passport");
+    createUser();
+    this.props.navigation.navigate("SignUp2");
   }
 
   // Basic email validation through regex
@@ -638,6 +641,10 @@ class SignUpScreen extends React.Component {
             <TouchableOpacity
               activeOpacity={0.8}
               style={styles.buttonContainer}
+              onPress={() => {
+                this.signupUser();
+              }}
+              disabled={!this.state.checked}
             >
               <Text style={styles.appButtonText}>Next</Text>
             </TouchableOpacity>
