@@ -1,13 +1,13 @@
 var natural = require("natural");
 
-var reader = new FileReader();
-
-var textEn = reader.readAsText("../../data/trainEn.txt");
-var textFr = reader.readAsText("../../data/trainFr.txt");
-
 var classifier = new natural.BayesClassifier();
-classifier.addDocument(textFr, "French");
-classifier.addDocument(textEn, "English");
+classifier.addDocument("Tu habites en France, et tu as une voiture", "French");
+classifier.addDocument(
+  "J'habite dans une grande ville qui s'appelle Dartford",
+  "French"
+);
+classifier.addDocument("You live in England, and you have a car", "English");
+classifier.addDocument("I live in a big town called Dartford", "English");
 
 classifier.train();
 
@@ -17,3 +17,5 @@ console.log(
 console.log(
   classifier.classify("J'habite à Paris, et je m'appelle Trey, merci")
 );
+console.log(classifier.classify("I have a car"));
+console.log(classifier.classify("J'ai une voiture"));
