@@ -27,43 +27,10 @@ const windowHeight = Dimensions.get("window").height;
 class StartScreen extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <ImageBackground
-          style={styles.backgroundImage}
-          resizeMode="cover"
-          source={require("./app/assets/paris.jpeg")}
-        >
-          <SafeAreaView style={[styles.imgContainer]}>
-            <Image
-              style={styles.logo}
-              source={require("./app/assets/logo_white.png")}
-            ></Image>
-
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => this.props.navigation.navigate("EngToFre")}
-              style={[styles.buttonContainer, styles.faceboookBtn]}
-            >
-              <Text style={styles.appButtonText}>Log In With Facebook</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={[styles.buttonContainer, styles.emailBtn]}
-            >
-              <Text style={styles.appButtonText}>Log In With Email</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => this.props.navigation.navigate("SignUp")}
-              style={[styles.buttonContainer, styles.signupBtn]}
-            >
-              <Text style={styles.appButtonText}>Sign Up</Text>
-            </TouchableOpacity>
-          </SafeAreaView>
-        </ImageBackground>
-        <StatusBar style="auto" />
+      <View style={styles.container}>{styles.backgroundImage}resizeMode="cover"source={require("./app/assets/paris.jpeg")}SafeAreaView style={[styles.imgContainer]}>       style={styles.logo}    source={require("./app/assets/logo_white.png")}  ></Image>
+       activeOpacity={0.8}    onPress={() => this.props.navigation.navigate("EngToFre")}    style={[styles.buttonContainer, styles.faceboookBtn]}       <Text style={styles.appButtonText}>Log In With Facebook</Text>  </TouchableOpacity>
+       activeOpacity={0.8}    style={[styles.buttonContainer, styles.emailBtn]}       <Text style={styles.appButtonText}>Log In With Email</Text>  </TouchableOpacity>
+       activeOpacity={0.8}    onPress={() => this.props.navigation.navigate("SignUp")}    style={[styles.buttonContainer, styles.signupBtn]}       <Text style={styles.appButtonText}>Sign Up</Text>  </TouchableOpacity></SafeAreaView>ImageBackground>style="auto" />
       </View>
     );
   }
@@ -72,26 +39,22 @@ class StartScreen extends React.Component {
 const AppNavigator = createStackNavigator({
   Start: {
     screen: StartScreen,
-    navigationOptions: {
-      headerShown: false,
+    navigationOptions false,
     },
   },
   SignUp: {
     screen: SignUpScreen,
-    navigationOptions: {
-      headerShown: false,
+    navigationOptions false,
     },
   },
   EngToFre: {
     screen: engFre,
-    navigationOptions: {
-      headerShown: false,
+    navigationOptions false,
     },
   },
   FreToEng: {
     screen: freEng,
-    navigationOptions: {
-      headerShown: false,
+    navigationOptions false,
     },
   },
 });
