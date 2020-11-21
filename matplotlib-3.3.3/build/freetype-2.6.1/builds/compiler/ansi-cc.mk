@@ -15,7 +15,7 @@
 
 # Compiler command line name
 #
-CC           := cc
+CC:= cc
 COMPILER_SEP := $(SEP)
 
 

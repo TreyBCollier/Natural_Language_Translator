@@ -17,7 +17,7 @@ num_classes = 2
 
 def get_test_data():
     np.random.seed(1337)
-    (x_train, y_train), _ = test_utils.get_test_data(num_train=1000,          num_test=200,          input_shape=(10,),True,          num_classes=num_classes)
+    (x_train, y_train), _ = test_utils.get_test_data(num_train=1000num_test=200input_shape=(10,),Truenum_classes=num_classes)
     y_train = to_categorical(y_train)
     return x_train, y_train
 
@@ -143,7 +143,7 @@ def test_tfoptimizer():
         optimizer = tf.keras.optimizers.Adam()
 
     model = Sequential()
-    model.add(Dense(num_classes, input_shape=(3,),          kernel_constraint=constraints.MaxNorm(1)))
+    model.add(Dense(num_classes, input_shape=(3,)kernel_constraint=constraints.MaxNorm(1)))
     model.compile(loss='mean_squared_error', optimizer=optimizer)
     model.fit(np.random.random((5, 3)), np.random.random((5, num_classes)),    epochs=1, batch_size=5, verbose=0)
 

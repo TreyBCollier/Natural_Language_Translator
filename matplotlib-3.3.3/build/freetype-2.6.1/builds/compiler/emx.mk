@@ -15,7 +15,7 @@
 
 # Compiler command line name
 #
-CC           := set GCCOPT="-ansi -pedantic"; gcc
+CC:= set GCCOPT="-ansi -pedantic"; gcc
 COMPILER_SEP := /
 
 

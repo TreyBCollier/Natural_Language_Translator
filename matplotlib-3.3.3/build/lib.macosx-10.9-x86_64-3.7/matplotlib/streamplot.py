@@ -17,10 +17,7 @@ import matplotlib.patches as patches
 __all__ = ['streamplot']
 
 
-def streamplot(axes, x, y, u, v, density=1, linewidth=None, color=None,
-               cmap=None, norm=None, arrowsize=1, arrowstyle='-|>',
-               minlength=0.1, transform=None, zorder=None, start_points=None,
-               maxlength=4.0, integration_direction='both'):
+def streamplot(axes, x, y, u, v, density=1, linewidth=None, color=None,     cmap=None, norm=None, arrowsize=1, arrowstyle='-|>',     minlength=0.1, transform=None, zorder=None, start_points=None,     maxlength=4.0, integration_direction='both'):
     """
     Draw streamlines of a vector flow.
 
@@ -28,8 +25,7 @@ def streamplot(axes, x, y, u, v, density=1, linewidth=None, color=None,
     ----------
     x, y : 1D arrays
         An evenly spaced grid.
-    u, v : 2D arrays
-        *x* and *y*-velocities. The number of rows and columns must match
+    u, v : 2D arrays and *y*-velocities. The number of rows and columns must match
         the length of *y* and *x*, respectively.
     density : float or (float, float)
         Controls the closeness of streamlines. When ``density = 1``, the domain
@@ -46,8 +42,7 @@ def streamplot(axes, x, y, u, v, density=1, linewidth=None, color=None,
         colors using *cmap* and *norm*.  The array must have the same shape
         as *u* and *v*.
     cmap : `~matplotlib.colors.Colormap`
-        Colormap used to plot streamlines and arrows. This is only used if
-        *color* is an array.
+        Colormap used to plot streamlines and arrows. This is only used if is an array.
     norm : `~matplotlib.colors.Normalize`
         Normalize object used to scale luminance data to 0, 1. If ``None``,
         stretch (min, max) to (0, 1). This is only used if *color* is an array.
@@ -59,8 +54,7 @@ def streamplot(axes, x, y, u, v, density=1, linewidth=None, color=None,
     minlength : float
         Minimum length of streamline in axes coordinates.
     start_points : Nx2 array
-        Coordinates of starting points for the streamlines in data coordinates
-        (the same coordinates as the *x* and *y* arrays).
+        Coordinates of starting points for the streamlines in data coordinatessame coordinates as the *x* and *y* arrays).
     zorder : int
         The zorder of the stream lines and arrows.
         Artists with lower zorder values are drawn first.
@@ -71,13 +65,9 @@ def streamplot(axes, x, y, u, v, density=1, linewidth=None, color=None,
 
     Returns
     -------
-    StreamplotSet
-        Container object with attributes
-
-        - ``lines``: `.LineCollection` of streamlines
-
-        - ``arrows``: `.PatchCollection` containing `.FancyArrowPatch`
-          objects representing the arrows half-way along stream lines.
+  Container object with attributes
+``lines``: `.LineCollection` of streamlines
+``arrows``: `.PatchCollection` containing `.FancyArrowPatch`objects representing the arrows half-way along stream lines.
 
         This container will probably change in the future to allow changes
         to the colormap, alpha, etc. for both lines and arrows, but these
@@ -103,17 +93,14 @@ def streamplot(axes, x, y, u, v, density=1, linewidth=None, color=None,
     line_kw = {}
     arrow_kw = dict(arrowstyle=arrowstyle, mutation_scale=10 * arrowsize)
 
-    cbook._check_in_list(['both', 'forward', 'backward'],
-                         integration_direction=integration_direction)
+    cbook._check_in_list(['both', 'forward', 'backward'],    integration_direction=integration_direction)
 
     if integration_direction == 'both':
         maxlength /= 2.
 
     use_multicolor_lines = isinstance(color, np.ndarray)
     if use_multicolor_lines:
-        if color.shape != grid.shape:
-            raise ValueError("If 'color' is given, it must match the shape of "
-                             "'Grid(x, y)'")
+        if color.shape != grid.shape:  raise ValueError("If 'color' is given, it must match the shape of "        "'Grid(x, y)'")
         line_colors = []
         color = np.ma.masked_invalid(color)
     else:
@@ -121,9 +108,7 @@ def streamplot(axes, x, y, u, v, density=1, linewidth=None, color=None,
         arrow_kw['color'] = color
 
     if isinstance(linewidth, np.ndarray):
-        if linewidth.shape != grid.shape:
-            raise ValueError("If 'linewidth' is given, it must match the "
-                             "shape of 'Grid(x, y)'")
+        if linewidth.shape != grid.shape:  raise ValueError("If 'linewidth' is given, it must match the "        "shape of 'Grid(x, y)'")
         line_kw['linewidth'] = []
     else:
         line_kw['linewidth'] = linewidth
@@ -139,78 +124,48 @@ def streamplot(axes, x, y, u, v, density=1, linewidth=None, color=None,
     u = np.ma.masked_invalid(u)
     v = np.ma.masked_invalid(v)
 
-    integrate = get_integrator(u, v, dmap, minlength, maxlength,
-                               integration_direction)
+    integrate = get_integrator(u, v, dmap, minlength, maxlength,          integration_direction)
 
     trajectories = []
     if start_points is None:
-        for xm, ym in _gen_starting_points(mask.shape):
-            if mask[ym, xm] == 0:
-                xg, yg = dmap.mask2grid(xm, ym)
-                t = integrate(xg, yg)
-                if t is not None:
-                    trajectories.append(t)
+        for xm, ym in _gen_starting_points(mask.shape):  if mask[ym, xm] == 0:      xg, yg = dmap.mask2grid(xm, ym)      t = integrate(xg, yg)      if t is not None:append(t)
     else:
         sp2 = np.asanyarray(start_points, dtype=float).copy()
-
-        # Check if start_points are outside the data boundaries
-        for xs, ys in sp2:
-            if not (grid.x_origin <= xs <= grid.x_origin + grid.width and
-                    grid.y_origin <= ys <= grid.y_origin + grid.height):
-                raise ValueError("Starting point ({}, {}) outside of data "
-                                 "boundaries".format(xs, ys))
-
-        # Convert start_points from data to array coords
-        # Shift the seed points from the bottom left of the data so that
-        # data2grid works properly.
+Check if start_points are outside the data boundaries
+        for xs, ys in sp2:  if not (grid.x_origin <= xs <= grid.x_origin + grid.width andy_origin <= ys <= grid.y_origin + grid.height):      raise ValueError("Starting point ({}, {}) outside of data " "boundaries".format(xs, ys))
+Convert start_points from data to array coordsShift the seed points from the bottom left of the data so thatdata2grid works properly.
         sp2[:, 0] -= grid.x_origin
         sp2[:, 1] -= grid.y_origin
 
-        for xs, ys in sp2:
-            xg, yg = dmap.data2grid(xs, ys)
-            t = integrate(xg, yg)
-            if t is not None:
-                trajectories.append(t)
+        for xs, ys in sp2:  xg, yg = dmap.data2grid(xs, ys)  t = integrate(xg, yg)  if t is not None:      trajectories.append(t)
 
     if use_multicolor_lines:
-        if norm is None:
-            norm = mcolors.Normalize(color.min(), color.max())
-        if cmap is None:
-            cmap = cm.get_cmap(matplotlib.rcParams['image.cmap'])
-        else:
-            cmap = cm.get_cmap(cmap)
+        if norm is None:  norm = mcolors.Normalize(color.min(), color.max())
+        if cmap is None:  cmap = cm.get_cmap(matplotlib.rcParams['image.cmap'])
+        else:  cmap = cm.get_cmap(cmap)
 
     streamlines = []
     arrows = []
     for t in trajectories:
         tgx = np.array(t[0])
-        tgy = np.array(t[1])
-        # Rescale from grid-coordinates to data-coordinates.
+        tgy = np.array(t[1])Rescale from grid-coordinates to data-coordinates.
         tx, ty = dmap.grid2data(*np.array(t))
         tx += grid.x_origin
         ty += grid.y_origin
 
         points = np.transpose([tx, ty]).reshape(-1, 1, 2)
         streamlines.extend(np.hstack([points[:-1], points[1:]]))
-
-        # Add arrows half way along each trajectory.
+Add arrows half way along each trajectory.
         s = np.cumsum(np.hypot(np.diff(tx), np.diff(ty)))
         n = np.searchsorted(s, s[-1] / 2.)
         arrow_tail = (tx[n], ty[n])
         arrow_head = (np.mean(tx[n:n + 2]), np.mean(ty[n:n + 2]))
 
-        if isinstance(linewidth, np.ndarray):
-            line_widths = interpgrid(linewidth, tgx, tgy)[:-1]
-            line_kw['linewidth'].extend(line_widths)
-            arrow_kw['linewidth'] = line_widths[n]
+        if isinstance(linewidth, np.ndarray):  line_widths = interpgrid(linewidth, tgx, tgy)[:-1]  line_kw['linewidth'].extend(line_widths)  arrow_kw['linewidth'] = line_widths[n]
 
-        if use_multicolor_lines:
-            color_values = interpgrid(color, tgx, tgy)[:-1]
-            line_colors.append(color_values)
-            arrow_kw['color'] = cmap(norm(color_values[n]))
+        if use_multicolor_lines:  color_values = interpgrid(color, tgx, tgy)[:-1]  line_colors.append(color_values)  arrow_kw['color'] = cmap(norm(color_values[n]))
 
-        p = patches.FancyArrowPatch(
-            arrow_tail, arrow_head, transform=transform, **arrow_kw)
+        p = patches.FancyArrowPatch(  arrow_tail, arrow_head, transform=transform, **arrow_kw)
         axes.add_patch(p)
         arrows.append(p)
 
@@ -233,12 +188,7 @@ def streamplot(axes, x, y, u, v, density=1, linewidth=None, color=None,
 class StreamplotSet:
 
     def __init__(self, lines, arrows, **kwargs):
-        if kwargs:
-            cbook.warn_deprecated(
-                "3.3",
-                message="Passing arbitrary keyword arguments to StreamplotSet "
-                        "is deprecated since %(since) and will become an "
-                        "error %(removal)s.")
+        if kwargs:  cbook.warn_deprecated(      "3.3",      message="Passing arbitrary keyword arguments to StreamplotSet "   "is deprecated since %(since) and will become an "   "error %(removal)s.")
         self.lines = lines
         self.arrows = arrows
 
@@ -267,8 +217,7 @@ class DomainMap:
 
     def __init__(self, grid, mask):
         self.grid = grid
-        self.mask = mask
-        # Constants for conversion between grid- and mask-coordinates
+        self.mask = maskConstants for conversion between grid- and mask-coordinates
         self.x_grid2mask = (mask.nx - 1) / (grid.nx - 1)
         self.y_grid2mask = (mask.ny - 1) / (grid.ny - 1)
 
@@ -278,10 +227,8 @@ class DomainMap:
         self.x_data2grid = 1. / grid.dx
         self.y_data2grid = 1. / grid.dy
 
-    def grid2mask(self, xi, yi):
-        """Return nearest space in mask-coords from given grid-coords."""
-        return (int(xi * self.x_grid2mask + 0.5),
-                int(yi * self.y_grid2mask + 0.5))
+    def grid2mask(self, xi, yi):"Return nearest space in mask-coords from given grid-coords."""
+        return (int(xi * self.x_grid2mask + 0.5),      int(yi * self.y_grid2mask + 0.5))
 
     def mask2grid(self, xm, ym):
         return xm * self.x_mask2grid, ym * self.y_mask2grid
@@ -301,8 +248,7 @@ class DomainMap:
         self.mask._current_xy = (xm, ym)
 
     def update_trajectory(self, xg, yg):
-        if not self.grid.within_grid(xg, yg):
-            raise InvalidIndexError
+        if not self.grid.within_grid(xg, yg):  raise InvalidIndexError
         xm, ym = self.grid2mask(xg, yg)
         self.mask._update_trajectory(xm, ym)
 
@@ -314,25 +260,13 @@ class Grid:
     """Grid of data."""
     def __init__(self, x, y):
 
-        if x.ndim == 1:
-            pass
-        elif x.ndim == 2:
-            x_row = x[0, :]
-            if not np.allclose(x_row, x):
-                raise ValueError("The rows of 'x' must be equal")
-            x = x_row
-        else:
-            raise ValueError("'x' can have at maximum 2 dimensions")
+        if x.ndim == 1:  pass
+        elif x.ndim == 2:  x_row = x[0, :]  if not np.allclose(x_row, x):      raise ValueError("The rows of 'x' must be equal")  x = x_row
+        else:  raise ValueError("'x' can have at maximum 2 dimensions")
 
-        if y.ndim == 1:
-            pass
-        elif y.ndim == 2:
-            y_col = y[:, 0]
-            if not np.allclose(y_col, y.T):
-                raise ValueError("The columns of 'y' must be equal")
-            y = y_col
-        else:
-            raise ValueError("'y' can have at maximum 2 dimensions")
+        if y.ndim == 1:  pass
+        elif y.ndim == 2:  y_col = y[:, 0]  if not np.allclose(y_col, y.T):      raise ValueError("The columns of 'y' must be equal")  y = y_col
+        else:  raise ValueError("'y' can have at maximum 2 dimensions")
 
         self.nx = len(x)
         self.ny = len(y)
@@ -346,19 +280,14 @@ class Grid:
         self.width = x[-1] - x[0]
         self.height = y[-1] - y[0]
 
-        if not np.allclose(np.diff(x), self.width / (self.nx - 1)):
-            raise ValueError("'x' values must be equally spaced")
-        if not np.allclose(np.diff(y), self.height / (self.ny - 1)):
-            raise ValueError("'y' values must be equally spaced")
+        if not np.allclose(np.diff(x), self.width / (self.nx - 1)):  raise ValueError("'x' values must be equally spaced")
+        if not np.allclose(np.diff(y), self.height / (self.ny - 1)):  raise ValueError("'y' values must be equally spaced")
 
     @property
     def shape(self):
         return self.ny, self.nx
 
-    def within_grid(self, xi, yi):
-        """Return True if point is a valid index of grid."""
-        # Note that xi/yi can be floats; so, for example, we can't simply check
-        # `xi < self.nx` since *xi* can be `self.nx - 1 < xi < self.nx`
+    def within_grid(self, xi, yi):"Return True if point is a valid index of grid."""Note that xi/yi can be floats; so, for example, we can't simply check`xi < self.nx` since *xi* can be `self.nx - 1 < xi < self.nx`
         return 0 <= xi <= self.nx - 1 and 0 <= yi <= self.ny - 1
 
 
@@ -373,13 +302,9 @@ class StreamMask:
     """
 
     def __init__(self, density):
-        try:
-            self.nx, self.ny = (30 * np.broadcast_to(density, 2)).astype(int)
-        except ValueError as err:
-            raise ValueError("'density' must be a scalar or be of length "
-                             "2") from err
-        if self.nx < 0 or self.ny < 0:
-            raise ValueError("'density' must be positive")
+        try:  self.nx, self.ny = (30 * np.broadcast_to(density, 2)).astype(int)
+        except ValueError as err:  raise ValueError("'density' must be a scalar or be of length "        "2") from err
+        if self.nx < 0 or self.ny < 0:  raise ValueError("'density' must be positive")
         self._mask = np.zeros((self.ny, self.nx))
         self.shape = self._mask.shape
 
@@ -388,29 +313,18 @@ class StreamMask:
     def __getitem__(self, args):
         return self._mask[args]
 
-    def _start_trajectory(self, xm, ym):
-        """Start recording streamline trajectory"""
+    def _start_trajectory(self, xm, ym):"Start recording streamline trajectory"""
         self._traj = []
         self._update_trajectory(xm, ym)
 
-    def _undo_trajectory(self):
-        """Remove current trajectory from mask"""
-        for t in self._traj:
-            self._mask[t] = 0
+    def _undo_trajectory(self):"Remove current trajectory from mask"""
+        for t in self._traj:  self._mask[t] = 0
 
-    def _update_trajectory(self, xm, ym):
-        """
+    def _update_trajectory(self, xm, ym):"
         Update current trajectory position in mask.
 
-        If the new position has already been filled, raise `InvalidIndexError`.
-        """
-        if self._current_xy != (xm, ym):
-            if self[ym, xm] == 0:
-                self._traj.append((ym, xm))
-                self._mask[ym, xm] = 1
-                self._current_xy = (xm, ym)
-            else:
-                raise InvalidIndexError
+        If the new position has already been filled, raise `InvalidIndexError`."
+        if self._current_xy != (xm, ym):  if self[ym, xm] == 0:      self._traj.append((ym, xm))      self._mask[ym, xm] = 1      self._current_xy = (xm, ym)  else:      raise InvalidIndexError
 
 
 class InvalidIndexError(Exception):
@@ -435,11 +349,9 @@ def get_integrator(u, v, dmap, minlength, maxlength, integration_direction):
     speed = np.ma.sqrt(u_ax ** 2 + v_ax ** 2)
 
     def forward_time(xi, yi):
-        if not dmap.grid.within_grid(xi, yi):
-            raise OutOfBounds
+        if not dmap.grid.within_grid(xi, yi):  raise OutOfBounds
         ds_dt = interpgrid(speed, xi, yi)
-        if ds_dt == 0:
-            raise TerminateTrajectory()
+        if ds_dt == 0:  raise TerminateTrajectory()
         dt_ds = 1. / ds_dt
         ui = interpgrid(u, xi, yi)
         vi = interpgrid(v, xi, yi)
@@ -449,8 +361,7 @@ def get_integrator(u, v, dmap, minlength, maxlength, integration_direction):
         dxi, dyi = forward_time(xi, yi)
         return -dxi, -dyi
 
-    def integrate(x0, y0):
-        """
+    def integrate(x0, y0):"
         Return x, y grid-coordinates of trajectory based on starting point.
 
         Integrate both forward and backward in time from starting point in
@@ -458,36 +369,18 @@ def get_integrator(u, v, dmap, minlength, maxlength, integration_direction):
 
         Integration is terminated when a trajectory reaches a domain boundary
         or when it crosses into an already occupied cell in the StreamMask. The
-        resulting trajectory is None if it is shorter than `minlength`.
-        """
+        resulting trajectory is None if it is shorter than `minlength`."
 
         stotal, x_traj, y_traj = 0., [], []
 
-        try:
-            dmap.start_trajectory(x0, y0)
-        except InvalidIndexError:
-            return None
-        if integration_direction in ['both', 'backward']:
-            s, xt, yt = _integrate_rk12(x0, y0, dmap, backward_time, maxlength)
-            stotal += s
-            x_traj += xt[::-1]
-            y_traj += yt[::-1]
+        try:  dmap.start_trajectory(x0, y0)
+        except InvalidIndexError:  return None
+        if integration_direction in ['both', 'backward']:  s, xt, yt = _integrate_rk12(x0, y0, dmap, backward_time, maxlength)  stotal += s  x_traj += xt[::-1]  y_traj += yt[::-1]
 
-        if integration_direction in ['both', 'forward']:
-            dmap.reset_start_point(x0, y0)
-            s, xt, yt = _integrate_rk12(x0, y0, dmap, forward_time, maxlength)
-            if len(x_traj) > 0:
-                xt = xt[1:]
-                yt = yt[1:]
-            stotal += s
-            x_traj += xt
-            y_traj += yt
+        if integration_direction in ['both', 'forward']:  dmap.reset_start_point(x0, y0)  s, xt, yt = _integrate_rk12(x0, y0, dmap, forward_time, maxlength)  if len(x_traj) > 0:      xt = xt[1:]      yt = yt[1:]  stotal += s  x_traj += xt  y_traj += yt
 
-        if stotal > minlength:
-            return x_traj, y_traj
-        else:  # reject short trajectories
-            dmap.undo_trajectory()
-            return None
+        if stotal > minlength:  return x_traj, y_traj
+        else:  # reject short trajectories  dmap.undo_trajectory()  return None
 
     return integrate
 
@@ -541,57 +434,24 @@ def _integrate_rk12(x0, y0, dmap, f, maxlength):
     yf_traj = []
 
     while True:
-        try:
-            if dmap.grid.within_grid(xi, yi):
-                xf_traj.append(xi)
-                yf_traj.append(yi)
-            else:
-                raise OutOfBounds
+        try:  if dmap.grid.within_grid(xi, yi):      xf_traj.append(xi)      yf_traj.append(yi)  else:      raise OutOfBounds
+  # Compute the two intermediate gradients.  # f should raise OutOfBounds if the locations given are  # outside the grid.  k1x, k1y = f(xi, yi)  k2x, k2y = f(xi + ds * k1x, yi + ds * k1y)
 
-            # Compute the two intermediate gradients.
-            # f should raise OutOfBounds if the locations given are
-            # outside the grid.
-            k1x, k1y = f(xi, yi)
-            k2x, k2y = f(xi + ds * k1x, yi + ds * k1y)
-
-        except OutOfBounds:
-            # Out of the domain during this step.
-            # Take an Euler step to the boundary to improve neatness
-            # unless the trajectory is currently empty.
-            if xf_traj:
-                ds, xf_traj, yf_traj = _euler_step(xf_traj, yf_traj,
-                                                   dmap, f)
-                stotal += ds
-            break
-        except TerminateTrajectory:
-            break
+        except OutOfBounds:  # Out of the domain during this step.  # Take an Euler step to the boundary to improve neatness  # unless the trajectory is currently empty.  if xf_traj:      ds, xf_traj, yf_traj = _euler_step(xf_traj, yf_traj,        dmap, f)      stotal += ds  break
+        except TerminateTrajectory:  break
 
         dx1 = ds * k1x
         dy1 = ds * k1y
         dx2 = ds * 0.5 * (k1x + k2x)
         dy2 = ds * 0.5 * (k1y + k2y)
 
-        nx, ny = dmap.grid.shape
-        # Error is normalized to the axes coordinates
+        nx, ny = dmap.grid.shapeError is normalized to the axes coordinates
         error = np.hypot((dx2 - dx1) / (nx - 1), (dy2 - dy1) / (ny - 1))
-
-        # Only save step if within error tolerance
-        if error < maxerror:
-            xi += dx2
-            yi += dy2
-            try:
-                dmap.update_trajectory(xi, yi)
-            except InvalidIndexError:
-                break
-            if stotal + ds > maxlength:
-                break
-            stotal += ds
-
-        # recalculate stepsize based on step error
-        if error == 0:
-            ds = maxds
-        else:
-            ds = min(maxds, 0.85 * ds * (maxerror / error) ** 0.5)
+Only save step if within error tolerance
+        if error < maxerror:  xi += dx2  yi += dy2  try:      dmap.update_trajectory(xi, yi)  except InvalidIndexError:        if stotal + ds > maxlength:        stotal += ds
+recalculate stepsize based on step error
+        if error == 0:  ds = maxds
+        else:  ds = min(maxds, 0.85 * ds * (maxerror / error) ** 0.5)
 
     return stotal, xf_traj, yf_traj
 
@@ -629,22 +489,16 @@ def interpgrid(a, xi, yi):
     Ny, Nx = np.shape(a)
     if isinstance(xi, np.ndarray):
         x = xi.astype(int)
-        y = yi.astype(int)
-        # Check that xn, yn don't exceed max index
+        y = yi.astype(int)Check that xn, yn don't exceed max index
         xn = np.clip(x + 1, 0, Nx - 1)
         yn = np.clip(y + 1, 0, Ny - 1)
     else:
         x = int(xi)
-        y = int(yi)
-        # conditional is faster than clipping for integers
-        if x == (Nx - 1):
-            xn = x
-        else:
-            xn = x + 1
-        if y == (Ny - 1):
-            yn = y
-        else:
-            yn = y + 1
+        y = int(yi)conditional is faster than clipping for integers
+        if x == (Nx - 1):  xn = x
+        else:  xn = x + 1
+        if y == (Ny - 1):  yn = y
+        else:  yn = y + 1
 
     a00 = a[y, x]
     a01 = a[y, xn]
@@ -657,8 +511,7 @@ def interpgrid(a, xi, yi):
     ai = a0 * (1 - yt) + a1 * yt
 
     if not isinstance(xi, np.ndarray):
-        if np.ma.is_masked(ai):
-            raise TerminateTrajectory
+        if np.ma.is_masked(ai):  raise TerminateTrajectory
 
     return ai
 
@@ -681,23 +534,7 @@ def _gen_starting_points(shape):
     for i in range(nx * ny):
         yield x, y
 
-        if direction == 'right':
-            x += 1
-            if x >= xlast:
-                xlast -= 1
-                direction = 'up'
-        elif direction == 'up':
-            y += 1
-            if y >= ylast:
-                ylast -= 1
-                direction = 'left'
-        elif direction == 'left':
-            x -= 1
-            if x <= xfirst:
-                xfirst += 1
-                direction = 'down'
-        elif direction == 'down':
-            y -= 1
-            if y <= yfirst:
-                yfirst += 1
-                direction = 'right'
+        if direction == 'right':  x += 1  if x >= xlast:      xlast -= 1      direction = 'up'
+        elif direction == 'up':  y += 1  if y >= ylast:      ylast -= 1      direction = 'left'
+        elif direction == 'left':  x -= 1  if x <= xfirst:      xfirst += 1      direction = 'down'
+        elif direction == 'down':  y -= 1  if y <= yfirst:      yfirst += 1      direction = 'right'

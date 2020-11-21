@@ -575,8 +575,8 @@ def test_upsampling_3d(data_format):
     layer_test(convolutional.UpSampling3D,     kwargs={'size': (2, 2, 2), 'data_format': data_format},     input_shape=inputs.shape)
 
     for length_dim1 in [2, 3]:
-        for length_dim2 in [2]:  for length_dim3 in [3]:      layer = convolutional.UpSampling3D((length_dim1, length_dim2, length_dim3),          data_format=data_format)      layer.build(inputs.shape)      outputs = layer(K.variable(inputs))      np_output = K.eval(outputs)      if data_format == 'channels_first':np_output.shape[2] == length_dim1 * input_len_dim1np_output.shape[3] == length_dim2 * input_len_dim2np_output.shape[4] == length_dim3 * input_len_dim3      else:  # tfnp_output.shape[1] == length_dim1 * input_len_dim1np_output.shape[2] == length_dim2 * input_len_dim2np_output.shape[3] == length_dim3 * input_len_dim3
-      # compare with numpy      if data_format == 'channels_first':          expected_out = np.repeat(inputs, length_dim1, axis=2)          expected_out = np.repeat(expected_out, length_dim2, axis=3)          expected_out = np.repeat(expected_out, length_dim3, axis=4)      else:  # tf          expected_out = np.repeat(inputs, length_dim1, axis=1)          expected_out = np.repeat(expected_out, length_dim2, axis=2)          expected_out = np.repeat(expected_out, length_dim3, axis=3)
+        for length_dim2 in [2]:  for length_dim3 in [3]:      layer = convolutional.UpSampling3D((length_dim1, length_dim2, length_dim3)data_format=data_format)      layer.build(inputs.shape)      outputs = layer(K.variable(inputs))      np_output = K.eval(outputs)      if data_format == 'channels_first':np_output.shape[2] == length_dim1 * input_len_dim1np_output.shape[3] == length_dim2 * input_len_dim2np_output.shape[4] == length_dim3 * input_len_dim3      else:  # tfnp_output.shape[1] == length_dim1 * input_len_dim1np_output.shape[2] == length_dim2 * input_len_dim2np_output.shape[3] == length_dim3 * input_len_dim3
+      # compare with numpy      if data_format == 'channels_first'expected_out = np.repeat(inputs, length_dim1, axis=2expected_out = np.repeat(expected_out, length_dim2, axis=3expected_out = np.repeat(expected_out, length_dim3, axis=4)      else:  # tf          expected_out = np.repeat(inputs, length_dim1, axis=1expected_out = np.repeat(expected_out, length_dim2, axis=2expected_out = np.repeat(expected_out, length_dim3, axis=3)
       assert_allclose(np_output, expected_out)
 
 
@@ -599,7 +599,7 @@ def test_cropping_2d():
     for data_format in ['channels_first', 'channels_last']:
         if data_format == 'channels_first':  inputs = np.random.rand(num_samples, stack_size,    input_len_dim1, input_len_dim2)
         else:  inputs = np.random.rand(num_samples,    input_len_dim1, input_len_dim2,    stack_size)basic test
-        layer_test(convolutional.Cropping2D,         kwargs={'cropping': cropping,      'data_format': data_format},         input_shape=inputs.shape)correctness test
+        layer_test(convolutional.Cropping2D{'cropping': cropping,      'data_format': data_format},         input_shape=inputs.shape)correctness test
         layer = convolutional.Cropping2D(cropping=cropping,         data_format=data_format)
         layer.build(inputs.shape)
         outputs = layer(K.variable(inputs))
@@ -636,7 +636,7 @@ def test_cropping_3d():
     for data_format in ['channels_last', 'channels_first']:
         if data_format == 'channels_first':  inputs = np.random.rand(num_samples, stack_size,    input_len_dim1, input_len_dim2, input_len_dim3)
         else:  inputs = np.random.rand(num_samples,    input_len_dim1, input_len_dim2,    input_len_dim3, stack_size)basic test
-        layer_test(convolutional.Cropping3D,         kwargs={'cropping': cropping,      'data_format': data_format},         input_shape=inputs.shape)correctness test
+        layer_test(convolutional.Cropping3D{'cropping': cropping,      'data_format': data_format},         input_shape=inputs.shape)correctness test
         layer = convolutional.Cropping3D(cropping=cropping,         data_format=data_format)
         layer.build(inputs.shape)
         outputs = layer(K.variable(inputs))

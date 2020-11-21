@@ -12,25 +12,25 @@ ResNet v2:
 
 Model|n|200-epoch accuracy|Original paper accuracy |sec/epoch GTX1080Ti
 :------------|--:|-------:|-----------------------:|---:
-ResNet20   v1|  3| 92          91.25 %|35
-ResNet32   v1|  5| 92          92.49 %|50
-ResNet44   v1|  7| 92          92.83 %|70
-ResNet56   v1|  9| 92          93.03 %|90
+ResNet20   v1|  3|91.25 %|35
+ResNet32   v1|  5|92.49 %|50
+ResNet44   v1|  7|92.83 %|70
+ResNet56   v1|  9|93.03 %|90
 ResNet110  v1| 18| 92     93.39+-.16 %|165
-ResNet164  v1| 27|               94.07 %|  -
-ResNet1001 v1|N/A|               92.39 %|  -
+ResNet164  v1| 27     94.07 %|  -
+ResNet1001 v1|N/A     92.39 %|  -
 
 &nbsp;
 
 Model|n|200-epoch accuracy|Original paper accuracy |sec/epoch GTX1080Ti
 :------------|--:|-------:|-----------------------:|---:
-ResNet20   v2|  2|        - %|---
+ResNet20   v2|  2%|---
 ResNet32   v2|N/A| NA     %| NA
 ResNet44   v2|N/A| NA     %| NA
 ResNet56   v2|  6| 93   %|100
 ResNet110  v2| 12| 93     93.63      %|180
-ResNet164  v2| 18|          94.54      %|  -
-ResNet1001 v2|111|          95.08+-.14 %|  -
+ResNet164  v2| 1894.54      %|  -
+ResNet1001 v2|11195.08+-.14 %|  -
 """
 
 from __future__ import print_function
@@ -58,8 +58,7 @@ num_classes = 10
 subtract_pixel_mean = True
 
 # Model parameter
-# ----------------------------------------------------------------------------
- |      | 200-epoch | Orig Paper| 200-epoch | Orig Paper| sec/epoch
+# ----------------------------------------------------------------------------200-epoch | Orig Paper| 200-epoch | Orig Paper| sec/epoch
 # Model     |  n   | ResNet v1 | ResNet v1 | ResNet v2 | ResNet v2 | GTX1080Ti
  |v1(v2)| %Accuracy | %Accuracy | %Accuracy | %Accuracy | v1 (v2)
 # ----------------------------------------------------------------------------
@@ -211,7 +210,7 @@ def resnet_v1(input_shape, depth, num_classes=10):
     # v1 does not use BN after last shortcut connection-ReLU
     x = AveragePooling2D(pool_size=8)(x)
     y = Flatten()(x)
-    outputs = Dense(num_classes,'softmax',          kernel_initializer='he_normal')(y)
+    outputs = Dense(num_classes,'softmax'kernel_initializer='he_normal')(y)
 
     # Instantiate model.
     model = Model(inputs=inputs, outputs=outputs)
@@ -266,7 +265,7 @@ def resnet_v2(input_shape, depth, num_classes=10):
     x = Activation('relu')(x)
     x = AveragePooling2D(pool_size=8)(x)
     y = Flatten()(x)
-    outputs = Dense(num_classes,'softmax',          kernel_initializer='he_normal')(y)
+    outputs = Dense(num_classes,'softmax'kernel_initializer='he_normal')(y)
 
     # Instantiate model.
     model = Model(inputs=inputs, outputs=outputs)
@@ -294,7 +293,7 @@ checkpoint = ModelCheckpoint(filepath=filepath,        monitor='val_acc',       
 
 lr_scheduler = LearningRateScheduler(lr_schedule)
 
-lr_reducer = ReduceLROnPlateau(factor=np.sqrt(0.1),0,5,          min_lr=0.5e-6)
+lr_reducer = ReduceLROnPlateau(factor=np.sqrt(0.1),0,5min_lr=0.5e-6)
 
 callbacks = [checkpoint, lr_reducer, lr_scheduler]
 

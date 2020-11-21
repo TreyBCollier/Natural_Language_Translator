@@ -70,7 +70,7 @@ def process_image(x, former):
     return (x / 255 - 0.5) * 4 * former.std() + former.mean()
 
 
-def visualize_layer(model,          layer_name,1.,15,          upscaling_steps=9,          upscaling_factor=1.2,          output_dim=(412, 412),          filter_range=(0, None)):
+def visualize_layer(modellayer_name,1.,15upscaling_steps=9upscaling_factor=1.2output_dim=(412, 412)filter_range=(0, None)):
     """Visualizes the most relevant filters of one conv-layer in a certain model.
 
     # Arguments
@@ -84,7 +84,7 @@ def visualize_layer(model,          layer_name,1.,15,          upscaling_steps=9
         filter_range: Tupel[lower, upper] Determines the to be computed filter numbers. If the second value is `None`, the last filter will be inferred as the upper boundary.
     """
 
-    def _generate_filter_image(input_img,          layer_output,          filter_index):"Generates image for one particular filter.
+    def _generate_filter_image(input_imglayer_outputfilter_index):"Generates image for one particular filter.
 Arguments  input_img: The input-image Tensor.  layer_output: The output-image Tensor.  filter_index: The to be processed filter number.     Assumed to be valid.
  Either None if no image could be generated.  or a tuple of the image (array) itself and the last loss."
         s_time = time.time()
@@ -124,7 +124,7 @@ build a black picture with enough space fore.g. our 8 x 8 filters of size 412 x 
         height = n * output_dim[1] + (n - 1) * MARGIN
         stitched_filters = np.zeros((width, height, 3), dtype='uint8')
 fill the picture with our saved filters
-        for i in range(n):  for j in range(n):      img, _ = filters[i * n + j]      width_margin = (output_dim[0] + MARGIN) * i      height_margin = (output_dim[1] + MARGIN) * j      stitched_filters[          width_margin: width_margin + output_dim[0],          height_margin: height_margin + output_dim[1], :] = img
+        for i in range(n):  for j in range(n):      img, _ = filters[i * n + j]      width_margin = (output_dim[0] + MARGIN) * i      height_margin = (output_dim[1] + MARGIN) * j      stitched_filterswidth_margin: width_margin + output_dim[0]height_margin: height_margin + output_dim[1], :] = img
 save the result to disk
         save_img('vgg_{0:}_{1:}x{1:}.png'.format(layer_name, n), stitched_filters)
 

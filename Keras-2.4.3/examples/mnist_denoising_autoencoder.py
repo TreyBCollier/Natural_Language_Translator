@@ -95,7 +95,7 @@ x = Reshape((shape[1], shape[2], shape[3]))(x)
 for filters in layer_filters[::-1]:
     x = Conv2DTranspose(filters=filters,   kernel_size=kernel_size,   strides=2,   activation='relu',   padding='same')(x)
 
-x = Conv2DTranspose(filters=1,          kernel_size=kernel_size,'same')(x)
+x = Conv2DTranspose(filters=1kernel_size=kernel_size,'same')(x)
 
 outputs = Activation('sigmoid', name='decoder_output')(x)
 

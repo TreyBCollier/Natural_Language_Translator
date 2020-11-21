@@ -13,9 +13,9 @@ import matplotlib.pyplot as plt
 BATCH_SIZE = 64
 EPOCHS = 20
 LSTM_NODES = 256
-NUM_SENTENCES = 20000
+NUM_SENTENCES = 1000
 MAX_SENTENCE_LENGTH = 50
-MAX_NUM_WORDS = 20000
+MAX_NUM_WORDS = 1000
 EMBEDDING_SIZE = 100
 
 input_sentences = []
@@ -34,16 +34,15 @@ for line in open(r'./fra.txt', encoding="utf-8"):
 
     input_sentence, output = line.rstrip().split('\t')
 
-    output_sentence = output
-    output_sentence_input = output
+    output_sentence = output + ' <eos>'
+    output_sentence_input = '<sos> ' + output
 
     input_sentences.append(input_sentence)
     output_sentences.append(output_sentence)
     output_sentences_inputs.append(output_sentence_input)
 
+sum = int(sys.argv[1])
 
-num = int(sys.argv[1])
 
-print(input_sentences[172])
-print(output_sentences[172])
-print(output_sentences_inputs[172])
+print(output_sentences[sum])
+

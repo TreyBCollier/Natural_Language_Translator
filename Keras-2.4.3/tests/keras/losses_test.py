@@ -83,7 +83,7 @@ class TestLossFunctions(object):
     def test_sparse_categorical_crossentropy_4d(self):
         y_pred = K.variable(np.array([[[[0.7, 0.1, 0.2],        [0.0, 0.3, 0.7],        [0.1, 0.1, 0.8]],       [[0.3, 0.7, 0.0],        [0.3, 0.4, 0.3],        [0.2, 0.5, 0.3]],       [[0.8, 0.1, 0.1],        [1.0, 0.0, 0.0],        [0.4, 0.3, 0.3]]]]))
         y_true = K.variable(np.array([[[0, 1, 0],       [2, 1, 0],       [2, 2, 1]]]))
-        expected_loss = - (np.log(0.7) + np.log(0.3) + np.log(0.1         np.log(K.epsilon()) + np.log(0.4) + np.log(0.2         np.log(0.1) + np.log(K.epsilon()) + np.log(0.3)) / 9
+        expected_loss = - (np.log(0.7) + np.log(0.3) + np.log(0log(K.epsilon()) + np.log(0.4) + np.log(0log(0.1) + np.log(K.epsilon()) + np.log(0.3)) / 9
         loss = K.eval(losses.sparse_categorical_crossentropy(y_true, y_pred))
         assert np.isclose(expected_loss, np.mean(loss))
 
@@ -394,7 +394,7 @@ class TestBinaryCrossentropy(object):
         loss = bce_obj(y_true, y_true)
         assert np.isclose(K.eval(loss), 0.0, atol=1e-3)
 Test with logits.
-        logits = K.constant([[100.0, -100.0, -100.0],        [-100.0, 100.0, -100.0],        [-100.0, -100.0, 100.0]])
+        logits = K.constant([[100.0, -100.0, -100.0]100.0, 100.0, -100.0]100.0, -100.0, 100.0]])
         bce_obj = losses.BinaryCrossentropy(from_logits=True)
         loss = bce_obj(y_true, logits)
         assert np.isclose(K.eval(loss), 0.0, 3)
@@ -405,7 +405,7 @@ Test with logits.
         bce_obj = losses.BinaryCrossentropy()
         loss = bce_obj(y_true, y_pred)
 EPSILON = 1e-7, y = y_true, y` = y_pred, Y_MAX = 0.9999999y` = clip(output, EPSILON, 1. - EPSILON)y` = [Y_MAX, Y_MAX, Y_MAX, EPSILON]
-Loss = -(y log(y` + EPSILON) + (1 - y) log(1 - y` + EPSILON))     = [-log(Y_MAX + EPSILON), -log(1 - Y_MAX + EPSILON),        -log(Y_MAX + EPSILON), -log(1)]     = [0, 15.33, 0, 0]Reduced loss = 15.33 / 4
+Loss = -(y log(y` + EPSILON) + (1 - y) log(1 - y` + EPSILON))     = [-log(Y_MAX + EPSILON), -log(1 - Y_MAX + EPSILON)Y_MAX + EPSILON), -log(1)]     = [0, 15.33, 0, 0]Reduced loss = 15.33 / 4
 
         assert np.isclose(K.eval(loss), 3.833, atol=1e-3)
 Test with logits.
@@ -413,7 +413,7 @@ Test with logits.
         logits = K.constant([[100.0, -100.0, 100.0], [100.0, 100.0, -100.0]])
         bce_obj = losses.BinaryCrossentropy(from_logits=True)
         loss = bce_obj(y_true, logits)
-Loss = max(x, 0) - x * z + log(1 + exp(-abs(x)))(where x = logits and z = y_true)     = [((100 - 100 * 1 + log(1 + exp(-100)) (0 + 100 * 0 + log(1 + exp(-100)) (100 - 100 * 1 + log(1 + exp(-100))),        ((100 - 100 * 0 + log(1 + exp(-100)) (100 - 100 * 1 + log(1 + exp(-100)) (0 + 100 * 1 + log(1 + exp(-100))))]     = [(0 + 0 + 0) / 3, 200 / 3]Reduced loss = (0 + 66.666) / 2
+Loss = max(x, 0) - x * z + log(1 + exp(-abs(x)))(where x = logits and z = y_true)     = [((100 - 100 * 1 + log(1 + exp(-100)) (0 + 100 * 0 + log(1 + exp(-100)) (100 - 100 * 1 + log(1 + exp(-100)))100 - 100 * 0 + log(1 + exp(-100)) (100 - 100 * 1 + log(1 + exp(-100)) (0 + 100 * 1 + log(1 + exp(-100))))]     = [(0 + 0 + 0) / 3, 200 / 3]Reduced loss = (0 + 66.666) / 2
 
         assert np.isclose(K.eval(loss), 33.333, atol=1e-3)
 
@@ -423,7 +423,7 @@ Loss = max(x, 0) - x * z + log(1 + exp(-abs(x)))(where x = logits and z = y_true
         y_pred = np.asarray([1, 1, 1, 0], dtype=np.float32).reshape([2, 2])
         loss = bce_obj(y_true, y_pred, sample_weight=2.3)
 EPSILON = 1e-7, y = y_true, y` = y_pred, Y_MAX = 0.9999999y` = clip(output, EPSILON, 1. - EPSILON)y` = [Y_MAX, Y_MAX, Y_MAX, EPSILON]
-Loss = -(y log(y` + EPSILON) + (1 - y) log(1 - y` + EPSILON))     = [-log(Y_MAX + EPSILON), -log(1 - Y_MAX + EPSILON),        -log(Y_MAX + EPSILON), -log(1)]     = [0, 15.33, 0, 0]Weighted loss = [0, 15.33 * 2.3, 0, 0]Reduced loss = 15.33 * 2.3 / 4
+Loss = -(y log(y` + EPSILON) + (1 - y) log(1 - y` + EPSILON))     = [-log(Y_MAX + EPSILON), -log(1 - Y_MAX + EPSILON)Y_MAX + EPSILON), -log(1)]     = [0, 15.33, 0, 0]Weighted loss = [0, 15.33 * 2.3, 0, 0]Reduced loss = 15.33 * 2.3 / 4
 
         assert np.isclose(K.eval(loss), 8.817, atol=1e-3)
 Test with logits.
@@ -442,7 +442,7 @@ Loss = max(x, 0) - x * z + log(1 + exp(-abs(x)))(where x = logits and z = y_true
         sample_weight = K.constant([1.2, 3.4], shape=(2, 1))
         loss = bce_obj(y_true, y_pred, sample_weight=sample_weight)
 EPSILON = 1e-7, y = y_true, y` = y_pred, Y_MAX = 0.9999999y` = clip(output, EPSILON, 1. - EPSILON)y` = [Y_MAX, Y_MAX, Y_MAX, EPSILON]
-Loss = -(y log(y` + EPSILON) + (1 - y) log(1 - y` + EPSILON))     = [-log(Y_MAX + EPSILON), -log(1 - Y_MAX + EPSILON),        -log(Y_MAX + EPSILON), -log(1)]     = [0, 15.33, 0, 0]Reduced loss = 15.33 * 1.2 / 4
+Loss = -(y log(y` + EPSILON) + (1 - y) log(1 - y` + EPSILON))     = [-log(Y_MAX + EPSILON), -log(1 - Y_MAX + EPSILON)Y_MAX + EPSILON), -log(1)]     = [0, 15.33, 0, 0]Reduced loss = 15.33 * 1.2 / 4
 
         assert np.isclose(K.eval(loss), 4.6, atol=1e-3)
 Test with logits.
@@ -467,7 +467,7 @@ Loss = max(x, 0) - x * z + log(1 + exp(-abs(x)))(where x = logits and z = y_true
     def test_label_smoothing(self):
         logits = K.constant([[100.0, -100.0, -100.0]])
         y_true = K.constant([[1, 0, 1]])
-        label_smoothing = 0.1Loss: max(x, 0) - x * z + log(1 + exp(-abs(x)))(where x = logits and z = y_true)Label smoothing: z' = z * (1 - L) + 0.5L      1  = 1 - 0.5L      0  = 0.5LApplying the above two fns to the given input:(100 - 100 * (1 - 0.5 L)  + #  0   + 100 * (0.5 L)      + #  0   + 100 * (1 - 0.5 L)  + 0) * (1/3) = (100 + 50L) * 1/3
+        label_smoothing = 0.1Loss: max(x, 0) - x * z + log(1 + exp(-abs(x)))(where x = logits and z = y_true)Label smoothing: z' = z * (1 - L) + 0.5L      1  = 1 - 0.5L      0  = 0.5LApplying the above two fns to the given input:(100 - 100 * (1 - 0.5 L+ 100 * (0.5 L 0   + 100 * (1 - 0.5 L)  + 0) * (1/3) = (100 + 50L) * 1/3
         bce_obj = losses.BinaryCrossentropy(  from_logits=True, label_smoothing=label_smoothing)
         loss = bce_obj(y_true, logits)
         expected_value = (100.0 + 50.0 * label_smoothing) / 3.0

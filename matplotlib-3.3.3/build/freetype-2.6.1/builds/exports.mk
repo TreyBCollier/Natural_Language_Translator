@@ -67,8 +67,7 @@ ifneq ($(EXPORTS_LIST),)
 
   $(PROJECT_LIBRARY): $(EXPORTS_LIST)
 
-  CLEAN += $(EXPORTS_LIST) \
-           $(APINAMES_EXE)
+  CLEAN += $(EXPORTS_LIST    $(APINAMES_EXE)
 
 endif
 

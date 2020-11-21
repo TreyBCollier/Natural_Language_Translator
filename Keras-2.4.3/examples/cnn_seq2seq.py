@@ -178,8 +178,7 @@ for seq_index in range(nb_examples):
     output_seq = predict[seq_index, :].ravel().tolist()
     decoded = []
     for x in output_seq:
-        if reverse_target_char_index[x] == "\n":  break
-        else:  decoded.append(reverse_target_char_index[x])
+        if reverse_target_char_index[x] == "\n" else:  decoded.append(reverse_target_char_index[x])
     decoded_sentence = "".join(decoded)
     print('-')
     print('Input sentence:', input_texts[seq_index])

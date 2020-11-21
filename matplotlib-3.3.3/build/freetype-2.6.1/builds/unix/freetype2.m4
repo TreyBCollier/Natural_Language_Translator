@@ -27,22 +27,19 @@ AC_DEFUN([AC_CHECK_FT2],
    #
    AC_ARG_WITH([ft-prefix],
      dnl don't quote AS_HELP_STRING!
-     AS_HELP_STRING([--with-ft-prefix=PREFIX],
-                    [Prefix where FreeType is installed (optional)]),
+     AS_HELP_STRING([--with-ft-prefix=PREFIX],Prefix where FreeType is installed (optional)]),
      [ft_config_prefix="$withval"],
      [ft_config_prefix=""])
 
    AC_ARG_WITH([ft-exec-prefix],
      dnl don't quote AS_HELP_STRING!
-     AS_HELP_STRING([--with-ft-exec-prefix=PREFIX],
-                    [Exec prefix where FreeType is installed (optional)]),
+     AS_HELP_STRING([--with-ft-exec-prefix=PREFIX],Exec prefix where FreeType is installed (optional)]),
      [ft_config_exec_prefix="$withval"],
      [ft_config_exec_prefix=""])
 
    AC_ARG_ENABLE([freetypetest],
      dnl don't quote AS_HELP_STRING!
-     AS_HELP_STRING([--disable-freetypetest],
-                    [Do not try to compile and run a test FreeType program]),
+     AS_HELP_STRING([--disable-freetypetest],Do not try to compile and run a test FreeType program]),
      [],
      [enable_fttest=yes])
 
@@ -72,48 +69,23 @@ AC_DEFUN([AC_CHECK_FT2],
    else
      FT2_CFLAGS=`$FT2_CONFIG $ft_config_args --cflags`
      FT2_LIBS=`$FT2_CONFIG $ft_config_args --libs`
-     ft_config_major_version=`$FT2_CONFIG $ft_config_args --version | \
-       sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
-     ft_config_minor_version=`$FT2_CONFIG $ft_config_args --version | \
-       sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
-     ft_config_micro_version=`$FT2_CONFIG $ft_config_args --version | \
-       sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
-     ft_min_major_version=`echo $min_ft_version | \
-       sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
-     ft_min_minor_version=`echo $min_ft_version | \
-       sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
-     ft_min_micro_version=`echo $min_ft_version | \
-       sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
+     ft_config_major_version=`$FT2_CONFIG $ft_config_args --version sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
+     ft_config_minor_version=`$FT2_CONFIG $ft_config_args --version sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
+     ft_config_micro_version=`$FT2_CONFIG $ft_config_args --version sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
+     ft_min_major_version=`echo $min_ft_version sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
+     ft_min_minor_version=`echo $min_ft_version sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
+     ft_min_micro_version=`echo $min_ft_version sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
      if test x$enable_fttest = xyes ; then
        ft_config_is_lt=""
        if test $ft_config_major_version -lt $ft_min_major_version ; then
          ft_config_is_lt=yes
-       else
-         if test $ft_config_major_version -eq $ft_min_major_version ; then
-           if test $ft_config_minor_version -lt $ft_min_minor_version ; then
-             ft_config_is_lt=yes
-           else
-             if test $ft_config_minor_version -eq $ft_min_minor_version ; then
-               if test $ft_config_micro_version -lt $ft_min_micro_version ; then
-                 ft_config_is_lt=yes
-               fi
-             fi
-           fi
-         fi
-       fi
-       if test x$ft_config_is_lt = xyes ; then
+      if test $ft_config_major_version -eq $ft_min_major_version ; then if test $ft_config_minor_version -lt $ft_min_minor_version ; then   ft_config_is_lt=yes else   if test $ft_config_minor_version -eq $ft_min_minor_version ; then     if test $ft_config_micro_version -lt $ft_min_micro_version ; then       ft_config_is_lt=yes        fi
+    if test x$ft_config_is_lt = xyes ; then
          no_ft=yes
-       else
-         ac_save_CFLAGS="$CFLAGS"
-         ac_save_LIBS="$LIBS"
-         CFLAGS="$CFLAGS $FT2_CFLAGS"
-         LIBS="$FT2_LIBS $LIBS"
-
-         #
-         # Sanity checks for the results of freetype-config to some extent.
-         #
-         AC_RUN_IFELSE([
-             AC_LANG_SOURCE([[
+      ac_save_CFLAGS="$CFLAGS"
+         ac_save_LIBS="$LIBS""$CFLAGS $FT2_CFLAGS""$FT2_LIBS $LIBS"
+ Sanity checks for the results of freetype-config to some extent.
+         AC_RUN_IFELSE([   AC_LANG_SOURCE([[
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -136,18 +108,11 @@ main()
     return 0;
   }
 }
-
-             ]])
-           ],
-           [],
-           [no_ft=yes],
-           [echo $ECHO_N "cross compiling; assuming OK... $ECHO_C"])
-
-         CFLAGS="$ac_save_CFLAGS"
-         LIBS="$ac_save_LIBS"
-       fi             # test $ft_config_version -lt $ft_min_version
-     fi               # test x$enable_fttest = xyes
-   fi                 # test "$FT2_CONFIG" = "no"
+   ]]) ], [], [no_ft=yes], [echo $ECHO_N "cross compiling; assuming OK... $ECHO_C"])
+"$ac_save_CFLAGS""$ac_save_LIBS"
+         # test $ft_config_version -lt $ft_min_version
+         # test x$enable_fttest = xyes
+test "$FT2_CONFIG" = "no"
 
    if test x$no_ft = x ; then
      AC_MSG_RESULT([yes])
@@ -162,24 +127,20 @@ main()
   your path, or set the FT2_CONFIG environment variable to the
   full path to freetype-config.
        ])
-     else
-       if test x$ft_config_is_lt = xyes ; then
+  if test x$ft_config_is_lt = xyes ; then
          AC_MSG_WARN([
 
   Your installed version of the FreeType 2 library is too old.
   If you have different versions of FreeType 2, make sure that
   correct values for --with-ft-prefix or --with-ft-exec-prefix
   are used, or set the FT2_CONFIG environment variable to the
-  full path to freetype-config.
-         ])
-       else
-         AC_MSG_WARN([
+  full path to freetype-config.)
+      AC_MSG_WARN([
 
   The FreeType test program failed to run.  If your system uses
   shared libraries and they are installed outside the normal
   system library path, make sure the variable LD_LIBRARY_PATH
-  (or whatever is appropriate for your system) is correctly set.
-         ])
+  (or whatever is appropriate for your system) is correctly set.)
        fi
      fi
 

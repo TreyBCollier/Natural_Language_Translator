@@ -40,7 +40,7 @@ model = Sequential()
 
 # we start off with an efficient embedding layer which maps
 # our vocab indices into embedding_dims dimensions
-model.add(Embedding(max_features,          embedding_dims,          input_length=maxlen))
+model.add(Embedding(max_featuresembedding_dimsinput_length=maxlen))
 model.add(Dropout(0.2))
 
 # we add a Convolution1D, which will learn filters

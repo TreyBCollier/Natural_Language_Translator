@@ -7,15 +7,8 @@ Author: Francois Chollet
 Author-email: francois.chollet@gmail.com
 License: MIT
 Download-URL: https://github.com/keras-team/keras/tarball/2.4.3
-Description: 
-        Keras is a high-level neural networks API for Python.
-        
-        Read the documentation at: https://keras.io/
-        
-        Keras is compatible with Python 3.6+
-        and is distributed under the MIT license.
-        
-Platform: UNKNOWN
+DescriptionKeras is a high-level neural networks API for Python.       Read the documentation at: https://keras.io/       Keras is compatible with Python 3.6+
+        and is distributed under the MIT license. UNKNOWN
 Classifier: Development Status :: 5 - Production/Stable
 Classifier: Intended Audience :: Developers
 Classifier: Intended Audience :: Education

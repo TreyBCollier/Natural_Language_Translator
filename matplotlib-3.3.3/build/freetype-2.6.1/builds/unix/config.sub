@@ -54,7 +54,7 @@ me=`echo "$0" | sed -e 's,.*/,,'`
 
 usage="\
 Usage: $0 [OPTION] CPU-MFR-OPSYS
-       $0 [OPTION] ALIAS
+ ALIAS
 
 Canonicalize a configuration name.
 
@@ -85,12 +85,11 @@ while test $# -gt 0 ; do
        echo "$version" ; exit ;;
     --help | --h* | -h )
        echo "$usage"; exit ;;
-    -- )     # Stop option processing
+  # Stop option processing
        shift; break ;;
     - )	# Use stdin as input.
        break ;;
-    -* )
-       echo "$me: invalid option $1$help"
+    -echo "$me: invalid option $1$help"
        exit 1 ;;
 
     *local*)
@@ -98,8 +97,7 @@ while test $# -gt 0 ; do
        echo $1
        exit ;;
 
-    * )
-       break ;;
+    break ;;
   esac
 done
 
@@ -1375,31 +1373,31 @@ case $os in
 	# Each alternative MUST END IN A *, to match a version number.
 	# -sysv* is not here because it comes later, after sysvr4.
 	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* \
-	      | -*vms* | -sco* | -esix* | -isc* | -aix* | -cnk* | -sunos | -sunos[34]*\
-	      | -hpux* | -unos* | -osf* | -luna* | -dgux* | -auroraux* | -solaris* \
-	      | -sym* | -kopensolaris* | -plan9* \
-	      | -amigaos* | -amigados* | -msdos* | -newsos* | -unicos* | -aof* \
-	      | -aos* | -aros* | -cloudabi* | -sortix* \
-	      | -nindy* | -vxsim* | -vxworks* | -ebmon* | -hms* | -mvs* \
-	      | -clix* | -riscos* | -uniplus* | -iris* | -rtu* | -xenix* \
-	      | -hiux* | -386bsd* | -knetbsd* | -mirbsd* | -netbsd* \
-	      | -bitrig* | -openbsd* | -solidbsd* \
-	      | -ekkobsd* | -kfreebsd* | -freebsd* | -riscix* | -lynxos* \
-	      | -bosx* | -nextstep* | -cxux* | -aout* | -elf* | -oabi* \
-	      | -ptx* | -coff* | -ecoff* | -winnt* | -domain* | -vsta* \
-	      | -udi* | -eabi* | -lites* | -ieee* | -go32* | -aux* \
-	      | -chorusos* | -chorusrdb* | -cegcc* \
-	      | -cygwin* | -msys* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
+vms* | -sco* | -esix* | -isc* | -aix* | -cnk* | -sunos | -sunos[34]*\
+ | -unos* | -osf* | -luna* | -dgux* | -auroraux* | -solaris* \
+ | -kopensolaris* | -plan9* \
+ | -amigados* | -msdos* | -newsos* | -unicos* | -aof* \
+ | -aros* | -cloudabi* | -sortix* \
+ | -vxsim* | -vxworks* | -ebmon* | -hms* | -mvs* \
+ | -riscos* | -uniplus* | -iris* | -rtu* | -xenix* \
+ | -386bsd* | -knetbsd* | -mirbsd* | -netbsd* \
+ | -openbsd* | -solidbsd* \
+ | -kfreebsd* | -freebsd* | -riscix* | -lynxos* \
+ | -nextstep* | -cxux* | -aout* | -elf* | -oabi* \
+ | -coff* | -ecoff* | -winnt* | -domain* | -vsta* \
+ | -eabi* | -lites* | -ieee* | -go32* | -aux* \
+ | -chorusrdb* | -cegcc* \
+ | -msys* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
 	      | -mingw32* | -mingw64* | -linux-gnu* | -linux-android* \
-	      | -linux-newlib* | -linux-musl* | -linux-uclibc* \
-	      | -uxpv* | -beos* | -mpeix* | -udk* | -moxiebox* \
-	      | -interix* | -uwin* | -mks* | -rhapsody* | -darwin* | -opened* \
-	      | -openstep* | -oskit* | -conix* | -pw32* | -nonstopux* \
-	      | -storm-chaos* | -tops10* | -tenex* | -tops20* | -its* \
+newlib* | -linux-musl* | -linux-uclibc* \
+ | -beos* | -mpeix* | -udk* | -moxiebox* \
+ | -uwin* | -mks* | -rhapsody* | -darwin* | -opened* \
+ | -oskit* | -conix* | -pw32* | -nonstopux* \
+chaos* | -tops10* | -tenex* | -tops20* | -its* \
 	      | -os2* | -vos* | -palmos* | -uclinux* | -nucleus* \
-	      | -morphos* | -superux* | -rtmk* | -rtmk-nova* | -windiss* \
-	      | -powermax* | -dnix* | -nx6 | -nx7 | -sei* | -dragonfly* \
-	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es* | -tirtos*)
+ | -superux* | -rtmk* | -rtmk-nova* | -windiss* \
+ | -dnix* | -nx6 | -nx7 | -sei* | -dragonfly* \
+ | -haiku* | -rdos* | -toppers* | -drops* | -es* | -tirtos*)
 	# Remember, each alternative MUST END IN *, to match a version number.
 		;;
 	-qnx*)
@@ -1417,8 +1415,8 @@ case $os in
 		os=`echo $os | sed -e 's|nto|nto-qnx|'`
 		;;
 	-sim | -es1800* | -hms* | -xray | -os68k* | -none* | -v88r* \
-	      | -windows* | -osx | -abug | -netware* | -os9* | -beos* | -haiku* \
-	      | -macos* | -mpw* | -magic* | -mmixware* | -mon960* | -lnews*)
+ | -osx | -abug | -netware* | -os9* | -beos* | -haiku* \
+ | -mpw* | -magic* | -mmixware* | -mon960* | -lnews*)
 		;;
 	-mac*)
 		os=`echo $os | sed -e 's|mac|macos|'`

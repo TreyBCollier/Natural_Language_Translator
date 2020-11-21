@@ -113,7 +113,7 @@ def test_stacked_lstm_char_prediction():
 
     # learn the alphabet with stacked LSTM
     model = Sequential([
-        layers.LSTM(16, return_sequences=True,          input_shape=(sequence_length, number_of_chars)),
+        layers.LSTM(16, return_sequences=Trueinput_shape=(sequence_length, number_of_chars)),
         layers.LSTM(16, return_sequences=False),
         layers.Dense(number_of_chars, activation='softmax')
     ])

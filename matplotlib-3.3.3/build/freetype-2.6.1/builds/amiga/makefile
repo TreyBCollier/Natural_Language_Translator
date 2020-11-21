@@ -6,7 +6,7 @@
 
 
 # Copyright 2005-2015 by
-# Werner Lemberg and Detlef Würkner.
+# Werner Lemberg and Detlef Wï¿½rkner.
 #
 # This file is part of the FreeType project, and may only be used, modified,
 # and distributed under the terms of the FreeType project license,
@@ -270,9 +270,9 @@ otvalid.ppc.o: $(FTSRC)/otvalid/otvalid.c
 	$(CC) -c $(CFLAGS) -o $@ $<
 
 BASEPPC = ftbase.ppc.o ftbbox.ppc.o ftbdf.ppc.o ftbitmap.ppc.o ftcid.ppc.o \
-	  ftfntfmt.ppc.oftfstype.ppc.o ftgasp.ppc.o ftglyph.ppc.o          \
-	  ftgxval.ppc.o ftlcdfil.ppc.o ftmm.ppc.o ftotval.ppc.o            \
-	  ftpatent.ppc.o ftpfr.ppc.o ftstroke.ppc.o ftsynth.ppc.o          \
+	  ftfntfmt.ppc.oftfstype.ppc.o ftgasp.ppc.o ftglyph.ppc.o
+	  ftgxval.ppc.o ftlcdfil.ppc.o ftmm.ppc.o ftotval.ppc.o \
+	  ftpatent.ppc.o ftpfr.ppc.o ftstroke.ppc.o ftsynth.ppc.o
 	  fttype1.ppc.o ftwinfnt.ppc.o
 
 DEBUGPPC = ftdebug.ppc.o ftdebugpure.ppc.o

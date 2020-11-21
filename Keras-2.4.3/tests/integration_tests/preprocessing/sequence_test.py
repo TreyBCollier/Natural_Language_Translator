@@ -136,9 +136,9 @@ def test_TimeSeriesGenerator_doesnt_miss_any_sample():
     batch_sizes = (6, 6, 6, 5, 6, 6, 6)
     shuffles = (False, True, True, False, False, False, False)
 
-    for stride, length, batch_size, shuffle in zip(strides,        lengths,        batch_sizes,        shuffles):
+    for stride, length, batch_size, shuffle in zip(strides,      batch_sizes,        shuffles):
         g = TimeseriesGenerator(x, x,length=length,sampling_rate=1,stride=stride,start_index=0,end_index=None,shuffle=shuffle,reverse=False,batch_size=batch_size)
-        if shuffle:  # all batches have the same size when shuffle is True.  expected_sequences = ceil(      (23 - length) / float(batch_size * stride)) * batch_size
+        if shuffle:  # all batches have the same size when shuffle is True.  expected_sequences = ceillength) / float(batch_size * stride)) * batch_size
         else:  # last batch will be different if `(samples - length) / stride`  # is not a multiple of `batch_size`.  expected_sequences = ceil((23 - length) / float(stride))
 
         expected_batches = ceil(expected_sequences / float(batch_size))

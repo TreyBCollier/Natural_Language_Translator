@@ -133,7 +133,7 @@ def process_list_block(docstring, starting_point, section_end,  leading_spaces, 
     for i in range(len(lines)):
         line = lines[i]
         spaces = re.search(r'\S', line)
-        if spaces:  # If it is a list element  if line[spaces.start()] == '-':      indent = spaces.start() + 1      if text_block:          text_block = Falsei] = '\n' + line  elif spaces.start() < indent:      text_block = True      indent = spaces.start()      lines[i] = '\n' + line
+        if spaces:  # If it is a list element  if line[spaces.start()] == '-':      indent = spaces.start() + 1      if text_blocktext_block = Falsei] = '\n' + line  elif spaces.start() < indent:      text_block = True      indent = spaces.start()      lines[i] = '\n' + line
         else:  text_block = False  indent = 0
     block = '\n'.join(lines)
     return docstring, block
@@ -144,7 +144,7 @@ def process_docstring(docstring):
     code_blocks = []
     if '```' in docstring:
         tmp = docstring[:]
-        while '```' in tmp:  tmp = tmp[tmp.find('```'):]  index = tmp[3:].find('```') + 6  snippet = tmp[:index]  # Place marker in docstring for later reinjection.  docstring = docstring.replace(      snippet, '$CODE_BLOCK_%d' % len(code_blocks))  snippet_lines = snippet.split('\n')  # Remove leading spaces.  num_leading_spaces = snippet_lines[-1].find('`')  snippet_lines = ([snippet_lines[0][line[num_leading_spaces:]        for line in snippet_lines[1:]])  # Most code snippets have 3 or 4 more leading spaces  # on inner lines, but not all. Remove them.  inner_lines = snippet_lines[1:-1]  leading_spaces = None  for line in inner_lines:      if not line or line[0] == '\n':     spaces = count_leading_spaces(line)      if leading_spaces is None:          leading_spaces = spaces      if spaces < leading_spaces:          leading_spaces = spaces  if leading_spaces:      snippet_lines = ([snippet_lines[0]    [line[leading_spaces:]  for line in snippet_lines[1:-1]    [snippet_lines[-1]])  snippet = '\n'.join(snippet_lines)  code_blocks.append(snippet)  tmp = tmp[index:]
+        while '```' in tmp:  tmp = tmp[tmp.find('```'):]  index = tmp[3:].find('```') + 6  snippet = tmp[:index]  # Place marker in docstring for later reinjection.  docstring = docstring.replace(      snippet, '$CODE_BLOCK_%d' % len(code_blocks))  snippet_lines = snippet.split('\n')  # Remove leading spaces.  num_leading_spaces = snippet_lines[-1].find('`')  snippet_lines = ([snippet_lines[0][line[num_leading_spaces:]        for line in snippet_lines[1:]])  # Most code snippets have 3 or 4 more leading spaces  # on inner lines, but not all. Remove them.  inner_lines = snippet_lines[1:-1]  leading_spaces = None  for line in inner_lines:      if not line or line[0] == '\n':     spaces = count_leading_spaces(line)      if leading_spaces is Noneleading_spaces = spaces      if spaces < leading_spacesleading_spaces = spaces  if leading_spaces:      snippet_lines = ([snippet_lines[0]    [line[leading_spaces:]  for line in snippet_lines[1:-1]    [snippet_lines[-1]])  snippet = '\n'.join(snippet_lines)  code_blocks.append(snippet)  tmp = tmp[index:]
 
     # Format docstring lists.
     section_regex = r'\n( +)# (.*)\n'
@@ -205,8 +205,7 @@ def collect_class_methods(cls, methods):
         return [getattr(cls, m) if isinstance(m, str) else m for m in methods]
     methods = []
     for _, method in inspect.getmembers(cls, predicate=inspect.isroutine):
-        if method.__name__[0] == '_' or method.__name__ in EXCLUDE:  continue
-        methods.append(method)
+        if method.__name__[0] == '_' or method.__name__ in EXCLUDE methods.append(method)
     return methods
 
 
@@ -256,8 +255,7 @@ def copy_examples(examples_dir, destination_dir):
     """
     pathlib.Path(destination_dir).mkdir(exist_ok=True)
     for file in os.listdir(examples_dir):
-        if not file.endswith('.py'):  continue
-        module_path = os.path.join(examples_dir, file)
+        if not file.endswith('.py') module_path = os.path.join(examples_dir, file)
         docstring, starting_line = get_module_docstring(module_path)
         destination_file = os.path.join(destination_dir, file[:-2] + 'md')
         with open(destination_file, 'w+', encoding='utf-8') as f_out         open(os.path.join(examples_dir, file),'r+', encoding='utf-8') as f_in:
@@ -296,7 +294,7 @@ def generate(sources_dir):
         classes = read_page_data(page_data, 'classes')
 
         blocks = []
-        for element in classes:  if not isinstance(element, (list, tuple)):      element = (element, [])  cls = element[0]  subblocks = []  signature = get_class_signature(cls)  subblocks.append('<span style="float:right;">class_to_source_link(cls) + '</span>')  if element[1]:      subblocks.append('## ' + cls.__name__ + ' class\n')  else:      subblocks.append('### ' + cls.__name__ + '\n')  subblocks.append(code_snippet(signature))  docstring = cls.__doc__  if docstring:      subblocks.append(process_docstring(docstring))  methods = collect_class_methods(cls, element[1])  if methods:      subblocks.append('\n---')      subblocks.append('## ' + cls.__name__ + ' methods\n')      subblocks.append('\n---\n'.join(render_function(method, method=True)for method in methods]))  blocks.append('\n'.join(subblocks))
+        for element in classes:  if not isinstance(element, (list, tuple)):      element = (element, [])  cls = element[0]  subblocks = []  signature = get_class_signature(cls)  subblocks.append('<span style="float:right;">class_to_source_link(cls) + '</span>')  if element[1]:      subblocks.append('## ' + cls.__name__ + ' class\n'append('### ' + cls.__name__ + '\n')  subblocks.append(code_snippet(signature))  docstring = cls.__doc__  if docstring:      subblocks.append(process_docstring(docstring))  methods = collect_class_methods(cls, element[1])  if methods:      subblocks.append('\n---')      subblocks.append('## ' + cls.__name__ + ' methods\n')      subblocks.append('\n---\n'.join(render_function(method, method=True)for method in methods]))  blocks.append('\n'.join(subblocks))
 
         methods = read_page_data(page_data, 'methods')
 

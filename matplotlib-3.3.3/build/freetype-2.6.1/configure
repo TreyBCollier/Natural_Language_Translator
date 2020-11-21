@@ -20,8 +20,7 @@ if test "x$GNUMAKE" = x; then
   if test "x$MAKE" = x; then
     if test "x`make -v 2>/dev/null | egrep 'GNU|makepp'`" = x; then
       MAKE=gmake
-    else
-      MAKE=make
+ make
     fi
   fi
 else
@@ -49,30 +48,7 @@ else
   ft_expr=false
 fi
 
-ft2_dir=`(dirname "$0") 2>/dev/null                         ||
-         $ft_expr X"$0" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
-                  X"$0" : 'X\(//\)[^/]' \| \
-                  X"$0" : 'X\(//\)$' \| \
-                  X"$0" : 'X\(/\)' \| \
-                  .     : '\(.\)' 2>/dev/null               ||
-         echo X"$0" |
-           sed '/^X\(.*[^/]\)\/\/*[^/][^/]*\/*$/{
-                  s//\1/
-                  q
-                }
-                /^X\(\/\/\)[^/].*/{
-                  s//\1/
-                  q
-                }
-                /^X\(\/\/\)$/{
-                  s//\1/
-                  q
-                }
-                /^X\(\/\).*/{
-                  s//\1/
-                  q
-                }
-                s/.*/./; q'`
+ft2_dir=`(dirname "$0") 2>/dev/null   ||ft_expr X"$0" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \X"$0" : 'X\(//\)[^/]' \X"$0" : 'X\(//\)$' \X"$0" : 'X\(/\)' \.     : '\(.\)' 2>/dev/null    ||X"$0    sed '/^X\(.*[^/]\)\/\/*[^/][^/]*\/*$/{        s//\1/          /^X\(\/\/\)[^/].*/{        s//\1/          /^X\(\/\/\)$/{        s//\1/          /^X\(\/\).*/{        s//\1/          s/.*/./; q'`
 
 abs_curr_dir=`pwd`
 abs_ft2_dir=`cd "$ft2_dir" && pwd`
@@ -102,19 +78,19 @@ if test $inode_src -ne $inode_dst; then
     cp $abs_ft2_dir/modules.cfg $abs_curr_dir
   fi
   echo "Generating \`Makefile'"
-  echo "TOP_DIR        := $abs_ft2_dir"           > Makefile
-  echo "OBJ_DIR        := $abs_curr_dir"         >> Makefile
-  echo "OBJ_BUILD      := \$(OBJ_DIR)"           >> Makefile
+  echo "TOP_DIR        := $abs_ft2_dir > Makefile
+  echo "OBJ_DIR        := $abs_curr_dir> Makefile
+  echo "OBJ_BUILD      := \$(OBJ_DIR) >> Makefile
   echo "DOC_DIR        := \$(OBJ_DIR)/reference" >> Makefile
-  echo "FT_LIBTOOL_DIR := \$(OBJ_DIR)"           >> Makefile
-  echo "ifndef FT2DEMOS"                         >> Makefile
-  echo "  include \$(TOP_DIR)/Makefile"          >> Makefile
-  echo "else"                                    >> Makefile
+  echo "FT_LIBTOOL_DIR := \$(OBJ_DIR) >> Makefile
+  echo "ifndef FT2DEMOS    >> Makefile
+  echo "  include \$(TOP_DIR)/Makefile>> Makefile
+  echo "else    >> Makefile
   echo "  TOP_DIR_2 := \$(TOP_DIR)/../ft2demos"  >> Makefile
-  echo "  PROJECT   := freetype"                 >> Makefile
+  echo "  PROJECT   := freetype       >> Makefile
   echo "  CONFIG_MK := \$(OBJ_DIR)/config.mk"    >> Makefile
-  echo "  include \$(TOP_DIR_2)/Makefile"        >> Makefile
-  echo "endif"                                   >> Makefile
+  echo "  include \$(TOP_DIR_2)/Makefile Makefile
+  echo "endif   >> Makefile
 fi
 
 # call make

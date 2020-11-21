@@ -53,7 +53,7 @@ def sampling(args):
     return z_mean + K.exp(0.5 * z_log_var) * epsilon
 
 
-def plot_results(models,       data,       batch_size=128,       model_name="vae_mnist"):
+def plot_results(models,    batch_size=128,       model_name="vae_mnist"):
     """Plots labels and MNIST digits as function of 2-dim latent vector
 
     # Arguments
@@ -89,7 +89,7 @@ def plot_results(models,       data,       batch_size=128,       model_name="vae
     grid_y = np.linspace(-4, 4, n)[::-1]
 
     for i, yi in enumerate(grid_y):
-        for j, xi in enumerate(grid_x):  z_sample = np.array([[xi, yi]])  x_decoded = decoder.predict(z_sample)  digit = x_decoded[0].reshape(digit_size, digit_size)  figure[i * digit_size: (i + 1) * digit_size,         j * digit_size: (j + 1) * digit_size] = digit
+        for j, xi in enumerate(grid_x):  z_sample = np.array([[xi, yi]])  x_decoded = decoder.predict(z_sample)  digit = x_decoded[0].reshape(digit_size, digit_size)  figure[i * digit_size: (i + 1) * digit_size* digit_size: (j + 1) * digit_size] = digit
 
     plt.figure(figsize=(10, 10))
     start_range = digit_size // 2

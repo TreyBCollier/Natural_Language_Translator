@@ -135,18 +135,18 @@ def load_mask_labels():
     as a 4D boolean tensor:
         (1, m, nr, nc) for 'channels_first' or (1, nr, nc, m) for 'channels_last'
     '''
-    target_mask_img = load_img(target_mask_path,          target_size=(img_nrows, img_ncols))
+    target_mask_img = load_img(target_mask_pathtarget_size=(img_nrows, img_ncols))
     target_mask_img = img_to_array(target_mask_img)
     style_mask_img = load_img(style_mask_path,         target_size=(img_nrows, img_ncols))
     style_mask_img = img_to_array(style_mask_img)
     if K.image_data_format() == 'channels_first':
-        mask_vecs = np.vstack([style_mask_img.reshape((3, -1)).T,          target_mask_img.reshape((3, -1)).T])
+        mask_vecs = np.vstack([style_mask_img.reshape((3, -1)).Ttarget_mask_img.reshape((3, -1)).T])
     else:
-        mask_vecs = np.vstack([style_mask_img.reshape((-1, 3)),          target_mask_img.reshape((-1, 3))])
+        mask_vecs = np.vstack([style_mask_img.reshape((-1, 3))target_mask_img.reshape((-1, 3))])
 
     labels = kmeans(mask_vecs, num_labels)
     style_mask_label = labels[:img_nrows *         img_ncols].reshape((img_nrows, img_ncols))
-    target_mask_label = labels[img_nrows *          img_ncols:].reshape((img_nrows, img_ncols))
+    target_mask_label = labels[img_nrows img_ncols:].reshape((img_nrows, img_ncols))
 
     stack_axis = 0 if K.image_data_format() == 'channels_first' else -1
     style_mask = np.stack([style_mask_label == r for r in range(num_labels)],     axis=stack_axis)

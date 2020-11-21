@@ -15,7 +15,7 @@
 
 # Compiler command line name
 #
-CC           := wcc386
+CC:= wcc386
 COMPILER_SEP := $(SEP)
 
 
@@ -73,9 +73,6 @@ ANSIFLAGS := -za
 # Library linking
 #
 CLEAN_LIBRARY ?= $(DELETE) $(subst /,$(SEP),$(PROJECT_LIBRARY))
-LINK_LIBRARY   = $(subst /,$(COMPILER_SEP), \
-                   wlib -q -n $@; \
-                   $(foreach m, $(OBJECTS_LIST), wlib -q $@ +$(m);) \
-                   echo > nul)
+LINK_LIBRARY   = $(subst /,$(COMPILER_SEP) wlib -q -n $@ $(foreach m, $(OBJECTS_LIST), wlib -q $@ +$(m); echo > nul)
 
 # EOF

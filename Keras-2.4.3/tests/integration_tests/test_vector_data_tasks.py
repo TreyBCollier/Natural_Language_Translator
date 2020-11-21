@@ -35,7 +35,7 @@ def test_vector_classification():
 
 
 def test_vector_classification_functional():
-    (x_train, y_train), _ = get_test_data(num_train=500,          num_test=200,          input_shape=(20,),True,          num_classes=num_classes)
+    (x_train, y_train), _ = get_test_data(num_train=500num_test=200input_shape=(20,),Truenum_classes=num_classes)
     # Test with functional API
     inputs = layers.Input(shape=(x_train.shape[-1],))
     x = layers.Dense(16, activation=keras.activations.relu)(inputs)

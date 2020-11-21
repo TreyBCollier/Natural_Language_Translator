@@ -205,9 +205,9 @@ class TextImageGenerator(keras.callbacks.Callback):
 
         def _is_length_of_word_valid(word):  return (max_string_len == -1 or          max_string_len is None orword) <= max_string_len)
 monogram file is sorted by frequency in english speech
-        with codecs.open(self.monogram_file, mode='r', encoding='utf-8') as f:  for line in f:      if len(tmp_string_list) == int(self.num_words * mono_fraction):     word = line.rstrip()      if _is_length_of_word_valid(word):          tmp_string_list.append(word)
+        with codecs.open(self.monogram_file, mode='r', encoding='utf-8') as f:  for line in f:      if len(tmp_string_list) == int(self.num_words * mono_fraction):     word = line.rstrip()      if _is_length_of_word_valid(word)tmp_string_list.append(word)
 bigram file contains common word pairings in english speech
-        with codecs.open(self.bigram_file, mode='r', encoding='utf-8') as f:  lines = f.readlines()  for line in lines:      if len(tmp_string_list) == self.num_words:     columns = line.lower().split()      word = columns[0] + ' ' + columns[1]      if is_valid_str(word) and _is_length_of_word_valid(word):          tmp_string_list.append(word)
+        with codecs.open(self.bigram_file, mode='r', encoding='utf-8') as f:  lines = f.readlines()  for line in lines:      if len(tmp_string_list) == self.num_words:     columns = line.lower().split()      word = columns[0] + ' ' + columns[1]      if is_valid_str(word) and _is_length_of_word_valid(word)tmp_string_list.append(word)
         if len(tmp_string_list) != self.num_words:  raise IOError('Could not pull enough words'     'from supplied monogram and bigram files.')interlace to mix up the easy and hard words
         self.string_list[::2] = tmp_string_list[:self.num_words // 2]
         self.string_list[1::2] = tmp_string_list[self.num_words // 2:]
@@ -228,7 +228,7 @@ bigram file contains common word pairings in english speech
         input_length = np.zeros([size, 1])
         label_length = np.zeros([size, 1])
         source_str = []
-        for i in range(size):  # Mix in some blank inputs.  This seems to be important for  # achieving translational invariance  if train and i > size - 4:      if K.image_data_format() == 'channels_first':          X_data[i, 0, 0:self.img_w, :] = self.paint_func('')[0, :, :].T      else:          X_data[i, 0:self.img_w, :, 0] = self.paint_func('',)[0, :, :].T      labels[i, 0] = self.blank_label      input_length[i] = self.img_w // self.downsample_factor - 2      label_length[i] = 1      source_str.append('')  else:      if K.image_data_format() == 'channels_first':          X_data[i, 0, 0:self.img_w, :]       self.paint_func(self.X_text[index + i])[0, :, :].T)      else:          X_data[i, 0:self.img_w, :, 0]       self.paint_func(self.X_text[index + i])[0, :, :].T)      labels[i, :] = self.Y_data[index + i]      input_length[i] = self.img_w // self.downsample_factor - 2      label_length[i] = self.Y_len[index + i]      source_str.append(self.X_text[index + i])
+        for i in range(size):  # Mix in some blank inputs.  This seems to be important for  # achieving translational invariance  if train and i > size - 4:      if K.image_data_format() == 'channels_first'X_data[i, 0, 0:self.img_w, :] = self.paint_func('')[0, :, :].T      X_data[i, 0:self.img_w, :, 0] = self.paint_func('',)[0, :, :].T      labels[i, 0] = self.blank_label      input_length[i] = self.img_w // self.downsample_factor - 2      label_length[i] = 1      source_str.append(''K.image_data_format() == 'channels_first'X_data[i, 0, 0:self.img_wself.paint_func(self.X_text[index + i])[0, :, :].T)      X_data[i, 0:self.img_w, :, 0]       self.paint_func(self.X_text[index + i])[0, :, :].T)      labels[i, :] = self.Y_data[index + i]      input_length[i] = self.img_w // self.downsample_factor - 2      label_length[i] = self.Y_len[index + i]      source_str.append(self.X_text[index + i])
         inputs = {'the_input': X_data,        'the_labels': labels,        'input_length': input_length,        'label_length': label_length,        'source_str': source_str  # used for visualization only       outputs = {'ctc': np.zeros([size])}  # dummy data for dummy loss function
         return (inputs, outputs)
 
@@ -299,7 +299,7 @@ class VizCallback(keras.callbacks.Callback):
         res = decode_batch(self.test_func,      word_batch['the_input'][0:self.num_display_words])
         if word_batch['the_input'][0].shape[0] < 256:  cols = 2
         else:  cols = 1
-        for i in range(self.num_display_words):  pylab.subplot(self.num_display_words // cols, cols, i + 1)  if K.image_data_format() == 'channels_first':      the_input = word_batch['the_input'][i, 0, :, :]  else:      the_input = word_batch['the_input'][i, :, :, 0]  pylab.imshow(the_input.T, cmap='Greys_r')  pylab.xlabel(      'Truth = \'%s\'\nDecoded = \'%s\'         (word_batch['source_str'][i], res[i]))
+        for i in range(self.num_display_words):  pylab.subplot(self.num_display_words // cols, cols, i + 1)  if K.image_data_format() == 'channels_first':      the_input = word_batch['the_input'][i, 0, :, :]  else:      the_input = word_batch['the_input'][i, :, :, 0]  pylab.imshow(the_input.T, cmap='Greys_r')  pylab.xlabel(      'Truth = \'%s\'\nDecoded = \'%s\word_batch['source_str'][i], res[i]))
         fig = pylab.gcf()
         fig.set_size_inches(10, 13)
         pylab.savefig(os.path.join(self.output_dir, 'e%02d.png' % (epoch)))
@@ -339,9 +339,9 @@ def train(run_name, start_epoch, stop_epoch, img_w):
         val_split=words_per_epoch - val_words)
     act = 'relu'
     input_data = Input(name='the_input', shape=input_shape, dtype='float32')
-    inner = Conv2D(conv_filters, kernel_size, padding='same',         activation=act, kernel_initializer='he_normal',         name='conv1')(input_data)
+    inner = Conv2D(conv_filters, kernel_size, padding='same'act, kernel_initializer='he_normal''conv1')(input_data)
     inner = MaxPooling2D(pool_size=(pool_size, pool_size), name='max1')(inner)
-    inner = Conv2D(conv_filters, kernel_size, padding='same',         activation=act, kernel_initializer='he_normal',         name='conv2')(inner)
+    inner = Conv2D(conv_filters, kernel_size, padding='same'act, kernel_initializer='he_normal''conv2')(inner)
     inner = MaxPooling2D(pool_size=(pool_size, pool_size), name='max2')(inner)
 
     conv_to_rnn_dims = (img_w // (pool_size ** 2),   (img_h // (pool_size ** 2)) * conv_filters)
@@ -363,7 +363,7 @@ def train(run_name, start_epoch, stop_epoch, img_w):
     y_pred = Activation('softmax', name='softmax')(inner)
     Model(inputs=input_data, outputs=y_pred).summary()
 
-    labels = Input(name='the_labels',         shape=[img_gen.absolute_max_string_len], dtype='float32')
+    labels = Input(name='the_labels'[img_gen.absolute_max_string_len], dtype='float32')
     input_length = Input(name='input_length', shape=[1], dtype='int64')
     label_length = Input(name='label_length', shape=[1], dtype='int64')
     # Keras doesn't currently support loss funcs with extra parameters

@@ -89,7 +89,7 @@ def test_convolutional_recurrent_statefulness():
     # cntk doesn't support eval convolution with static
     # variable, will enable it later
     if K.backend() != 'cntk':check regularizers
-        kwargs = {'data_format': data_format,        'return_sequences': return_sequences,        'kernel_size': (num_row, num_col),        'stateful': True,        'filters': filters,        'batch_input_shape': inputs.shape,        'kernel_regularizer': regularizers.L1L2(l1=0.01),        'recurrent_regularizer': regularizers.L1L2(l1=0.01),        'bias_regularizer': 'l2',        'activity_regularizer': 'l2',        'kernel_constraint': 'max_norm',        'recurrent_constraint': 'max_norm',        'bias_constraint': 'max_norm',        'padding': 'same'}
+        kwargs = {'data_format': data_format,        'return_sequences': return_sequences,        'kernel_size': (num_row, num_col): True: filters,        'batch_input_shape': inputs.shape,        'kernel_regularizer': regularizers.L1L2(l1=0.01),        'recurrent_regularizer': regularizers.L1L2(l1=0.01),        'bias_regularizer': 'l2',        'activity_regularizer': 'l2',        'kernel_constraint': 'max_norm',        'recurrent_constraint': 'max_norm',        'bias_constraint': 'max_norm': 'same'}
 
         layer = convolutional_recurrent.ConvLSTM2D(**kwargs)
         layer.build(inputs.shape)

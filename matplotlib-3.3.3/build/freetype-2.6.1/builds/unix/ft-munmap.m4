@@ -23,9 +23,7 @@ int munmap(void *, size_t);
        ]])
      ],
      [AC_MSG_RESULT([void *])
-      AC_DEFINE([MUNMAP_USES_VOIDP],
-        [],
-        [Define to 1 if the first argument of munmap is of type void *])],
+      AC_DEFINE([MUNMAP_USES_VOIDP],,to 1 if the first argument of munmap is of type void *])],
      [AC_MSG_RESULT([char *])])
   ])
 

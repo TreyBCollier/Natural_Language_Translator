@@ -24,7 +24,7 @@ def normalize_tuple(value, n, name):
         try:  value_tuple = tuple(value)
         except TypeError:  raise ValueError('The `{}` argument must be a tuple of {'integers. Received: {}'.format(name, n, value))
         if len(value_tuple) != n:  raise ValueError('The `{}` argument must be a tuple of {'integers. Received: {}'.format(name, n, value))
-        for single_value in value_tuple:  try:      int(single_value)  except ValueError:      raise ValueError('The `{}` argument must be a tuple of {    'integers. Received: {} including element {    'of type {}'.format(name, n, value, single_value,single_value)))
+        for single_value in value_tuplesingle_value)  except ValueError:      raise ValueError('The `{}` argument must be a tuple of {    'integers. Received: {} including element {    'of type {}'.format(name, n, value, single_value,single_value)))
     return value_tuple
 
 
@@ -32,7 +32,7 @@ def normalize_padding(value):
     padding = value.lower()
     allowed = {'valid', 'same', 'causal'}
     if padding not in allowed:
-        raise ValueError('The `padding` argument must be one of "valid", "same       '(or "causal" for Conv1D). Received: {}'.format(padding))
+        raise ValueError('The `padding` argument must be one of "valid"(or "causal" for Conv1D). Received: {}'.format(padding))
     return padding
 
 
@@ -142,6 +142,6 @@ def deconv_length(dim_size, stride_size, kernel_size, padding,        output_pad
         elif padding == 'valid':  pad = 0
         elif padding == 'full':  pad = kernel_size - 1
 
-        dim_size = ((dim_size - 1) * stride_size + kernel_size - 2 * pad +          output_padding)
+        dim_size = ((dim_size - 1) * stride_size + kernel_size - 2 * pad output_padding)
 
     return dim_size

@@ -20,7 +20,7 @@ embedding_num = 12
 rnn_test = pytest.mark.parametrize('layer_class',   [recurrent.SimpleRNN,    recurrent.GRU,    recurrent.LSTM])
 
 
-rnn_cell_test = pytest.mark.parametrize('cell_class',        [recurrent.SimpleRNNCell,         recurrent.GRUCell,         recurrent.LSTMCell])
+rnn_cell_test = pytest.mark.parametrize('cell_class'SimpleRNNCellGRUCellLSTMCell])
 
 
 @rnn_test
@@ -57,7 +57,7 @@ def DISABLED_test_stateful_invalid_use(layer_class):
 @pytest.mark.skipif((K.backend() in ['theano']),'Not supported.')
 def test_dropout(layer_class):
     for unroll in [True, False]:
-        layer_test(layer_class,         kwargs={'units': units,      'dropout': 0.1,      'recurrent_dropout': 0.1,      'unroll': unroll},         input_shape=(num_samples, timesteps, embedding_dim))
+        layer_test(layer_class{'units': units,      'dropout': 0.1,      'recurrent_dropout': 0.1,      'unroll': unroll},         input_shape=(num_samples, timesteps, embedding_dim))
 Test that dropout is applied during training
         x = K.ones((num_samples, timesteps, embedding_dim))
         layer = layer_class(units, dropout=0.5, recurrent_dropout=0.5,       input_shape=(timesteps, embedding_dim))
@@ -222,9 +222,9 @@ def test_masking_correctness_output_size_not_equal_to_first_state_size():
 @rnn_test
 def test_implementation_mode(layer_class):
     for mode in [1, 2]:Without dropout
-        layer_test(layer_class,         kwargs={'units': units,      'implementation': mode},         input_shape=(num_samples, timesteps, embedding_dim))With dropout
-        layer_test(layer_class,         kwargs={'units': units,      'implementation': mode,      'dropout': 0.1,      'recurrent_dropout': 0.1},         input_shape=(num_samples, timesteps, embedding_dim))Without bias
-        layer_test(layer_class,         kwargs={'units': units,      'implementation': mode,      'use_bias': False},         input_shape=(num_samples, timesteps, embedding_dim))
+        layer_test(layer_class{'units': units,      'implementation': mode},         input_shape=(num_samples, timesteps, embedding_dim))With dropout
+        layer_test(layer_class{'units': units,      'implementation': mode,      'dropout': 0.1,      'recurrent_dropout': 0.1},         input_shape=(num_samples, timesteps, embedding_dim))Without bias
+        layer_test(layer_class{'units': units,      'implementation': mode,      'use_bias': False},         input_shape=(num_samples, timesteps, embedding_dim))
 
 
 @rnn_test
@@ -629,7 +629,7 @@ def test_stacked_rnn_compute_output_shape():
     cells = [recurrent.LSTMCell(3),   recurrent.LSTMCell(6)]
     layer = recurrent.RNN(cells, return_state=True, return_sequences=True)
     output_shape = layer.compute_output_shape((None, timesteps, embedding_dim))
-    expected_output_shape = [(None, timesteps, 6),        (None, 3),        (None, 3),        (None, 6),        (None, 6)]
+    expected_output_shape = [(None, timesteps, 6) 3) 3) 6) 6)]
     assert [tuple(s) for s in output_shape] == expected_output_shape
 
     # Test reverse_state_order = True for stacked cell.
@@ -638,7 +638,7 @@ def test_stacked_rnn_compute_output_shape():
     layer = recurrent.RNN(
         stacked_cell, return_state=True, return_sequences=True)
     output_shape = layer.compute_output_shape((None, timesteps, embedding_dim))
-    expected_output_shape = [(None, timesteps, 6),        (None, 6),        (None, 6),        (None, 3),        (None, 3)]
+    expected_output_shape = [(None, timesteps, 6) 6) 6) 3) 3)]
     assert [tuple(s) for s in output_shape] == expected_output_shape
 
 

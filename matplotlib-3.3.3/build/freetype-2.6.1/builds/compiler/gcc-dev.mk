@@ -15,7 +15,7 @@
 
 # Compiler command line name
 #
-CC           := gcc
+CC:= gcc
 COMPILER_SEP := /
 
 
@@ -68,17 +68,7 @@ ifndef CFLAGS
     strict_prototypes := -Wstrict-prototypes
   endif
 
-  CFLAGS := -c -g -O0 \
-            -Wall \
-            -W \
-            -Wundef \
-            -Wshadow \
-            -Wpointer-arith \
-            -Wwrite-strings \
-            -Wredundant-decls \
-            -Wno-long-long \
-            $(nested_externs) \
-            $(strict_prototypes)
+  CFLAGS := -c -g -O0 \  -Wall \  -W \  -Wundef \  -Wshadow \  -Wpointer-arith \  -Wwrite-strings \  -Wredundant-decls \  -Wno-long-long \  $(nested_externs     $(strict_prototypes)
 endif
 
 # ANSIFLAGS: Put there the flags used to make your compiler ANSI-compliant.

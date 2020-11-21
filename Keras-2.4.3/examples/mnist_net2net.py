@@ -261,7 +261,7 @@ def make_wider_student_model(teacher_model,        x_train, y_train,        x_te
     model.fit(x_train, y_train,    epochs=epochs,    validation_data=(x_test, y_test))
 
 
-def make_deeper_student_model(teacher_model,         x_train, y_train,         x_test, y_test,         init, epochs):
+def make_deeper_student_model(teacher_model,         x_train, y_train,         x_test, y_test epochs):
     '''Train a deeper student model based on teacher_model,
        with either 'random-init' (baseline) or 'net2deeper'
     '''
@@ -320,9 +320,9 @@ def net2deeper_experiment():
     print('\nExperiment of Net2DeeperNet ...')
 
     print('\n(3) building deeper student model by random init ...')
-    make_deeper_student_model(teacher_model,         x_train, y_train,         x_test, y_test,         init='random-init',         epochs=epochs)
+    make_deeper_student_model(teacher_model,         x_train, y_train,         x_test, y_test'random-init'epochs)
     print('\n(4) building deeper student model by net2deeper ...')
-    make_deeper_student_model(teacher_model,         x_train, y_train,         x_test, y_test,         init='net2deeper',         epochs=epochs)
+    make_deeper_student_model(teacher_model,         x_train, y_train,         x_test, y_test'net2deeper'epochs)
 
 
 print('\n(0) building teacher model ...')

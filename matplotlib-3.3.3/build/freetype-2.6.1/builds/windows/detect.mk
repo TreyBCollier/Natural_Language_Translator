@@ -32,10 +32,7 @@ ifeq ($(PLATFORM),ansi)
     # We used to run the `ver' command to see if its output contains the
     # word `Windows'.  If this is true, we are running Windows 95 or later:
     #
-    #   ifdef COMSPEC
-    #     # First, check if we have the COMSPEC environment variable, which
-    #     # indicates we can use COMMAND.COM's internal commands
-    #     is_windows := $(findstring Windows,$(strip $(shell ver)))
+    #   ifdef COMSPEC# First, check if we have the COMSPEC environment variable, which# indicates we can use COMMAND.COM's internal commandsis_windows := $(findstring Windows,$(strip $(shell ver)))
     #   endif
     #
     # Unfortunately, this also detects the case when one is running
@@ -90,22 +87,22 @@ ifeq ($(PLATFORM),windows)
   # gcc Makefile by default
   CONFIG_FILE := w32-gcc.mk
   ifeq ($(firstword $(CC)),cc)
-    CC        := gcc
+ := gcc
   endif
 
   ifneq ($(findstring list,$(MAKECMDGOALS)),)  # test for the "list" target
     dump_target_list:
-	    @echo ÿ
+	    @echo ï¿½
 	    @echo $(PROJECT_TITLE) build system -- supported compilers
-	    @echo ÿ
+	    @echo ï¿½
 	    @echo Several command-line compilers are supported on Win32:
-	    @echo ÿ
-	    @echo ÿÿmake setupÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿgcc (with Mingw)
-	    @echo ÿÿmake setup visualcÿÿÿÿÿÿÿÿÿÿÿÿÿMicrosoft Visual C++
-	    @echo ÿÿmake setup bcc32ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿBorland C/C++
-	    @echo ÿÿmake setup lccÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿWin32-LCC
-	    @echo ÿÿmake setup intelcÿÿÿÿÿÿÿÿÿÿÿÿÿÿIntel C/C++
-	    @echo ÿ
+	    @echo ï¿½
+	    @echo ï¿½ï¿½make setupï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gcc (with Mingw)
+	    @echo ï¿½ï¿½make setup visualcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Microsoft Visual C++
+	    @echo ï¿½ï¿½make setup bcc32ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Borland C/C++
+	    @echo ï¿½ï¿½make setup lccï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Win32-LCC
+	    @echo ï¿½ï¿½make setup intelcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Intel C/C++
+	    @echo ï¿½
 
     setup: dump_target_list
     .PHONY: dump_target_list list
@@ -117,63 +114,63 @@ ifeq ($(PLATFORM),windows)
   #
   ifneq ($(findstring visualc,$(MAKECMDGOALS)),)     # Visual C/C++
     CONFIG_FILE := w32-vcc.mk
-    CC          := cl
+   := cl
     visualc: setup
     .PHONY: visualc
   endif
 
   ifneq ($(findstring intelc,$(MAKECMDGOALS)),)      # Intel C/C++
     CONFIG_FILE := w32-intl.mk
-    CC          := cl
+   := cl
     visualc: setup
     .PHONY: intelc
   endif
 
   ifneq ($(findstring watcom,$(MAKECMDGOALS)),)      # Watcom C/C++
     CONFIG_FILE := w32-wat.mk
-    CC          := wcc386
+   := wcc386
     watcom: setup
     .PHONY: watcom
   endif
 
   ifneq ($(findstring visualage,$(MAKECMDGOALS)),)   # Visual Age C++
     CONFIG_FILE := w32-icc.mk
-    CC          := icc
+   := icc
     visualage: setup
     .PHONY: visualage
   endif
 
-  ifneq ($(findstring lcc,$(MAKECMDGOALS)),)         # LCC-Win32
+  ifneq ($(findstring lcc,$(MAKECMDGOALS)), LCC-Win32
     CONFIG_FILE := w32-lcc.mk
-    CC          := lcc
+   := lcc
     lcc: setup
     .PHONY: lcc
   endif
 
   ifneq ($(findstring mingw32,$(MAKECMDGOALS)),)     # mingw32
     CONFIG_FILE := w32-mingw32.mk
-    CC          := gcc
+   := gcc
     mingw32: setup
     .PHONY: mingw32
   endif
 
   ifneq ($(findstring bcc32,$(MAKECMDGOALS)),)       # Borland C++
     CONFIG_FILE := w32-bcc.mk
-    CC          := bcc32
+   := bcc32
     bcc32: setup
     .PHONY: bcc32
   endif
 
   ifneq ($(findstring devel-bcc,$(MAKECMDGOALS)),)   # development target
     CONFIG_FILE := w32-bccd.mk
-    CC          := bcc32
+   := bcc32
     devel-bcc: setup
     .PHONY: devel-bcc
   endif
 
   ifneq ($(findstring devel-gcc,$(MAKECMDGOALS)),)   # development target
     CONFIG_FILE := w32-dev.mk
-    CC          := gcc
+   := gcc
     devel-gcc: setup
     .PHONY: devel-gcc
   endif

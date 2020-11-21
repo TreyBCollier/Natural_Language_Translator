@@ -1,4 +1,4 @@
-# pkg.m4 - Macros to locate and utilise pkg-config.            -*- Autoconf -*-
+# pkg.m4 - Macros to locate and utilise pkg-config  -*- Autoconf -*-
 # serial 1 (pkg-config-0.24)
 # 
 # Copyright © 2004 Scott James Remnant <scott@netsplit.com>.
@@ -72,8 +72,7 @@ m4_define([_PKG_CONFIG],
 [if test -n "$$1"; then
     pkg_cv_[]$1="$$1"
  elif test -n "$PKG_CONFIG"; then
-    PKG_CHECK_EXISTS([$3],
-                     [pkg_cv_[]$1=`$PKG_CONFIG --[]$2 "$3" 2>/dev/null`
+    PKG_CHECK_EXISTS([$3],[pkg_cv_[]$1=`$PKG_CONFIG --[]$2 "$3" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes ],
 		     [pkg_failed=yes])
  else
@@ -138,7 +137,6 @@ Consider adjusting the PKG_CONFIG_PATH environment variable if you
 installed software in a non-standard prefix.
 
 _PKG_TEXT])[]dnl
-        ])
 elif test $pkg_failed = untried; then
      	AC_MSG_RESULT([no])
 	m4_default([$4], [AC_MSG_FAILURE(
@@ -149,7 +147,6 @@ path to pkg-config.
 _PKG_TEXT
 
 To get pkg-config, see <http://pkg-config.freedesktop.org/>.])[]dnl
-        ])
 else
 	$1[]_CFLAGS=$pkg_cv_[]$1[]_CFLAGS
 	$1[]_LIBS=$pkg_cv_[]$1[]_LIBS

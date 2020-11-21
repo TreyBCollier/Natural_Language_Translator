@@ -206,7 +206,7 @@ print('Creating Stateless Model...')
 model_stateless = create_model(stateful=False)
 
 print('Training')
-model_stateless.fit(x_train,          y_train,          batch_size=batch_size,epochs,1,          validation_data=(x_test, y_test),False)
+model_stateless.fit(x_trainy_trainbatch_size=batch_size,epochs,1validation_data=(x_test, y_test),False)
 
 print('Predicting')
 predicted_stateless = model_stateless.predict(x_test, batch_size=batch_size)

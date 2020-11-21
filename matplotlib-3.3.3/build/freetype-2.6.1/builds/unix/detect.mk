@@ -18,10 +18,7 @@ ifeq ($(PLATFORM),ansi)
 
   # Note: this test is duplicated in "builds/toplevel.mk".
   #
-  is_unix := $(strip $(wildcard /sbin/init) \
-                     $(wildcard /usr/sbin/init) \
-                     $(wildcard /dev/null) \
-                     $(wildcard /hurd/auth))
+  is_unix := $(strip $(wildcard /sbin/init   $(wildcard /usr/sbin/init   $(wildcard /dev/null   $(wildcard /hurd/auth))
   ifneq ($(is_unix),)
 
     PLATFORM := unix
@@ -39,7 +36,7 @@ ifeq ($(PLATFORM),unix)
   #
   ifneq ($(findstring devel,$(MAKECMDGOALS)),)
     CONFIG_FILE := unix-dev.mk
-    CC          := gcc
+   := gcc
     devel: setup
     .PHONY: devel
   else
@@ -49,21 +46,16 @@ ifeq ($(PLATFORM),unix)
     #
     ifneq ($(findstring lcc,$(MAKECMDGOALS)),)
       CONFIG_FILE := unix-lcc.mk
-      CC          := lcc
+     := lcc
       lcc: setup
       .PHONY: lcc
     else
 
-      # If a Unix platform is detected, the configure script is called and
-      # `unix-def.mk' together with `unix-cc.mk' is created.
-      #
-      # Arguments to `configure' should be in the CFG variable.  Example:
-      #
-      #   make CFG="--prefix=/usr --disable-static"
-      #
-      # If you need to set CFLAGS or LDFLAGS, do it here also.
-      #
-      # Feel free to add support for other platform specific compilers in
+      # If a Unix platform is detected, the configure script is called anddef.mk' together with `unix-cc.mk' is created.
+     Arguments to `configure' should be in the CFG variable.  Example:
+       make CFG="--prefix=/usr --disable-static"
+     If you need to set CFLAGS or LDFLAGS, do it here also.
+     Feel free to add support for other platform specific compilers in
       # this directory (e.g. solaris.mk + changes here to detect the
       # platform).
       #
@@ -80,10 +72,10 @@ ifeq ($(PLATFORM),unix)
   ifdef must_configure
     ifneq ($(have_Makefile),)
       # we are building FT2 not in the src tree
-	        $(TOP_DIR)/builds/unix/configure $(value CFG)
+TOP_DIR)/builds/unix/configure $(value CFG)
     else
 	      cd builds/unix; \
-	        ./configure $(value CFG)
+configure $(value CFG)
     endif
   endif
 

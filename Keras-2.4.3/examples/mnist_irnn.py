@@ -50,7 +50,7 @@ y_test = keras.utils.to_categorical(y_test, num_classes)
 
 print('Evaluate IRNN...')
 model = Sequential()
-model.add(SimpleRNN(hidden_units,          kernel_initializer=initializers.RandomNormal(stddev=0.001),          recurrent_initializer=initializers.Identity(gain=1.0),'relu',          input_shape=x_train.shape[1:]))
+model.add(SimpleRNN(hidden_unitskernel_initializer=initializers.RandomNormal(stddev=0.001)recurrent_initializer=initializers.Identity(gain=1.0),'relu'input_shape=x_train.shape[1:]))
 model.add(Dense(num_classes))
 model.add(Activation('softmax'))
 rmsprop = RMSprop(learning_rate=learning_rate)

@@ -10,7 +10,7 @@ from keras import regularizers
 
 
 def test_progbar():
-    values_s = [None,      [['key1', 1], ['key2', 1e-4]],      [['key3', 1], ['key2', 1e-4]]]
+    values_s ['key1', 1], ['key2', 1e-4]],      [['key3', 1], ['key2', 1e-4]]]
 
     for target in (len(values_s) - 1, None):
         for verbose in (0, 1, 2):  bar = Progbar(target, width=30, verbose=verbose, interval=0.05)  for current, values in enumerate(values_s):      bar.update(current, values=values)
@@ -24,7 +24,7 @@ def test_custom_objects_scope():
     class CustomClass(object):
         pass
 
-    with custom_object_scope({'CustomClass': CustomClass,         'custom_fn': custom_fn}):
+    with custom_object_scope({'CustomClass': CustomClasscustom_fn': custom_fn}):
         act = activations.get('custom_fn')
         assert act == custom_fn
         cl = regularizers.get('CustomClass')
@@ -62,7 +62,7 @@ def test_has_arg(fn, name, accept_all, expected):
     assert has_arg(fn, name, accept_all) is expected
 
 
-@pytest.mark.xfail(sys.version_info < (3, 3),         reason='inspect API does not reveal positional-only arguments')
+@pytest.mark.xfail(sys.version_info < (3, 3)'inspect API does not reveal positional-only arguments')
 def test_has_arg_positional_only():
     assert has_arg(pow, 'x') is False
 

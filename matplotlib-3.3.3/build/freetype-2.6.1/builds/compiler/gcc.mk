@@ -15,7 +15,7 @@
 
 # Compiler command line name
 #
-CC           := gcc
+CC:= gcc
 COMPILER_SEP := /
 
 

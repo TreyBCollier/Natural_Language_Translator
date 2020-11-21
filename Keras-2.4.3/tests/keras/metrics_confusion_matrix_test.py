@@ -476,7 +476,7 @@ class TestPrecisionTest(object):
         p_obj = metrics.Precision(  name='my_precision', thresholds=[0.4, 0.9], top_k=15, class_id=12)
         assert p_obj.name == 'my_precision'
         assert len(p_obj.weights) == 2
-        assert ([v.name for v in p_obj.weights] ==      ['true_positives:0', 'false_positives:0'])
+        assert ([v.name for v in p_obj.weights'true_positives:0', 'false_positives:0'])
         assert p_obj.thresholds == [0.4, 0.9]
         assert p_obj.top_k == 15
         assert p_obj.class_id == 12
@@ -611,7 +611,7 @@ class TestRecall(object):
         r_obj = metrics.Recall(  name='my_recall', thresholds=[0.4, 0.9], top_k=15, class_id=12)
         assert r_obj.name == 'my_recall'
         assert len(r_obj.weights) == 2
-        assert ([v.name for v in r_obj.weights] ==      ['true_positives:0', 'false_negatives:0'])
+        assert ([v.name for v in r_obj.weights'true_positives:0', 'false_negatives:0'])
         assert r_obj.thresholds == [0.4, 0.9]
         assert r_obj.top_k == 15
         assert r_obj.class_id == 12

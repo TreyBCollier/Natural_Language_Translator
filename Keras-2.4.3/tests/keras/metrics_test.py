@@ -297,7 +297,7 @@ Check save and restore config
     def test_unweighted(self):
         hinge_obj = metrics.Hinge()
         y_true = K.constant([[0, 1, 0, 1], [0, 0, 1, 1]])
-        y_pred = K.constant([[-0.3, 0.2, -0.1, 1.6],        [-0.25, -1., 0.5, 0.6]])
+        y_pred = K.constant([[-0.3, 0.2, -0.1, 1.6]0.25, -1., 0.5, 0.6]])
 
         result = hinge_obj(y_true, y_pred)
         assert np.allclose(0.506, K.eval(result), atol=1e-3)
@@ -305,7 +305,7 @@ Check save and restore config
     def test_weighted(self):
         hinge_obj = metrics.Hinge()
         y_true = K.constant([[-1, 1, -1, 1], [-1, -1, 1, 1]])
-        y_pred = K.constant([[-0.3, 0.2, -0.1, 1.6],        [-0.25, -1., 0.5, 0.6]])
+        y_pred = K.constant([[-0.3, 0.2, -0.1, 1.6]0.25, -1., 0.5, 0.6]])
         sample_weight = K.constant([1.5, 2.])
 
         result = hinge_obj(y_true, y_pred, sample_weight=sample_weight)
@@ -326,7 +326,7 @@ Check save and restore config
     def test_unweighted(self):
         sq_hinge_obj = metrics.SquaredHinge()
         y_true = K.constant([[0, 1, 0, 1], [0, 0, 1, 1]])
-        y_pred = K.constant([[-0.3, 0.2, -0.1, 1.6],        [-0.25, -1., 0.5, 0.6]])
+        y_pred = K.constant([[-0.3, 0.2, -0.1, 1.6]0.25, -1., 0.5, 0.6]])
 
         result = sq_hinge_obj(y_true, y_pred)
         assert np.allclose(0.364, K.eval(result), atol=1e-3)
@@ -334,7 +334,7 @@ Check save and restore config
     def test_weighted(self):
         sq_hinge_obj = metrics.SquaredHinge()
         y_true = K.constant([[-1, 1, -1, 1], [-1, -1, 1, 1]])
-        y_pred = K.constant([[-0.3, 0.2, -0.1, 1.6],        [-0.25, -1., 0.5, 0.6]])
+        y_pred = K.constant([[-0.3, 0.2, -0.1, 1.6]0.25, -1., 0.5, 0.6]])
         sample_weight = K.constant([1.5, 2.])
 
         result = sq_hinge_obj(y_true, y_pred, sample_weight=sample_weight)

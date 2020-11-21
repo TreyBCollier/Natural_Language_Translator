@@ -26,7 +26,7 @@ def get_data():
 
 def create_model(kernel_regularizer=None, activity_regularizer=None):
     model = Sequential()
-    model.add(Dense(num_classes,          kernel_regularizer=kernel_regularizer,          activity_regularizer=activity_regularizer,          input_shape=(data_dim,)))
+    model.add(Dense(num_classeskernel_regularizer=kernel_regularizeractivity_regularizer=activity_regularizerinput_shape=(data_dim,)))
     return model
 
 

@@ -291,7 +291,7 @@ def DISABLED_test_generator_enqueuer_fail_processes():
 
 
 def test_ordered_enqueuer_threads():
-    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3]),          use_multiprocessing=False)
+    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3])use_multiprocessing=False)
     enqueuer.start(3, 10)
     gen_output = enqueuer.get()
     acc = []
@@ -302,7 +302,7 @@ def test_ordered_enqueuer_threads():
 
 
 def test_ordered_enqueuer_threads_not_ordered():
-    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3]),          use_multiprocessing=False,True)
+    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3])use_multiprocessing=False,True)
     enqueuer.start(3, 10)
     gen_output = enqueuer.get()
     acc = []
@@ -314,7 +314,7 @@ def test_ordered_enqueuer_threads_not_ordered():
 
 @use_spawn
 def test_ordered_enqueuer_processes():
-    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3]),          use_multiprocessing=True)
+    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3])use_multiprocessing=True)
     enqueuer.start(3, 10)
     gen_output = enqueuer.get()
     acc = []
@@ -333,7 +333,7 @@ def test_ordered_enqueuer_fail_threads():
 
 
 def DISABLED_test_ordered_enqueuer_timeout_threads():
-    enqueuer = OrderedEnqueuer(SlowSequence([3, 10, 10, 3]),          use_multiprocessing=False)
+    enqueuer = OrderedEnqueuer(SlowSequence([3, 10, 10, 3])use_multiprocessing=False)
 
     def handler(signum, frame):
         raise TimeoutError('Sequence deadlocked')
@@ -346,14 +346,14 @@ def DISABLED_test_ordered_enqueuer_timeout_threads():
         for epoch_num in range(2):  acc = []  for i in range(10):      acc.append(next(gen_output)[0, 0, 0, 0])  assert acc == list(range(10)), 'Order was not keep in    'OrderedEnqueuer with threads'
         enqueuer.stop()
     assert len(record) == 1
-    assert str(record[0].message) == 'The input 0 could not be retrieved.         'It could be because a worker has died.'
+    assert str(record[0].message) == 'The input 0 could not be retrievedIt could be because a worker has died.'
     signal.setitimer(signal.ITIMER_REAL, 0)
     signal.signal(signal.SIGALRM, old)
 
 
 @use_spawn
 def test_on_epoch_end_processes():
-    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3]),          use_multiprocessing=True)
+    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3])use_multiprocessing=True)
     enqueuer.start(3, 10)
     gen_output = enqueuer.get()
     acc = []
@@ -365,7 +365,7 @@ def test_on_epoch_end_processes():
 
 @use_spawn
 def test_context_switch():
-    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3]),          use_multiprocessing=True)
+    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3])use_multiprocessing=True)
     enqueuer2 = OrderedEnqueuer(DummySequence([3, 10, 10, 3], value=15),use_multiprocessing=True)
     enqueuer.start(3, 10)
     enqueuer2.start(3, 10)
@@ -395,7 +395,7 @@ def test_context_switch():
 
 
 def DISABLED_test_on_epoch_end_threads():
-    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3]),          use_multiprocessing=False)
+    enqueuer = OrderedEnqueuer(DummySequence([3, 10, 10, 3])use_multiprocessing=False)
     enqueuer.start(3, 10)
     gen_output = enqueuer.get()
     acc = []
@@ -410,7 +410,7 @@ def DISABLED_test_on_epoch_end_threads():
 
 def DISABLED_test_on_epoch_end_threads_sequence_change_length():
     seq = LengthChangingSequence([3, 10, 10, 3])
-    enqueuer = OrderedEnqueuer(seq,          use_multiprocessing=False)
+    enqueuer = OrderedEnqueuer(sequse_multiprocessing=False)
     enqueuer.start(3, 10)
     gen_output = enqueuer.get()
     acc = []
@@ -488,7 +488,7 @@ def DISABLED_test_missing_inputs():
     with pytest.warns(UserWarning, match='An input could not be retrieved.'):
         for _ in range(4 * missing_idx):  next(gen_output)
 
-    enqueuer = OrderedEnqueuer(TimeOutSequence([3, 2, 2, 3]),          use_multiprocessing=True)
+    enqueuer = OrderedEnqueuer(TimeOutSequence([3, 2, 2, 3])use_multiprocessing=True)
     enqueuer.start(3, 10)
     gen_output = enqueuer.get()
     warning_msg = "The input {} could not be retrieved.".format(missing_idx)

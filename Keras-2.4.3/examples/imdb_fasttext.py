@@ -58,7 +58,7 @@ def add_ngram(sequences, token_indice, ngram_range=2):
     new_sequences = []
     for input_list in sequences:
         new_list = input_list[:]
-        for ngram_value in range(2, ngram_range + 1):  for i in range(len(new_list) - ngram_value + 1):      ngram = tuple(new_list[i:i + ngram_value])      if ngram in token_indice:          new_list.append(token_indice[ngram])
+        for ngram_value in range(2, ngram_range + 1):  for i in range(len(new_list) - ngram_value + 1):      ngram = tuple(new_list[i:i + ngram_value])      if ngram in token_indicenew_list.append(token_indice[ngram])
         new_sequences.append(new_list)
 
     return new_sequences
@@ -117,7 +117,7 @@ model = Sequential()
 
 # we start off with an efficient embedding layer which maps
 # our vocab indices into embedding_dims dimensions
-model.add(Embedding(max_features,          embedding_dims,          input_length=maxlen))
+model.add(Embedding(max_featuresembedding_dimsinput_length=maxlen))
 
 # we add a GlobalAveragePooling1D, which will average the embeddings
 # of all words in the document

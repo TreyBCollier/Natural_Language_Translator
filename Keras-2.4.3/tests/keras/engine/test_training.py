@@ -212,13 +212,13 @@ def test_model_methods():
     out = model.fit({'input_a': input_a_np, 'input_b': input_b_np},output_a_np, output_b_np],1, batch_size=4, validation_split=0.5)
 
     # test validation data
-    out = model.fit([input_a_np, input_b_np],output_a_np, output_b_np],1, batch_size=4,          validation_data=([input_a_np, input_b_np],     [output_a_np, output_b_np]))
-    out = model.fit({'input_a': input_a_np, 'input_b': input_b_np},output_a_np, output_b_np],1, batch_size=4, validation_split=0.5,          validation_data=({'input_a': input_a_np,      'input_b': input_b_np},     [output_a_np, output_b_np]))
-    out = model.fit({'input_a': input_a_np, 'input_b': input_b_np},'dense_1': output_a_np, 'dropout': output_b_np},1, batch_size=4, validation_split=0.5,          validation_data=(   {'input_a': input_a_np, 'input_b': input_b_np},   {'dense_1': output_a_np, 'dropout': output_b_np}))
+    out = model.fit([input_a_np, input_b_np],output_a_np, output_b_np],1, batch_size=4validation_data=([input_a_np, input_b_np],     [output_a_np, output_b_np]))
+    out = model.fit({'input_a': input_a_np, 'input_b': input_b_np},output_a_np, output_b_np],1, batch_size=4, validation_split=0.5validation_data=({'input_a': input_a_np,      'input_b': input_b_np},     [output_a_np, output_b_np]))
+    out = model.fit({'input_a': input_a_np, 'input_b': input_b_np},'dense_1': output_a_np, 'dropout': output_b_np},1, batch_size=4, validation_split=0.5validation_data=(   {'input_a': input_a_np, 'input_b': input_b_np},   {'dense_1': output_a_np, 'dropout': output_b_np}))
 
     # test_on_batch
-    out = model.test_on_batch([input_a_np, input_b_np],         [output_a_np, output_b_np])
-    out = model.test_on_batch({'input_a': input_a_np, 'input_b': input_b_np},         [output_a_np, output_b_np])
+    out = model.test_on_batch([input_a_np, input_b_np]output_a_np, output_b_np])
+    out = model.test_on_batch({'input_a': input_a_np, 'input_b': input_b_np}output_a_np, output_b_np])
     out = model.test_on_batch({'input_a': input_a_np, 'input_b': input_b_np},dense_1': output_a_np, 'dropout': output_b_np})
 
     # predict_on_batch
@@ -243,16 +243,16 @@ def test_model_methods():
     output_b_np = np.random.random((10, 3))
 
     sample_weight = [None, np.random.random((10,))]
-    out = model.train_on_batch([input_a_np, input_b_np],output_a_np, output_b_np],          sample_weight=sample_weight)
+    out = model.train_on_batch([input_a_np, input_b_np],output_a_np, output_b_np]sample_weight=sample_weight)
 
-    out = model.test_on_batch([input_a_np, input_b_np],         [output_a_np, output_b_np],         sample_weight=sample_weight)
+    out = model.test_on_batch([input_a_np, input_b_np]output_a_np, output_b_np],         sample_weight=sample_weight)
 
     # test accuracy metric
     model.compile(optimizer, loss, metrics=['acc'],        sample_weight_mode=None)
 
     out = model.train_on_batch([input_a_np, input_b_np],output_a_np, output_b_np])
     assert len(out) == 5
-    out = model.test_on_batch([input_a_np, input_b_np],         [output_a_np, output_b_np])
+    out = model.test_on_batch([input_a_np, input_b_np]output_a_np, output_b_np])
     assert len(out) == 5
 
     # this should also work
@@ -260,7 +260,7 @@ def test_model_methods():
 
     out = model.train_on_batch([input_a_np, input_b_np],output_a_np, output_b_np])
     assert len(out) == 4
-    out = model.test_on_batch([input_a_np, input_b_np],         [output_a_np, output_b_np])
+    out = model.test_on_batch([input_a_np, input_b_np]output_a_np, output_b_np])
     assert len(out) == 4
 
     # and this as well
@@ -268,12 +268,12 @@ def test_model_methods():
 
     out = model.train_on_batch([input_a_np, input_b_np],output_a_np, output_b_np])
     assert len(out) == 4
-    out = model.test_on_batch([input_a_np, input_b_np],         [output_a_np, output_b_np])
+    out = model.test_on_batch([input_a_np, input_b_np]output_a_np, output_b_np])
     assert len(out) == 4
 
     tracker_cb = TrackerCallback()
 
-    out = model.fit([input_a_np, input_b_np],output_a_np, output_b_np], epochs=5, batch_size=4,          initial_epoch=2, callbacks=[tracker_cb])
+    out = model.fit([input_a_np, input_b_np],output_a_np, output_b_np], epochs=5, batch_size=4initial_epoch=2, callbacks=[tracker_cb])
     assert tracker_cb.trained_epochs == [2, 3, 4]
 
     # test starting from non-zero initial epoch for generator too
@@ -295,7 +295,7 @@ def test_model_methods():
     out = model.train_on_batch([input_a_np, input_b_np],output_a_np, output_b_np])
     out_len = 1 + 2 * (1 + 1)  # total loss + 2 outputs * (loss + metric)
     assert len(out) == out_len
-    out = model.test_on_batch([input_a_np, input_b_np],         [output_a_np, output_b_np])
+    out = model.test_on_batch([input_a_np, input_b_np]output_a_np, output_b_np])
     assert len(out) == out_len
 
     input_a_np = np.random.random((10, 3))
@@ -304,7 +304,7 @@ def test_model_methods():
     output_a_np = np.random.random((10, 4))
     output_b_np = np.random.random((10, 3))
 
-    out = model.fit([input_a_np, input_b_np],output_a_np, output_b_np],          batch_size=4, epochs=1)
+    out = model.fit([input_a_np, input_b_np],output_a_np, output_b_np]batch_size=4, epochs=1)
     out = model.evaluate([input_a_np, input_b_np],    [output_a_np, output_b_np],    batch_size=4)
     out = model.predict([input_a_np, input_b_np], batch_size=4)
 
@@ -395,7 +395,7 @@ def DISABLED_test_fit_generator():
     model.compile(optimizer, loss, metrics=[], loss_weights=loss_weights,        sample_weight_mode=None)
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
-    out = model.fit_generator(generator=RandomSequence(3),         steps_per_epoch=3,         epochs=5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=3,         max_queue_size=1,         callbacks=[tracker_cb])
+    out = model.fit_generator(generator=RandomSequence(3),         steps_per_epoch=35,         initial_epoch=0,         validation_data=val_seq,         validation_steps=3,         max_queue_size=1[tracker_cb])
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     assert tracker_cb.trained_batches == list(range(3)) * 5
     # print('val_seq.logs', val_seq.logs)
@@ -403,7 +403,7 @@ def DISABLED_test_fit_generator():
 
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
-    out = model.fit(RandomSequence(3),          steps_per_epoch=3,5,          initial_epoch=0,          validation_data=val_seq,          validation_steps=3,          max_queue_size=1,[tracker_cb])
+    out = model.fit(RandomSequence(3)steps_per_epoch=3,5initial_epoch=0validation_data=val_seqvalidation_steps=3max_queue_size=1,[tracker_cb])
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     assert tracker_cb.trained_batches == list(range(3)) * 5
     # assert len(val_seq.logs) <= 4 * 5
@@ -411,14 +411,14 @@ def DISABLED_test_fit_generator():
     # steps_per_epoch will be equal to len of sequence if it's unspecified
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
-    out = model.fit_generator(generator=RandomSequence(3),         epochs=5,         initial_epoch=0,         validation_data=val_seq,         callbacks=[tracker_cb],         max_queue_size=1)
+    out = model.fit_generator(generator=RandomSequence(3)5,         initial_epoch=0,         validation_data=val_seq[tracker_cb],         max_queue_size=1)
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     assert tracker_cb.trained_batches == list(range(12)) * 5
     # assert 12 * 5 <= len(val_seq.logs) <= (12 * 5) + 2  # the queue may be full.
 
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
-    out = model.fit(RandomSequence(3),5,          initial_epoch=0,          validation_data=val_seq,[tracker_cb],          max_queue_size=1)
+    out = model.fit(RandomSequence(3),5initial_epoch=0validation_data=val_seq,[tracker_cb]max_queue_size=1)
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     assert tracker_cb.trained_batches == list(range(12)) * 5
     # assert 12 * 5 <= len(val_seq.logs) <= (12 * 5) + 2  # the queue may be full.
@@ -426,14 +426,14 @@ def DISABLED_test_fit_generator():
     # test for workers = 0
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
-    out = model.fit_generator(generator=RandomSequence(3),         epochs=5,         validation_data=val_seq,         callbacks=[tracker_cb],         workers=0)
+    out = model.fit_generator(generator=RandomSequence(3)5,         validation_data=val_seq[tracker_cb]0)
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     assert tracker_cb.trained_batches == list(range(12)) * 5
     # assert len(val_seq.logs) == 12 * 5
 
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
-    out = model.fit(RandomSequence(3),          steps_per_epoch=3,5,          initial_epoch=0,          validation_data=val_seq,          validation_steps=3,          max_queue_size=1,[tracker_cb])
+    out = model.fit(RandomSequence(3)steps_per_epoch=3,5initial_epoch=0validation_data=val_seqvalidation_steps=3max_queue_size=1,[tracker_cb])
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     assert tracker_cb.trained_batches == list(range(3)) * 5
     # assert len(val_seq.logs) <= 4 * 5
@@ -452,7 +452,7 @@ def DISABLED_test_fit_generator():
     @threadsafe_generator
     def gen_data(i):
         while True:  gen_counters[i] += 1  yield ([np.random.random((1, 3)), np.random.random((1, 3))],random.random((1, 4)), np.random.random((1, 3))])
-    out = model.fit_generator(generator=gen_data(0), epochs=3,         steps_per_epoch=2,         validation_data=gen_data(1),         validation_steps=1,         max_queue_size=2,         workers=2)
+    out = model.fit_generator(generator=gen_data(0), epochs=3,         steps_per_epoch=2,         validation_data=gen_data(1),         validation_steps=1,         max_queue_size=22)
 
     # Need range check here as filling
     # of the queue depends on sleep in the enqueuers
@@ -463,7 +463,7 @@ def DISABLED_test_fit_generator():
     assert 3 <= gen_counters[1] <= 12
 
     gen_counters = [0]
-    out = model.fit_generator(generator=RandomSequence(3), epochs=3,         validation_data=gen_data(0),         validation_steps=1,         max_queue_size=2,         workers=2)
+    out = model.fit_generator(generator=RandomSequence(3), epochs=3,         validation_data=gen_data(0),         validation_steps=1,         max_queue_size=22)
 
     # 12 = (epoch * workers * validation steps * max_queue_size)
     # Need range check here as filling
@@ -481,7 +481,7 @@ def DISABLED_test_fit_generator_dynamic_size_sequence_with_workers():
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
     train_seq = IncreaseBatchSizeRandomSequence(3, 20)
-    out = model.fit_generator(generator=train_seq,         epochs=5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=3,         max_queue_size=1,         callbacks=[tracker_cb])
+    out = model.fit_generator(generator=train_seq5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=3,         max_queue_size=1[tracker_cb])
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     assert tracker_cb.trained_batches = 0, 1, 2, 3, 4, 5, 6,  # 1st epoch -> ceil(20 / 3) = 7 batches
         0, 1, 2, 3 # 2nd epoch -> ceil(20 / 5) = 4 batches
@@ -494,7 +494,7 @@ def DISABLED_test_fit_generator_dynamic_size_sequence_with_workers():
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
     train_seq = IncreaseBatchSizeRandomSequence(3, 30)
-    out = model.fit_generator(generator=train_seq,         epochs=5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=3,         max_queue_size=1,         callbacks=[tracker_cb])
+    out = model.fit_generator(generator=train_seq5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=3,         max_queue_size=1[tracker_cb])
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     assert tracker_cb.trained_batches = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,  # 1st epoch -> ceil(30 / 3) = 10 batches
         0, 1, 2, 3, 4, 5    # 2nd epoch -> ceil(30 / 5) =  6 batches
@@ -507,7 +507,7 @@ def DISABLED_test_fit_generator_dynamic_size_sequence_with_workers():
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
     train_seq = IncreaseBatchSizeRandomSequence(2, 404, lambda x: x * 2)
-    out = model.fit_generator(generator=train_seq,         epochs=5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=3,         max_queue_size=1,         callbacks=[tracker_cb])
+    out = model.fit_generator(generator=train_seq5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=3,         max_queue_size=1[tracker_cb])
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     # number of trained batches should match sum of steps per each epoch
     assert len(tracker_cb.trained_batches) == 202 + 101 + 51 + 26 + 13
@@ -524,7 +524,7 @@ def DISABLED_test_fit_generator_dynamic_size_sequence_main_thread():
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
     train_seq = IncreaseBatchSizeRandomSequence(3, 20)
-    out = model.fit_generator(generator=train_seq,         epochs=5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=3,         workers=0,         callbacks=[tracker_cb])
+    out = model.fit_generator(generator=train_seq5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=30[tracker_cb])
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     assert tracker_cb.trained_batches = 0, 1, 2, 3, 4, 5, 6,  # 1st epoch -> ceil(20 / 3) = 7 batches
         0, 1, 2, 3 # 2nd epoch -> ceil(20 / 5) = 4 batches
@@ -537,7 +537,7 @@ def DISABLED_test_fit_generator_dynamic_size_sequence_main_thread():
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
     train_seq = IncreaseBatchSizeRandomSequence(3, 30)
-    out = model.fit_generator(generator=train_seq,         epochs=5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=3,         workers=0,         callbacks=[tracker_cb])
+    out = model.fit_generator(generator=train_seq5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=30[tracker_cb])
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     assert tracker_cb.trained_batches = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,  # 1st epoch -> ceil(30 / 3) = 10 batches
         0, 1, 2, 3, 4, 5    # 2nd epoch -> ceil(30 / 5) =  6 batches
@@ -550,7 +550,7 @@ def DISABLED_test_fit_generator_dynamic_size_sequence_main_thread():
     tracker_cb = TrackerCallback()
     val_seq = RandomSequence(4)
     train_seq = IncreaseBatchSizeRandomSequence(2, 404, lambda x: x * 2)
-    out = model.fit_generator(generator=train_seq,         epochs=5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=3,         workers=0,         callbacks=[tracker_cb])
+    out = model.fit_generator(generator=train_seq5,         initial_epoch=0,         validation_data=val_seq,         validation_steps=30[tracker_cb])
     assert tracker_cb.trained_epochs == [0, 1, 2, 3, 4]
     # number of trained batches should match sum of steps per each epoch
     assert len(tracker_cb.trained_batches) == 202 + 101 + 51 + 26 + 13
@@ -790,7 +790,7 @@ def DISABLED_test_model_with_input_feed_tensor():
     # test train_on_batch
     out = model.train_on_batch(input_b_np,output_a_np, output_b_np])
     out = model.train_on_batch({'input_b': input_b_np},output_a_np, output_b_np])
-    out = model.test_on_batch({'input_b': input_b_np},         [output_a_np, output_b_np])
+    out = model.test_on_batch({'input_b': input_b_np}output_a_np, output_b_np])
     out = model.predict_on_batch({'input_b': input_b_np})
 
     # test fit
@@ -819,16 +819,16 @@ def DISABLED_test_model_with_input_feed_tensor():
     model.compile(optimizer, loss, metrics=['mean_squared_error'])
 
     # test train_on_batch
-    out = model.train_on_batch(None,          output_a_np)
-    out = model.train_on_batch(None,          output_a_np)
+    out = model.train_on_batch(Noneoutput_a_np)
+    out = model.train_on_batch(Noneoutput_a_np)
     out = model.test_on_batch(None,         output_a_np)
     out = model.predict_on_batch(None)
-    out = model.train_on_batch([],          output_a_np)
-    out = model.train_on_batch({},          output_a_np)
+    out = model.train_on_batch([]output_a_np)
+    out = model.train_on_batch({}output_a_np)
 
     # test fit
-    out = model.fit(None,          output_a_np, epochs=1, batch_size=10)
-    out = model.fit(None,          output_a_np, epochs=1, batch_size=10)
+    out = model.fit(Noneoutput_a_np, epochs=1, batch_size=10)
+    out = model.fit(Noneoutput_a_np, epochs=1, batch_size=10)
 
     # test evaluate
     out = model.evaluate(None,    output_a_np, batch_size=10)
@@ -851,16 +851,16 @@ def DISABLED_test_model_with_input_feed_tensor():
     model.compile(optimizer, loss, metrics=['mean_squared_error'])
 
     # test train_on_batch
-    out = model.train_on_batch(None,          output_a_np)
-    out = model.train_on_batch(None,          output_a_np)
+    out = model.train_on_batch(Noneoutput_a_np)
+    out = model.train_on_batch(Noneoutput_a_np)
     out = model.test_on_batch(None,         output_a_np)
     out = model.predict_on_batch(None)
-    out = model.train_on_batch([],          output_a_np)
-    out = model.train_on_batch({},          output_a_np)
+    out = model.train_on_batch([]output_a_np)
+    out = model.train_on_batch({}output_a_np)
 
     # test fit
-    out = model.fit(None,          output_a_np, epochs=1, batch_size=10)
-    out = model.fit(None,          output_a_np, epochs=1, batch_size=10)
+    out = model.fit(Noneoutput_a_np, epochs=1, batch_size=10)
+    out = model.fit(Noneoutput_a_np, epochs=1, batch_size=10)
 
     # test evaluate
     out = model.evaluate(None,    output_a_np, batch_size=10)
@@ -1071,9 +1071,9 @@ def DISABLED_test_target_tensors():
     model.train_on_batch(input_val, None)
 
     # multi-output, not enough target tensors when `target_tensors` is not a dict
-    with pytest.raises(ValueError,  match='When passing a list as `target_tensors`, it should '        'have one entry per model output. The model has \\d '        'outputs, but you passed target_tensors='):
+    with pytest.raises(ValueError,  match='When passing a list as `target_tensors`, it should one entry per model output. The model has \\d  but you passed target_tensors='):
         model.compile(optimizer='rmsprop', loss='mse', target_tensors=[target_a])
-    with pytest.raises(ValueError,  match='The model has \\d outputs, but you passed a single '        'tensor as `target_tensors`. Expected a list or '        'a dict of tensors.'):
+    with pytest.raises(ValueError,  match='The model has \\d outputs, but you passed a single as `target_tensors`. Expected a list or dict of tensors.'):
         model.compile(optimizer='rmsprop', loss='mse', target_tensors=target_a)
 
     # test with sample weights
@@ -1304,7 +1304,7 @@ def DISABLED_test_training_and_eval_methods_on_backend_tensors_multi_io():
         model.fit(  [input_a_tf, input_b_tf], [output_d_tf, output_e_tf],  epochs=2,  steps_per_epoch=2,  verbose=0,  validation_split=0.2,  validation_steps=2)
 
     # Test evaluation / prediction methods
-    model.evaluate([input_a_tf, input_b_tf], [output_d_tf, output_e_tf],         steps=2, verbose=0)
+    model.evaluate([input_a_tf, input_b_tf], [output_d_tf, output_e_tf]2, verbose=0)
     model.predict([input_a_tf, input_b_tf], steps=2)
     model.test_on_batch([input_a_tf, input_b_tf], [output_d_tf, output_e_tf])
 
@@ -1334,7 +1334,7 @@ def DISABLED_test_model_with_crossentropy_losses_channels_first():
     data_channels_first = np.array([[[[8., 7.1, 0.], [4.5, 2.6, 0.55],      [0.9, 4.2, 11.2]]]], dtype=np.float32)
     # Labels for testing 4-class sparse_categorical_crossentropy, 4-class
     # categorical_crossentropy, and 2-class binary_crossentropy:
-    labels_channels_first = [np.array([[[[0, 1, 3], [2, 1, 0], [2, 2, 1]]]]),        np.array([[[[0, 1, 0], [0, 1, 0], [0, 0, 0]],        [[1, 0, 0], [0, 0, 1], [0, 1, 0]],        [[0, 0, 0], [1, 0, 0], [0, 0, 1]],        [[0, 0, 1], [0, 0, 0], [1, 0, 0]]]]),        np.array([[[[0, 1, 0], [0, 1, 0], [0, 0, 1]],        [[1, 0, 1], [1, 0, 1], [1, 1, 0]]]])]
+    labels_channels_first = [np.array([[[[0, 1, 3], [2, 1, 0], [2, 2, 1]]]]),        np.array([[[[0, 1, 0], [0, 1, 0], [0, 0, 0]]1, 0, 0], [0, 0, 1], [0, 1, 0]]0, 0, 0], [1, 0, 0], [0, 0, 1]]0, 0, 1], [0, 0, 0], [1, 0, 0]]]]),        np.array([[[[0, 1, 0], [0, 1, 0], [0, 0, 1]]1, 0, 1], [1, 0, 1], [1, 1, 0]]]])]
     # Compute one loss for each loss function in the list `losses_to_test`:
     loss_channels_last = [0., 0., 0.]
     loss_channels_first = [0., 0., 0.]
@@ -1364,7 +1364,7 @@ def DISABLED_test_model_with_crossentropy_losses_channels_first():
 
     K.set_image_data_format(old_data_format)
 
-    assert_allclose(loss_channels_first, loss_channels_last,          err_msg='{}{}'.format('Computed different losses for ',channels_first and channels_last.'))
+    assert_allclose(loss_channels_first, loss_channels_lasterr_msg='{}{}'.format('Computed different losses for ',channels_first and channels_last.'))
 
 
 def DISABLED_test_dynamic_set_inputs():
@@ -1394,7 +1394,7 @@ def DISABLED_test_dynamic_set_inputs():
 
     aux_input = Input(shape=(5,), name='aux_input')
     aux_model = Dense(3)(aux_input)
-    model4 = Model(inputs=model.inputs + [aux_input],         outputs=Concatenate()(model.outputs + [aux_model]))
+    model4 = Model(inputs=model.inputs + [aux_input]Concatenate()(model.outputs + [aux_model]))
     model4.inputs = None
     model4._set_inputs(model.inputs + [aux_input])
     preds4 = model4.predict([np.random.random((1, 32)),        np.random.random((1, 5))])

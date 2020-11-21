@@ -183,13 +183,11 @@ if __name__ == '__main__':
 
 # Usage of sklearn's grid_search
 # from sklearn import grid_search
-# parameters = dict(hidden_dims = [20, 30], batch_size=[64, 128],
-         epochs=[2], verbose=[0])
+# parameters = dict(hidden_dims = [20, 30], batch_size=[64, 128],[2], verbose=[0])
 # classifier = Inherit_class_build_fn_clf()
 # clf = grid_search.GridSearchCV(classifier, parameters)
 # clf.fit(X_train, y_train)
-# parameters = dict(hidden_dims = [20, 30], batch_size=[64, 128],
-         epochs=[2], verbose=[0])
+# parameters = dict(hidden_dims = [20, 30], batch_size=[64, 128],[2], verbose=[0])
 # regressor = Inherit_class_build_fn_reg()
 # reg = grid_search.GridSearchCV(regressor, parameters,
 scoring='mean_squared_error',

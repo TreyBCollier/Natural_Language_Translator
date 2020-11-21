@@ -25,15 +25,15 @@ class TestImage(object):
         for test_images in self.all_test_images:  img_list = []  for im in test_images:      img_list.append(image.img_to_array(im)[None, ...])
   images = np.vstack(img_list)  generator = image.ImageDataGenerator(      featurewise_center=True,      samplewise_center=True,      featurewise_std_normalization=True,      samplewise_std_normalization=True,      zca_whitening=True,      rotation_range=90.,      width_shift_range=0.1,      height_shift_range=0.1,      shear_range=0.5,      zoom_range=0.2,      channel_shift_range=0.,      brightness_range=(1, 5),      fill_mode='nearest',      cval=0.5,      horizontal_flip=True,      vertical_flip=True)  generator.fit(images, augment=True)
   num_samples = images.shape[0]  for x, y in generator.flow(images, np.arange(num_samples),       shuffle=False, save_to_dir=str(tmpdir),       batch_size=3):      assert x.shape == images[:3].shape      assert list(y) == [0, 1, 2]      break
-  # Test with sample weights  for x, y, w in generator.flow(images, np.arange(num_samples),False,          sample_weight=np.arange(num_samples) + 1,          save_to_dir=str(tmpdir),          batch_size=3):      assert x.shape == images[:3].shape      assert list(y) == [0, 1, 2]      assert list(w) == [1, 2, 3]      break
+  # Test with sample weights  for x, y, w in generator.flow(images, np.arange(num_samples),Falsesample_weight=np.arange(num_samples) + 1save_to_dir=str(tmpdir)batch_size=3):      assert x.shape == images[:3].shape      assert list(y) == [0, 1, 2]      assert list(w) == [1, 2, 3]      break
   # Test with `shuffle=True`  for x, y in generator.flow(images, np.arange(num_samples),       shuffle=True, save_to_dir=str(tmpdir),       batch_size=3):      assert x.shape == images[:3].shape      # Check that the sequence is shuffled.      assert list(y) != [0, 1, 2]      break
   # Test without y  for x in generator.flow(images, None,    shuffle=True, save_to_dir=str(tmpdir),    batch_size=3):      assert type(x) is np.ndarray      assert x.shape == images[:3].shape      # Check that the sequence is shuffled.      break
   # Test with a single miscellaneous input data array  dsize = images.shape[0]  x_misc1 = np.random.random(dsize)
   for i, (x, y) in enumerate(generator.flow((images, x_misc1),np.arange(dsize),shuffle=False, batch_size=2)):      assert x[0].shape == images[:2].shape      assert (x[1] == x_misc1[(i * 2):((i + 1) * 2)]).all()      if i == 2:  # Test with two miscellaneous inputs  x_misc2 = np.random.random((dsize, 3, 3))
-  for i, (x, y) in enumerate(generator.flow((images, [x_misc1, x_misc2]),np.arange(dsize),shuffle=False, batch_size=2)):      assert x[0].shape == images[:2].shape      assert (x[1] == x_misc1[(i * 2):((i + 1) * 2)]).all()      assert (x[2] == x_misc2[(i * 2):((i + 1) * 2)]).all()      if i == 2:  # Test cases with `y = None`  x = generator.flow(images, None, batch_size=3).next()  assert type(x) is np.ndarray  assert x.shape == images[:3].shape  x = generator.flow((images, x_misc1), None,          batch_size=3, shuffle=False).next()  assert type(x) is list  assert x[0].shape == images[:3].shape  assert (x[1] == x_misc1[:3]).all()  x = generator.flow((images, [x_misc1, x_misc2]), None,          batch_size=3, shuffle=False).next()  assert type(x) is list  assert x[0].shape == images[:3].shape  assert (x[1] == x_misc1[:3]).all()  assert (x[2] == x_misc2[:3]).all()
+  for i, (x, y) in enumerate(generator.flow((images, [x_misc1, x_misc2]),np.arange(dsize),shuffle=False, batch_size=2)):      assert x[0].shape == images[:2].shape      assert (x[1] == x_misc1[(i * 2):((i + 1) * 2)]).all()      assert (x[2] == x_misc2[(i * 2):((i + 1) * 2)]).all()      if i == 2:  # Test cases with `y = None`  x = generator.flow(images, None, batch_size=3).next()  assert type(x) is np.ndarray  assert x.shape == images[:3].shape  x = generator.flow((images, x_misc1), Nonebatch_size=3, shuffle=False).next()  assert type(x) is list  assert x[0].shape == images[:3].shape  assert (x[1] == x_misc1[:3]).all()  x = generator.flow((images, [x_misc1, x_misc2]), Nonebatch_size=3, shuffle=False).next()  assert type(x) is list  assert x[0].shape == images[:3].shape  assert (x[1] == x_misc1[:3]).all()  assert (x[2] == x_misc2[:3]).all()
   # Test some failure cases:  x_misc_err = np.random.random((dsize + 1, 3, 3))
   with pytest.raises(ValueError) as e_info:      generator.flow((images, x_misc_err), np.arange(dsize), batch_size=3)  assert 'All of the arrays in' in str(e_info.value)
-  with pytest.raises(ValueError) as e_info:      generator.flow((images, x_misc1),arange(dsize + 1),          batch_size=3)  assert '`x` (images tensor) and `y` (labels) ' in str(e_info.value)
+  with pytest.raises(ValueError) as e_info:      generator.flow((images, x_misc1),arange(dsize + 1)batch_size=3)  assert '`x` (images tensor) and `y` (labels) ' in str(e_info.value)
   # Test `flow` behavior as Sequence  seq = generator.flow(images, np.arange(images.shape[0]), shuffle=False, save_to_dir=str(tmpdir), batch_size=3)  assert len(seq) == images.shape[0] // 3 + 1  x, y = seq[0]  assert x.shape == images[:3].shape  assert list(y) == [0, 1, 2]
   # Test with `shuffle=True`  seq = generator.flow(images, np.arange(images.shape[0]), shuffle=True, save_to_dir=str(tmpdir), batch_size=3, seed=123)  x, y = seq[0]  # Check that the sequence is shuffled.  assert list(y) != [0, 1, 2]
   # `on_epoch_end` should reshuffle the sequence.  seq.on_epoch_end()  x2, y2 = seq[0]  assert list(y) != list(y2)
@@ -67,11 +67,11 @@ Test flow with invalid data
         num_classes = 2
 create folders and subfolders
         paths = []
-        for cl in range(num_classes):  class_directory = 'class-{}'.format(cl)  classpaths          class_directory,      os.path.join(class_directory, 'subfolder-1'),      os.path.join(class_directory, 'subfolder-2'),      os.path.join(class_directory, 'subfolder-1', 'sub-subfolder')     for path in classpaths:      tmpdir.join(path).mkdir()  paths.append(classpaths)
+        for cl in range(num_classes):  class_directory = 'class-{}'.format(cl  class_directory,      os.path.join(class_directory, 'subfolder-1'),      os.path.join(class_directory, 'subfolder-2'),      os.path.join(class_directory, 'subfolder-1', 'sub-subfolder')     for path in classpaths:      tmpdir.join(path).mkdir()  paths.append(classpaths)
 save the images in the paths
         count = 0
         filenames = []
-        for test_images in self.all_test_images:  for im in test_images:      # rotate image class      im_class = count % num_classes      # rotate subfolders      classpaths = paths[im_class]      filename = os.path.join(classpaths[count % len(classpaths)],        'image-{}.jpg'.format(count))      filenames.append(filename)      im.save(str(tmpdir / filename))      count += 1
+        for test_images in self.all_test_images:  for im in test_images:      # rotate image class      im_class = count % num_classes      # rotate subfolders      classpaths = paths[im_class]      filename = os.path.join(classpaths[count % len(classpaths)]{}.jpg'.format(count))      filenames.append(filename)      im.save(str(tmpdir / filename))      count += 1
 create iterator
         generator = image.ImageDataGenerator()
         dir_iterator = generator.flow_from_directory(str(tmpdir))
@@ -105,7 +105,7 @@ save the images in the paths
         for test_images in self.all_test_images:  for im in test_images:      filename = str(tmpdir / 'class-1' / 'image-{}.jpg'.format(count))      im.save(filename)      count += 1
 create iterator
         generator = image.ImageDataGenerator()
-        dir_iterator = generator.flow_from_directory(str(tmpdir),          class_mode='input')
+        dir_iterator = generator.flow_from_directory(str(tmpdir)class_mode='input')
         batch = next(dir_iterator)
 check if input and output have the same shape
         assert(batch[0].shape == batch[1].shape)check if the input and output images are not the same numpy array
@@ -123,11 +123,11 @@ check if input and output have the same shape
         tmp_folder = tempfile.mkdtemp(prefix='test_images')
 create folders and subfolders
         paths = []
-        for cl in range(num_classes):  class_directory = 'class-{}'.format(cl)  classpaths          class_directory,      os.path.join(class_directory, 'subfolder-1'),      os.path.join(class_directory, 'subfolder-2'),      os.path.join(class_directory, 'subfolder-1', 'sub-subfolder')     for path in classpaths:      os.mkdir(os.path.join(tmp_folder, path))  paths.append(classpaths)
+        for cl in range(num_classes):  class_directory = 'class-{}'.format(cl  class_directory,      os.path.join(class_directory, 'subfolder-1'),      os.path.join(class_directory, 'subfolder-2'),      os.path.join(class_directory, 'subfolder-1', 'sub-subfolder')     for path in classpaths:      os.mkdir(os.path.join(tmp_folder, path))  paths.append(classpaths)
 save the images in the paths
         count = 0
         filenames = []
-        for test_images in self.all_test_images:  for im in test_images:      # rotate image class      im_class = count % num_classes      # rotate subfolders      classpaths = paths[im_class]      filename = os.path.join(classpaths[count % len(classpaths)],        'image-{}.jpg'.format(count))      filenames.append(filename)      im.save(os.path.join(tmp_folder, filename))      count += 1
+        for test_images in self.all_test_images:  for im in test_images:      # rotate image class      im_class = count % num_classes      # rotate subfolders      classpaths = paths[im_class]      filename = os.path.join(classpaths[count % len(classpaths)]{}.jpg'.format(count))      filenames.append(filename)      im.save(os.path.join(tmp_folder, filename))      count += 1
 create iterator
         generator = image.ImageDataGenerator(validation_split=validation_split)
 

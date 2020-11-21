@@ -80,7 +80,7 @@ def test_sequential_fit_generator():
         if train:  max_batch_index = len(x_train) // batch_size
         else:  max_batch_index = len(x_test) // batch_size
         i = 0
-        while 1:  if train:      yield (x_train[i * batch_size: (i + 1) * batch_size],  y_train[i * batch_size: (i + 1) * batch_size])  else:      yield (x_test[i * batch_size: (i + 1) * batch_size],  y_test[i * batch_size: (i + 1) * batch_size])  i += 1  i = i % max_batch_index
+        while 1:  if train:      yield (x_train[i * batch_size: (i + 1) * batch_size],  y_train[i * batch_size: (i + 1) * batch_size](x_test[i * batch_size: (i + 1) * batch_size],  y_test[i * batch_size: (i + 1) * batch_size])  i += 1  i = i % max_batch_index
 
     model = Sequential()
     model.add(Dense(num_hidden, input_shape=(input_dim,)))

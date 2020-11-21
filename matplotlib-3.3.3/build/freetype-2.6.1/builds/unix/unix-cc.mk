@@ -12,7 +12,7 @@
 # fully.
 
 
-CC           := gcc
+CC:= gcc
 COMPILER_SEP := $(SEP)
 FT_LIBTOOL_DIR ?= $(BUILD_DIR)
 
@@ -106,9 +106,6 @@ CCexe        := $(CCraw_build)	# used to compile `apinames' only
 
 # Library linking
 #
-LINK_LIBRARY = $(LIBTOOL) --mode=link $(CCraw) -o $@ $(OBJECTS_LIST) \
-                          -rpath $(libdir) -version-info $(version_info) \
-                          $(LDFLAGS) -no-undefined \
-                          # -export-symbols $(EXPORTS_LIST)
+LINK_LIBRARY = $(LIBTOOL) --mode=link $(CCraw) -o $@ $(OBJECTS_LIST        -rpath $(libdir) -version-info $(version_info        $(LDFLAGS) -no-undefined \     # -export-symbols $(EXPORTS_LIST)
 
 # EOF

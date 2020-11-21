@@ -4,7 +4,7 @@
 
 
 # Copyright 2005-2015 by
-# Werner Lemberg and Detlef Würkner.
+# Werner Lemberg and Detlef Wï¿½rkner.
 #
 # This file is part of the FreeType project, and may only be used, modified,
 # and distributed under the terms of the FreeType project license,
@@ -43,7 +43,7 @@
 # FT_DEBUG_LEVEL_TRACE in include/freetype/config/ftoption.h).
 
 OBJBASE = ftbase.o ftbbox.o ftbdf.o ftbitmap.o ftcid.o ftfntfmt.o ftfstype.o \
-	  ftgasp.o ftglyph.o ftgxval.o ftlcdfil.o ftmm.o ftotval.o           \
+	  ftgasp.o ftglyph.o ftgxval.o ftlcdfil.o ftmm.o ftotval.o\
 	  ftpatent.o ftpfr.o ftstroke.o ftsynth.o fttype1.o ftwinfnt.o
 
 OBJSYSTEM = ftsystem.o ftsystempure.o

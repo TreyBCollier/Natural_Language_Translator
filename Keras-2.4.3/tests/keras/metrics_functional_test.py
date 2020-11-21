@@ -48,7 +48,7 @@ def test_sparse_categorical_accuracy_correctness(shape):
     y_b_shape = shape + (7,)
     y_b = K.variable(np.random.random(y_b_shape), dtype=K.floatx())
     # use one_hot embedding to convert sparse labels to equivalent dense labels
-    y_a_dense_labels = K.cast(K.one_hot(K.cast(y_a, dtype='int32'), 7),         dtype=K.floatx())
+    y_a_dense_labels = K.cast(K.one_hot(K.cast(y_a, dtype='int32'), 7)K.floatx())
     sparse_categorical_acc = metrics.sparse_categorical_accuracy(y_a, y_b)
     categorical_acc = metrics.categorical_accuracy(y_a_dense_labels, y_b)
     assert np.allclose(K.eval(sparse_categorical_acc), K.eval(categorical_acc))
@@ -79,11 +79,11 @@ def test_invalid_get():
 def test_top_k_categorical_accuracy():
     y_pred = K.variable(np.array([[0.3, 0.2, 0.1], [0.1, 0.2, 0.7]]))
     y_true = K.variable(np.array([[0, 1, 0], [1, 0, 0]]))
-    success_result = K.eval(metrics.top_k_categorical_accuracy(y_true, y_pred,         k=3))
+    success_result = K.eval(metrics.top_k_categorical_accuracy(y_true, y_pred3))
     assert np.mean(success_result) == 1
-    partial_result = K.eval(metrics.top_k_categorical_accuracy(y_true, y_pred,         k=2))
+    partial_result = K.eval(metrics.top_k_categorical_accuracy(y_true, y_pred2))
     assert np.mean(partial_result) == 0.5
-    failure_result = K.eval(metrics.top_k_categorical_accuracy(y_true, y_pred,         k=1))
+    failure_result = K.eval(metrics.top_k_categorical_accuracy(y_true, y_pred1))
     assert np.mean(failure_result) == 0
 
 

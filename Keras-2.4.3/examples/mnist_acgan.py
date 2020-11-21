@@ -71,7 +71,7 @@ def build_generator(latent_size):
     # this will be our label
     image_class = Input(shape=(1,), dtype='int32')
 
-    cls = Embedding(num_classes, latent_size,          embeddings_initializer='glorot_normal')(image_class)
+    cls = Embedding(num_classes, latent_sizeembeddings_initializer='glorot_normal')(image_class)
 
     # hadamard product between z-space and a class conditional embedding
     h = layers.multiply([latent, cls])
@@ -244,9 +244,9 @@ generate some digits to display
 get a batch to display
         generated_images = generator.predict(  [noise, sampled_labels], verbose=0)
 prepare real images sorted by class label
-        real_labels = y_train[(epoch - 1) * num_rows * num_classes:         epoch * num_rows * num_classes]
+        real_labels = y_train[(epoch - 1) * num_rows * num_classes* num_rows * num_classes]
         indices = np.argsort(real_labels, axis=0)
-        real_images = x_train[(epoch - 1) * num_rows * num_classes:         epoch * num_rows * num_classes][indices]
+        real_images = x_train[(epoch - 1) * num_rows * num_classes* num_rows * num_classes][indices]
 display generated images, white separator, real images
         img = np.concatenate(  (generated_images,   np.repeat(np.ones_like(x_train[:1]), num_rows, axis=0),   real_images))
 arrange them into a grid

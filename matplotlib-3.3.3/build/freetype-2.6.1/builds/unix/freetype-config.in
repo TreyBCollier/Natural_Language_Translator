@@ -25,20 +25,16 @@ Usage: freetype-config [OPTION]...
 Get FreeType compilation and linking information.
 
 Options:
-  --prefix               display \`--prefix' value used for building the
-                         FreeType library
+  --prefix    display \`--prefix' value used for building the    FreeType library
   --prefix=PREFIX        override \`--prefix' value with PREFIX
-  --exec-prefix          display \`--exec-prefix' value used for building
-                         the FreeType library
+  --exec-prefix\`--exec-prefix' value used for building    the FreeType library
   --exec-prefix=EPREFIX  override \`--exec-prefix' value with EPREFIX
-  --version              display libtool version of the FreeType library
-  --ftversion            display FreeType version number
-  --libs                 display flags for linking with the FreeType library
-  --libtool              display library name for linking with libtool
-  --cflags               display flags for compiling with the FreeType
-                         library
-  --static               make command line options display flags
-                         for static linking
+  --version   display libtool version of the FreeType library
+  --ftversion display FreeType version number
+  --libs      display flags for linking with the FreeType library
+  --libtool   display library name for linking with libtool
+  --cflags    display flags for compiling with the FreeType    library
+  --static    make command line options display flags    for static linking
 EOF
   exit $1
 }
@@ -123,15 +119,9 @@ else
 fi
 
 if test "$echo_ft_version" = "yes" ; then
-  major=`grep define ${SYSROOT}$includedir/freetype2/freetype/freetype.h \
-         | grep FREETYPE_MAJOR \
-         | sed 's/.*[ 	]\([0-9][0-9]*\).*/\1/'`
-  minor=`grep define ${SYSROOT}$includedir/freetype2/freetype/freetype.h \
-         | grep FREETYPE_MINOR \
-         | sed 's/.*[ 	]\([0-9][0-9]*\).*/\1/'`
-  patch=`grep define ${SYSROOT}$includedir/freetype2/freetype/freetype.h \
-         | grep FREETYPE_PATCH \
-         | sed 's/.*[ 	]\([0-9][0-9]*\).*/\1/'`
+  major=`grep define ${SYSROOT}$includedir/freetype2/freetype/freetype.h \ grep FREETYPE_MAJOR \ sed 's/.*[ 	]\([0-9][0-9]*\).*/\1/'`
+  minor=`grep define ${SYSROOT}$includedir/freetype2/freetype/freetype.h \ grep FREETYPE_MINOR \ sed 's/.*[ 	]\([0-9][0-9]*\).*/\1/'`
+  patch=`grep define ${SYSROOT}$includedir/freetype2/freetype/freetype.h \ grep FREETYPE_PATCH \ sed 's/.*[ 	]\([0-9][0-9]*\).*/\1/'`
   echo $major.$minor.$patch
 fi
 

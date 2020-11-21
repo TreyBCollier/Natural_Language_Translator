@@ -27,7 +27,7 @@ epochs = 40
 plot = True
 
 
-def create_network(n_dense=6,         dense_units=16,         activation='selu',         dropout=AlphaDropout,         dropout_rate=0.1,         kernel_initializer='lecun_normal',         optimizer='adam',         num_classes=1,         max_words=max_words):
+def create_network(n_dense=6,         dense_units=16'selu'AlphaDropout,         dropout_rate=0.1,         kernel_initializer='lecun_normal''adam',         num_classes=1,         max_words=max_words):
     """Generic function to create a fully-connected neural network.
 
     # Arguments
@@ -44,7 +44,7 @@ def create_network(n_dense=6,         dense_units=16,         activation='selu',
         A Keras model instance (compiled).
     """
     model = Sequential()
-    model.add(Dense(dense_units, input_shape=(max_words,),          kernel_initializer=kernel_initializer))
+    model.add(Dense(dense_units, input_shape=(max_words,)kernel_initializer=kernel_initializer))
     model.add(Activation(activation))
     model.add(dropout(dropout_rate))
 
@@ -106,7 +106,7 @@ print('\nBuilding network 1...')
 model1 = create_network(num_classes=num_classes, **network1)
 history_model1 = model1.fit(x_train,       y_train,       batch_size=batch_size,       epochs=epochs,       verbose=1,       validation_split=0.1)
 
-score_model1 = model1.evaluate(x_test,          y_test,          batch_size=batch_size,1)
+score_model1 = model1.evaluate(x_testy_testbatch_size=batch_size,1)
 
 
 print('\nBuilding network 2...')
@@ -114,7 +114,7 @@ model2 = create_network(num_classes=num_classes, **network2)
 
 history_model2 = model2.fit(x_train,       y_train,       batch_size=batch_size,       epochs=epochs,       verbose=1,       validation_split=0.1)
 
-score_model2 = model2.evaluate(x_test,          y_test,          batch_size=batch_size,1)
+score_model2 = model2.evaluate(x_testy_testbatch_size=batch_size,1)
 
 print('\nNetwork 1 results')
 print('Hyperparameters:', network1)

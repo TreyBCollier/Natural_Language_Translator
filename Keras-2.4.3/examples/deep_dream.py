@@ -112,17 +112,16 @@ def eval_loss_and_grads(x):
 def resize_img(img, size):
     img = np.copy(img)
     if K.image_data_format() == 'channels_first':
-        factors = (1, 1,         float(size[0]) / img.shape[2],         float(size[1]) / img.shape[3])
+        factors = (1, 1size[0]) / img.shape[2]size[1]) / img.shape[3])
     else:
-        factors = (1,         float(size[0]) / img.shape[1],         float(size[1]) / img.shape[2],         1)
+        factors = (1size[0]) / img.shape[1]size[1]) / img.shape[2],         1)
     return scipy.ndimage.zoom(img, factors, order=1)
 
 
 def gradient_ascent(x, iterations, step, max_loss=None):
     for i in range(iterations):
         loss_value, grad_values = eval_loss_and_grads(x)
-        if max_loss is not None and loss_value > max_loss:  break
-        print('..Loss value at', i, ':', loss_value)
+        if max_loss is not None and loss_value > max_loss print('..Loss value at', i, ':', loss_value)
         x += step * grad_values
     return x
 

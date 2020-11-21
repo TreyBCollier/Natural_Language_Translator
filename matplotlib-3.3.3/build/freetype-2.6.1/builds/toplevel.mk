@@ -76,10 +76,7 @@ include $(MODULES_CFG)
 
 # The list of modules we are using.
 #
-MODULES := $(FONT_MODULES)    \
-           $(HINTING_MODULES) \
-           $(RASTER_MODULES)  \
-           $(AUX_MODULES)
+MODULES := $(FONT_MODULES)      $(HINTING_MODULES    $(RASTER_MODULES)    $(AUX_MODULES)
 
 
 CONFIG_MK ?= config.mk
@@ -120,10 +117,7 @@ ifdef check_platform
   #
   # Note: This test is duplicated in `builds/unix/detect.mk'.
   #
-  is_unix := $(strip $(wildcard /sbin/init) \
-                     $(wildcard /usr/sbin/init) \
-                     $(wildcard /dev/null) \
-                     $(wildcard /hurd/auth))
+  is_unix := $(strip $(wildcard /sbin/init   $(wildcard /usr/sbin/init   $(wildcard /dev/null   $(wildcard /hurd/auth))
   ifneq ($(is_unix),)
 
     distclean:
@@ -211,17 +205,17 @@ dist:
 	rm -f ft$(winversion).zip
 
 	for d in `find . -wholename '*/.git' -prune \
-	                 -o -type f \
-	                 -o -print` ; do \
+       -o -type f \
+       -o -print` ; do \
 	  mkdir -p tmp/$$d ; \
 	done ;
 
 	currdir=`pwd` ; \
 	for f in `find . -wholename '*/.git' -prune \
-	                 -o -name .gitignore \
-	                 -o -name .mailmap \
-	                 -o -type d \
-	                 -o -print` ; do \
+       -o -name .gitignore \
+       -o -name .mailmap \
+       -o -type d \
+       -o -print` ; do \
 	  ln -s $$currdir/$$f tmp/$$f ; \
 	done
 

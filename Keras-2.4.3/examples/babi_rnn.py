@@ -10,25 +10,25 @@ http://arxiv.org/abs/1502.05698
 Task Number       | FB LSTM Baseline | Keras QA
 --     | --    | ---
 QA1 - Single Supporting Fact |     | 52.1
-QA2 - Two Supporting Facts   |     | 37.0
+QA2 - Two Supporting Facts37.0
 QA3 - Three Supporting Facts |     | 20.5
-QA4 - Two Arg. Relations     |     | 62.9
-QA5 - Three Arg. Relations   |     | 61.9
-QA6 - yes/No Questions       |     | 50.7
-QA7 - Counting    |     | 78.9
+QA4 - Two Arg. Relations| 62.9
+QA5 - Three Arg. Relations61.9
+QA6 - yes/No Questions  | 50.7
+QA7 - Counting 78.9
 QA8 - Lists/Sets  |     | 77.2
-QA9 - Simple Negation        |     | 64.0
+QA9 - Simple Negation   | 64.0
 QA10 - Indefinite Knowledge  |     | 47.7
-QA11 - Basic Coreference     |     | 74.9
+QA11 - Basic Coreference| 74.9
 QA12 - Conjunction|     | 76.4
 QA13 - Compound Coreference  |     | 94.4
-QA14 - Time Reasoning        |     | 34.8
-QA15 - Basic Deduction       |     | 32.4
-QA16 - Basic Induction       |     | 50.6
+QA14 - Time Reasoning   | 34.8
+QA15 - Basic Deduction  | 32.4
+QA16 - Basic Induction  | 50.6
 QA17 - Positional Reasoning  |     | 49.1
-QA18 - Size Reasoning        |     | 90.8
+QA18 - Size Reasoning   | 90.8
 QA19 - Path Finding      | 9.0
-QA20 - Agent's Motivations   |     | 90.7
+QA20 - Agent's Motivations90.7
 
 For the resources related to the bAbI project, refer to:
 https://research.facebook.com/researchers/1543934539189348
@@ -95,7 +95,7 @@ def parse_stories(lines, only_supporting=False):
         nid, line = line.split(' ', 1)
         nid = int(nid)
         if nid == 1:  story = []
-        if '\t' in line:  q, a, supporting = line.split('\t')  q = tokenize(q)  if only_supporting:      # Only select the related substory      supporting = map(int, supporting.split())      substory = [story[i - 1] for i in supporting]  else:      # Provide all the substories      substory = [x for x in story if x]  data.append((substory, q, a))  story.append('')
+        if '\t' in line:  q, a, supporting = line.split('\t')  q = tokenize(q)  if only_supporting:      # Only select the related substory      supporting = map(int, supporting.split())      substory = [story[i - 1] for i in supporting Provide all the substories      substory = [x for x in story if x]  data.append((substory, q, a))  story.append('')
         else:  sent = tokenize(line)  story.append(sent)
     return data
 

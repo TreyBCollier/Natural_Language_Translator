@@ -50,7 +50,7 @@ def parse_stories(lines, only_supporting=False):
         nid, line = line.split(' ', 1)
         nid = int(nid)
         if nid == 1:  story = []
-        if '\t' in line:  q, a, supporting = line.split('\t')  q = tokenize(q)  if only_supporting:      # Only select the related substory      supporting = map(int, supporting.split())      substory = [story[i - 1] for i in supporting]  else:      # Provide all the substories      substory = [x for x in story if x]  data.append((substory, q, a))  story.append('')
+        if '\t' in line:  q, a, supporting = line.split('\t')  q = tokenize(q)  if only_supporting:      # Only select the related substory      supporting = map(int, supporting.split())      substory = [story[i - 1] for i in supporting Provide all the substories      substory = [x for x in story if x]  data.append((substory, q, a))  story.append('')
         else:  sent = tokenize(line)  story.append(sent)
     return data
 
@@ -158,7 +158,7 @@ input_encoder_c.add(Dropout(0.3))
 
 # embed the question into a sequence of vectors
 question_encoder = Sequential()
-question_encoder.add(Embedding(input_dim=vocab_size,          output_dim=64,          input_length=query_maxlen))
+question_encoder.add(Embedding(input_dim=vocab_sizeoutput_dim=64input_length=query_maxlen))
 question_encoder.add(Dropout(0.3))
 # output: (samples, query_maxlen, embedding_dim)
 

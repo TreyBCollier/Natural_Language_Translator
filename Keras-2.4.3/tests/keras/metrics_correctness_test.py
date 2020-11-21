@@ -38,7 +38,7 @@ def custom_generator_multi_io(sample_weights=None):
         end = start + batch_size
         x = [inputs[start:end], inputs[start:end]]
         y = [targets_1[start:end], targets_2[start:end]]
-        if sample_weights:  w          None if w1 is None else w1[start:end],      None if w2 is None else w2[start:end] else:  w = None
+        if sample_weights  None if w1 is None else w1[start:end],      None if w2 is None else w2[start:end] else:  w = None
         yield x, y, w
 
 
@@ -58,11 +58,11 @@ class TestMetricsCorrectnessMultiIO(object):
         self.class_weight_1 = {2: 2, 4: 3, 6: 4, 8: 5}
         self.class_weight_2 = {1: 3.5, 2: 2.5, 3: 1.5, 4: 0.5}
 y_true_1 = [[2.], [4.], [6.], [8.]], y_pred = [[3.], [6.], [9.], [12.]]y_true_2 = [[1.], [2.], [3.], [4.]], y_pred = [[3.], [6.], [9.], [12.]]
-Weighted metric `output_1`:  Total = ((3 - 2)^2 * 2  + (6 - 4)^2 * 3  ((9 - 6)^2 * 4 + (12 - 8)^2 * 5)        = 130  Count = (2 + 3) + (4 + 5)  Result = 9.2857141
-Weighted metric `output_2`:  Total = ((3 - 1)^2 * 3.5 + (6 - 2)^2 * 2.5  ((9 - 3)^2 * 1.5 + (12 - 4)^2 * 0.5)        = 140  Count = (3.5 + 2.5) + (1.5 + 0.5)  Result = 17.5
-Loss `output_1` with weights:  Total = ((3 - 2)^2 * 2  + (6 - 4)^2 * 3  ((9 - 6)^2 * 4 + (12 - 8)^2 * 5)        = 130  Count = 2 + 2  Result = 32.5
+Weighted metric `output_1`:  Total = ((3 - 2)^2 * 2  + (6 - 4)^2 * 3  ((9 - 6)^2 * 4 + (12 - 8)^2 * 5130  Count = (2 + 3) + (4 + 5)  Result = 9.2857141
+Weighted metric `output_2`:  Total = ((3 - 1)^2 * 3.5 + (6 - 2)^2 * 2.5  ((9 - 3)^2 * 1.5 + (12 - 4)^2 * 0.5140  Count = (3.5 + 2.5) + (1.5 + 0.5)  Result = 17.5
+Loss `output_1` with weights:  Total = ((3 - 2)^2 * 2  + (6 - 4)^2 * 3  ((9 - 6)^2 * 4 + (12 - 8)^2 * 5130  Count = 2 + 2  Result = 32.5
 Loss `output_1` without weights/Metric `output_1`:  Total = ((3 - 2)^2 + (6 - 4)^2) + ((9 - 6)^2 + (12 - 8)^2) = 30  Count = 2 + 2  Result = 7.5
-Loss `output_2` with weights:  Total = ((3 - 1)^2 * 3.5 + (6 - 2)^2 * 2.5  ((9 - 3)^2 * 1.5 + (12 - 4)^2 * 0.5)        = 140  Count = 2 + 2  Result = 35
+Loss `output_2` with weights:  Total = ((3 - 1)^2 * 3.5 + (6 - 2)^2 * 2.5  ((9 - 3)^2 * 1.5 + (12 - 4)^2 * 0.5140  Count = 2 + 2  Result = 35
 Loss `output_2` without weights/Metric `output_2`:  Total = ((3 - 1)^2 + (6 - 2)^2) + ((9 - 3)^2 + (12 - 4)^2) = 120  Count = 2 + 2  Result = 30
 Total loss with weights = 32.5 + 35 = 67.5Total loss without weights = 7.5 + 30 = 37.5
 
@@ -106,11 +106,11 @@ Set weights for one output.
     def test_eval_with_sample_weight(self):
         self.setUp()
         model = self._get_compiled_multi_io_model()
-        eval_result = model.evaluate([self.x, self.x], [self.y1, self.y2],     batch_size=2,     sample_weight={         'output_1': self.sample_weight_1,         'output_2': self.sample_weight_2})
-        np.allclose(eval_result, self.expected_batch_result_with_weights,          1e-3)
+        eval_result = model.evaluate([self.x, self.x], [self.y1, self.y2],     batch_size=2,     sample_weight=output_1': self.sample_weight_1output_2': self.sample_weight_2})
+        np.allclose(eval_result, self.expected_batch_result_with_weights1e-3)
 Set weights for one output.
         model = self._get_compiled_multi_io_model()
-        eval_result = model.evaluate([self.x, self.x], [self.y1, self.y2],     batch_size=2,     sample_weight={         'output_2': self.sample_weight_2})
+        eval_result = model.evaluate([self.x, self.x], [self.y1, self.y2],     batch_size=2,     sample_weight=output_2': self.sample_weight_2})
         np.allclose(eval_result,expected_batch_result_with_weights_output_2, 1e-3)
 Verify that metric value is same with arbitrary weights and batch size.
         x = np.random.random((50, 1))
@@ -153,10 +153,10 @@ Set weights for one output.
     def test_test_on_batch_with_sample_weight(self):
         self.setUp()
         model = self._get_compiled_multi_io_model()
-        result = model.test_on_batch([self.x, self.x], [self.y1, self.y2],     sample_weight={         'output_1': self.sample_weight_1,         'output_2': self.sample_weight_2})
+        result = model.test_on_batch([self.x, self.x], [self.y1, self.y2],     sample_weight=output_1': self.sample_weight_1output_2': self.sample_weight_2})
         np.allclose(result, self.expected_batch_result_with_weights, 1e-3)
 Set weights for one output.
-        result = model.test_on_batch([self.x, self.x], [self.y1, self.y2],     sample_weight={         'output_2': self.sample_weight_2})
+        result = model.test_on_batch([self.x, self.x], [self.y1, self.y2],     sample_weight=output_2': self.sample_weight_2})
         np.allclose(result,expected_batch_result_with_weights_output_2, 1e-3)
 
     def test_fit_generator(self):

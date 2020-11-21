@@ -17,9 +17,9 @@ def create_masking_model():
 
 def test_masking():
     np.random.seed(1337)
-    x = np.array([[[1], [1]],        [[0], [0]]])
+    x = np.array([[[1], [1]]0], [0]]])
     model = create_masking_model()
-    y = np.array([[[1], [1]],        [[1], [1]]])
+    y = np.array([[[1], [1]]1], [1]]])
     loss = model.train_on_batch(x, y)
     assert loss == 0
 

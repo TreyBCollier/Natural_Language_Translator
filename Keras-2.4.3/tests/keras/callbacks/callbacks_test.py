@@ -80,7 +80,7 @@ class Counter(callbacks.Callback):
 class TestCallbackCounts(object):
 
     def _check_counts(self, counter, expected_counts):"Checks that counts registered by `counter` are those expected."""
-        for method_name, expected_count in expected_counts.items():  count = counter.method_counts[method_name]  assert count == expected_countmethod {}: expected {}, got: {}'.format(          method_name, expected_count, count)
+        for method_name, expected_count in expected_counts.items():  count = counter.method_counts[method_name]  assert count == expected_countmethod {}: expected {}, got: {}'.formatmethod_name, expected_count, count)
 
     def _get_model(self):
         layers      Dense(10, activation='relu', input_dim=input_dim),  Dense(num_classes, activation='softmax')        model = Sequential(layers=layers)
@@ -97,7 +97,7 @@ class TestCallbackCounts(object):
         counter = Counter()
         model.fit(X_train, y_train, validation_data=(X_test, y_test),        batch_size=2, epochs=5, callbacks=[counter])
 
-        self._check_counts(  counter         'on_batch_begin': 25,      'on_batch_end': 25,      'on_epoch_begin': 5,      'on_epoch_end': 5,      'on_predict_batch_begin': 0,      'on_predict_batch_end': 0,      'on_predict_begin': 0,      'on_predict_end': 0,      'on_test_batch_begin': 10,      'on_test_batch_end': 10,      'on_test_begin': 5,      'on_test_end': 5,      'on_train_batch_begin': 25,      'on_train_batch_end': 25,      'on_train_begin': 1,      'on_train_end': 1,  })
+        self._check_counts 'on_batch_begin': 25,      'on_batch_end': 25,      'on_epoch_begin': 5,      'on_epoch_end': 5,      'on_predict_batch_begin': 0,      'on_predict_batch_end': 0,      'on_predict_begin': 0,      'on_predict_end': 0,      'on_test_batch_begin': 10,      'on_test_batch_end': 10,      'on_test_begin': 5,      'on_test_end': 5,      'on_train_batch_begin': 25,      'on_train_batch_end': 25,      'on_train_begin': 1,      'on_train_end': 1,  })
 
     def test_callback_hooks_are_called_in_evaluate(self):
         np.random.seed(1337)
@@ -108,7 +108,7 @@ class TestCallbackCounts(object):
         model = self._get_model()
         counter = Counter()
         model.evaluate(X_test, y_test, batch_size=2, callbacks=[counter])
-        self._check_counts(  counter         'on_test_batch_begin': 5,      'on_test_batch_end': 5,      'on_test_begin': 1,      'on_test_end': 1,      'on_batch_begin': 0,      'on_batch_end': 0,      'on_epoch_begin': 0,      'on_epoch_end': 0,      'on_predict_batch_begin': 0,      'on_predict_batch_end': 0,      'on_predict_begin': 0,      'on_predict_end': 0,      'on_train_batch_begin': 0,      'on_train_batch_end': 0,      'on_train_begin': 0,      'on_train_end': 0,  })
+        self._check_counts 'on_test_batch_begin': 5,      'on_test_batch_end': 5,      'on_test_begin': 1,      'on_test_end': 1,      'on_batch_begin': 0,      'on_batch_end': 0,      'on_epoch_begin': 0,      'on_epoch_end': 0,      'on_predict_batch_begin': 0,      'on_predict_batch_end': 0,      'on_predict_begin': 0,      'on_predict_end': 0,      'on_train_batch_begin': 0,      'on_train_batch_end': 0,      'on_train_begin': 0,      'on_train_end': 0,  })
 
     def test_callback_hooks_are_called_in_predict(self):
         np.random.seed(1337)
@@ -117,7 +117,7 @@ class TestCallbackCounts(object):
         model = self._get_model()
         counter = Counter()
         model.predict(X_test, batch_size=2, callbacks=[counter])
-        self._check_counts(  counter         'on_predict_batch_begin': 5,      'on_predict_batch_end': 5,      'on_predict_begin': 1,      'on_predict_end': 1,      'on_batch_begin': 0,      'on_batch_end': 0,      'on_epoch_begin': 0,      'on_epoch_end': 0,      'on_test_batch_begin': 0,      'on_test_batch_end': 0,      'on_test_begin': 0,      'on_test_end': 0,      'on_train_batch_begin': 0,      'on_train_batch_end': 0,      'on_train_begin': 0,      'on_train_end': 0,  })
+        self._check_counts 'on_predict_batch_begin': 5,      'on_predict_batch_end': 5,      'on_predict_begin': 1,      'on_predict_end': 1,      'on_batch_begin': 0,      'on_batch_end': 0,      'on_epoch_begin': 0,      'on_epoch_end': 0,      'on_test_batch_begin': 0,      'on_test_batch_end': 0,      'on_test_begin': 0,      'on_test_end': 0,      'on_train_batch_begin': 0,      'on_train_batch_end': 0,      'on_train_begin': 0,      'on_train_end': 0,  })
 
     def test_callback_hooks_are_called_in_fit_generator(self):
         np.random.seed(1337)
@@ -131,7 +131,7 @@ class TestCallbackCounts(object):
         counter = Counter()
         model.fit_generator(train_generator,       steps_per_epoch=len(X_train) // 2,       epochs=5,       validation_data=validation_generator,       validation_steps=len(X_test) // 2,       callbacks=[counter])
 
-        self._check_counts(  counter         'on_batch_begin': 25,      'on_batch_end': 25,      'on_epoch_begin': 5,      'on_epoch_end': 5,      'on_predict_batch_begin': 0,      'on_predict_batch_end': 0,      'on_predict_begin': 0,      'on_predict_end': 0,      'on_test_batch_begin': 10,      'on_test_batch_end': 10,      'on_test_begin': 5,      'on_test_end': 5,      'on_train_batch_begin': 25,      'on_train_batch_end': 25,      'on_train_begin': 1,      'on_train_end': 1,  })
+        self._check_counts 'on_batch_begin': 25,      'on_batch_end': 25,      'on_epoch_begin': 5,      'on_epoch_end': 5,      'on_predict_batch_begin': 0,      'on_predict_batch_end': 0,      'on_predict_begin': 0,      'on_predict_end': 0,      'on_test_batch_begin': 10,      'on_test_batch_end': 10,      'on_test_begin': 5,      'on_test_end': 5,      'on_train_batch_begin': 25,      'on_train_batch_end': 25,      'on_train_begin': 1,      'on_train_end': 1,  })
 
     def test_callback_hooks_are_called_in_evaluate_generator(self):
         np.random.seed(1337)
@@ -141,7 +141,7 @@ class TestCallbackCounts(object):
         model = self._get_model()
         counter = Counter()
         model.evaluate_generator(data_generator(X_test, y_test, batch_size=2), steps=len(X_test) // 2, callbacks=[counter])
-        self._check_counts(  counter         'on_test_batch_begin': 5,      'on_test_batch_end': 5,      'on_test_begin': 1,      'on_test_end': 1,      'on_batch_begin': 0,      'on_batch_end': 0,      'on_epoch_begin': 0,      'on_epoch_end': 0,      'on_predict_batch_begin': 0,      'on_predict_batch_end': 0,      'on_predict_begin': 0,      'on_predict_end': 0,      'on_train_batch_begin': 0,      'on_train_batch_end': 0,      'on_train_begin': 0,      'on_train_end': 0,  })
+        self._check_counts 'on_test_batch_begin': 5,      'on_test_batch_end': 5,      'on_test_begin': 1,      'on_test_end': 1,      'on_batch_begin': 0,      'on_batch_end': 0,      'on_epoch_begin': 0,      'on_epoch_end': 0,      'on_predict_batch_begin': 0,      'on_predict_batch_end': 0,      'on_predict_begin': 0,      'on_predict_end': 0,      'on_train_batch_begin': 0,      'on_train_batch_end': 0,      'on_train_begin': 0,      'on_train_end': 0,  })
 
     def test_callback_hooks_are_called_in_predict_generator(self):
         np.random.seed(1337)
@@ -153,7 +153,7 @@ class TestCallbackCounts(object):
         model = self._get_model()
         counter = Counter()
         model.predict_generator(data_generator(X_test, batch_size=2),steps=len(X_test) // 2, callbacks=[counter])
-        self._check_counts(  counter         'on_predict_batch_begin': 5,      'on_predict_batch_end': 5,      'on_predict_begin': 1,      'on_predict_end': 1,      'on_batch_begin': 0,      'on_batch_end': 0,      'on_epoch_begin': 0,      'on_epoch_end': 0,      'on_test_batch_begin': 0,      'on_test_batch_end': 0,      'on_test_begin': 0,      'on_test_end': 0,      'on_train_batch_begin': 0,      'on_train_batch_end': 0,      'on_train_begin': 0,      'on_train_end': 0,  })
+        self._check_counts 'on_predict_batch_begin': 5,      'on_predict_batch_end': 5,      'on_predict_begin': 1,      'on_predict_end': 1,      'on_batch_begin': 0,      'on_batch_end': 0,      'on_epoch_begin': 0,      'on_epoch_end': 0,      'on_test_batch_begin': 0,      'on_test_batch_end': 0,      'on_test_begin': 0,      'on_test_end': 0,      'on_train_batch_begin': 0,      'on_train_batch_end': 0,      'on_train_begin': 0,      'on_train_end': 0,  })
 
     def test_callback_list_methods(self):
         counter = Counter()
@@ -165,7 +165,7 @@ class TestCallbackCounts(object):
         callback_list.on_predict_batch_begin(batch)
         callback_list.on_predict_batch_end(batch)
 
-        self._check_counts(  counter         'on_test_batch_begin': 1,      'on_test_batch_end': 1,      'on_predict_batch_begin': 1,      'on_predict_batch_end': 1,      'on_predict_begin': 0,      'on_predict_end': 0,      'on_batch_begin': 0,      'on_batch_end': 0,      'on_epoch_begin': 0,      'on_epoch_end': 0,      'on_test_begin': 0,      'on_test_end': 0,      'on_train_batch_begin': 0,      'on_train_batch_end': 0,      'on_train_begin': 0,      'on_train_end': 0,  })
+        self._check_counts 'on_test_batch_begin': 1,      'on_test_batch_end': 1,      'on_predict_batch_begin': 1,      'on_predict_batch_end': 1,      'on_predict_begin': 0,      'on_predict_end': 0,      'on_batch_begin': 0,      'on_batch_end': 0,      'on_epoch_begin': 0,      'on_epoch_end': 0,      'on_test_begin': 0,      'on_test_end': 0,      'on_train_batch_begin': 0,      'on_train_batch_end': 0,      'on_train_begin': 0,      'on_train_end': 0,  })
 
 
 def test_TerminateOnNaN():
@@ -214,7 +214,7 @@ def test_stop_training_csv(tmpdir):
         i = 0
         max_batch_index = len(X_train) // batch_size
         tot = 0
-        while 1:  if tot > 3 * len(X_train):      yield (np.ones([batch_size, input_dim]) * np.nan,  np.ones([batch_size, num_classes]) * np.nan)  else:      yield (X_train[i * batch_size: (i + 1) * batch_size],  y_train[i * batch_size: (i + 1) * batch_size])  i += 1  tot += 1  i = i % max_batch_index
+        while 1:  if tot > 3 * len(X_train):      yield (np.ones([batch_size, input_dim]) * np.nan,  np.ones([batch_size, num_classes]) * np.nan(X_train[i * batch_size: (i + 1) * batch_size],  y_train[i * batch_size: (i + 1) * batch_size])  i += 1  tot += 1  i = i % max_batch_index
 
     history = model.fit_generator(data_generator(),  len(X_train) // batch_size,  validation_data=(X_test, y_test),  callbacks=cbks,  epochs=20)
     loss = history.history['loss']
@@ -499,7 +499,7 @@ def test_ReduceLROnPlateau_patience():
     class DummyModel(object):
         def __init__(self):  self.optimizer = DummyOptimizer()
 
-    reduce_on_plateau = callbacks.ReduceLROnPlateau(monitor='val_loss',         patience=2)
+    reduce_on_plateau = callbacks.ReduceLROnPlateau(monitor='val_loss'2)
     reduce_on_plateau.model = DummyModel()
 
     losses = [0.0860, 0.1096, 0.1040]

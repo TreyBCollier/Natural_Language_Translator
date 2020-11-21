@@ -126,7 +126,7 @@ def transpose_shape(shape, target_format, spatial_axes):
 def check_for_unexpected_keys(name, input_dict, expected_values):
     unknown = set(input_dict.keys()).difference(expected_values)
     if unknown:
-        raise ValueError('Unknown entries in {} dictionary: {}. Only expected '    'following keys: {}'.format(name, list(unknown),          expected_values))
+        raise ValueError('Unknown entries in {} dictionary: {}. Only expected '    'following keys: {}'.format(name, list(unknown)expected_values))
 
 
 def has_arg(fn, name, accept_all=False):

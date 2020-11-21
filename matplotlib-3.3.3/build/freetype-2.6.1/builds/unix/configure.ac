@@ -147,8 +147,7 @@ else
 fi
 
 AC_ARG_ENABLE(biarch-config,
-[  --enable-biarch-config  install biarch ftconfig.h to support multiple
-                          architectures by single file], [], [])
+[  --enable-biarch-config  install biarch ftconfig.h to support multiple     architectures by single file], [], [])
 
 case :${ft_use_autoconf_sizeof_types}:${enable_biarch_config}: in
   :yes:yes:)
@@ -170,8 +169,7 @@ case :${ft_use_autoconf_sizeof_types}:${enable_biarch_config}: in
 esac
 
 if test x"${ft_use_autoconf_sizeof_types}" = xyes; then
-  AC_DEFINE([FT_USE_AUTOCONF_SIZEOF_TYPES], [],
-            [Define if autoconf sizeof types should be used.])
+  AC_DEFINE([FT_USE_AUTOCONF_SIZEOF_TYPES], [],  [Define if autoconf sizeof types should be used.])
 fi
 
 CPPFLAGS="${orig_CPPFLAGS}"
@@ -182,8 +180,7 @@ CPPFLAGS="${orig_CPPFLAGS}"
 # Here we check whether we can use our mmap file component.
 
 AC_ARG_ENABLE([mmap],
-  AS_HELP_STRING([--disable-mmap],
-                 [do not check mmap() and do not use]),
+  AS_HELP_STRING([--disable-mmap],       [do not check mmap() and do not use]),
   [enable_mmap="no"],[enable_mmap="yes"])
 if test "x${enable_mmap}" != "xno"; then
   AC_FUNC_MMAP
@@ -242,8 +239,7 @@ if test "x$GCC" = xyes; then
     XX_PEDANTIC=-pedantic
     if test $GCC_MAJOR -lt 4; then
       XX_PEDANTIC=
-    else
-      if test $GCC_MAJOR -eq 4 -a $GCC_MINOR -lt 6; then
+ test $GCC_MAJOR -eq 4 -a $GCC_MINOR -lt 6; then
         XX_PEDANTIC=
       fi
     fi
@@ -258,19 +254,11 @@ if test "x$GCC" = xyes; then
         AC_LANG_PROGRAM([
 
 #include <stdio.h>
-
-          ],
-          [
-
-            {
-              puts( "" );
-              return 0;
-            }
-
-          ])],
+],[
+       puts( "" );    return 0;  }
+])],
         [AC_MSG_RESULT([ok, add it to XX_ANSIFLAGS])
          XX_ANSIFLAGS="${XX_ANSIFLAGS} ${a}"
-        ],
         [AC_MSG_RESULT([no])])
       CFLAGS="${orig_CFLAGS}"
     done
@@ -312,8 +300,7 @@ AC_SUBST([XX_ANSIFLAGS])
 # check for system zlib
 
 AC_ARG_WITH([zlib],
-  [AS_HELP_STRING([--with-zlib=@<:@yes|no|auto@:>@],
-                  [use system zlib instead of internal library @<:@default=auto@:>@])],
+  [AS_HELP_STRING([--with-zlib=@<:@yes|no|auto@:>@],        [use system zlib instead of internal library @<:@default=auto@:>@])],
   [], [with_zlib=auto])
 
 have_zlib=no
@@ -324,8 +311,7 @@ if test x"$with_zlib" = xyes -o x"$with_zlib" = xauto; then
   if test x"$ZLIB_CFLAGS" = x -a x"$ZLIB_LIBS" = x; then
     PKG_CHECK_EXISTS([$zlib_pkg], [have_zlib_pkg=yes])
   fi
-  PKG_CHECK_MODULES([ZLIB], [$zlib_pkg],
-                    [have_zlib="yes (pkg-config)"], [:])
+  PKG_CHECK_MODULES([ZLIB], [$zlib_pkg],have_zlib="yes (pkg-config)"], [:])
 
   if test $have_zlib_pkg = yes; then
     # we have zlib.pc
@@ -340,15 +326,8 @@ if test x"$with_zlib" = xyes -o x"$with_zlib" = xauto; then
       zlib_libspriv="$ZLIB_LIBS"
       zlib_libsstaticconf="$ZLIB_LIBS"
       have_zlib="yes (ZLIB_CFLAGS and ZLIB_LIBS)"
-    else
-      # fall back to standard autoconf test
-      AC_CHECK_LIB([z],
-                   [gzsetparams],
-                   [AC_CHECK_HEADER([zlib.h],
-                                    [have_zlib="yes (autoconf test)"
-                                     zlib_libspriv="-lz"
-                                     zlib_libsstaticconf="$zlib_libspriv"
-                                     ZLIB_LIBS="$zlib_libspriv"])])
+  fall back to standard autoconf test
+      AC_CHECK_LIB([z],,         [AC_CHECK_HEADER([zlib.h],    [have_zlib="yes (autoconf test)"     zlib_libspriv="-lz"     zlib_libsstaticconf="$zlib_libspriv"     ZLIB_LIBS="$zlib_libspriv"])])
     fi
   fi
 fi
@@ -361,8 +340,7 @@ fi
 # check for system libbz2
 
 AC_ARG_WITH([bzip2],
-  [AS_HELP_STRING([--with-bzip2=@<:@yes|no|auto@:>@],
-                  [support bzip2 compressed fonts @<:@default=auto@:>@])],
+  [AS_HELP_STRING([--with-bzip2=@<:@yes|no|auto@:>@],        [support bzip2 compressed fonts @<:@default=auto@:>@])],
   [], [with_bzip2=auto])
 
 have_bzip2=no
@@ -373,8 +351,7 @@ if test x"$with_bzip2" = xyes -o x"$with_bzip2" = xauto; then
   if test x"$BZIP2_CFLAGS" = x -a x"$BZIP2_LIBS" = x; then
     PKG_CHECK_EXISTS([$bzip2_pkg], [have_bzip2_pkg=yes])
   fi
-  PKG_CHECK_MODULES([BZIP2], [$bzip2_pkg],
-                    [have_bzip2="yes (pkg-config)"], [:])
+  PKG_CHECK_MODULES([BZIP2], [$bzip2_pkg],have_bzip2="yes (pkg-config)"], [:])
 
   if test $have_bzip2_pkg = yes; then
     # we have bzip2.pc
@@ -389,15 +366,8 @@ if test x"$with_bzip2" = xyes -o x"$with_bzip2" = xauto; then
       bzip2_libspriv="$BZIP2_LIBS"
       bzip2_libsstaticconf="$BZIP2_LIBS"
       have_bzip2="yes (BZIP2_CFLAGS and BZIP2_LIBS)"
-    else
-      # fall back to standard autoconf test
-      AC_CHECK_LIB([bz2],
-                   [BZ2_bzDecompress],
-                   [AC_CHECK_HEADER([bzlib.h],
-                                    [have_bzip2="yes (autoconf test)"
-                                     bzip2_libspriv="-lbz2"
-                                     bzip2_libsstaticconf="$bzip2_libspriv"
-                                     BZIP2_LIBS="$bzip2_libspriv"])])
+  fall back to standard autoconf test
+      AC_CHECK_LIB([bz2],         [BZ2_bzDecompress],         [AC_CHECK_HEADER([bzlib.h],    [have_bzip2="yes (autoconf test)"     bzip2_libspriv="-lbz2"     bzip2_libsstaticconf="$bzip2_libspriv"     BZIP2_LIBS="$bzip2_libspriv"])])
     fi
   fi
 fi
@@ -410,8 +380,7 @@ fi
 # check for system libpng
 
 AC_ARG_WITH([png],
-  [AS_HELP_STRING([--with-png=@<:@yes|no|auto@:>@],
-                  [support png compressed OpenType embedded bitmaps @<:@default=auto@:>@])],
+  [AS_HELP_STRING([--with-png=@<:@yes|no|auto@:>@],        [support png compressed OpenType embedded bitmaps @<:@default=auto@:>@])],
   [], [with_png=auto])
 
 have_libpng=no
@@ -422,8 +391,7 @@ if test x"$with_png" = xyes -o x"$with_png" = xauto; then
   if test x"$LIBPNG_CFLAGS" = x -a x"$LIBPNG_LIBS" = x; then
     PKG_CHECK_EXISTS([$libpng_pkg], [have_libpng_pkg=yes])
   fi
-  PKG_CHECK_MODULES([LIBPNG], [$libpng_pkg],
-                    [have_libpng="yes (pkg-config)"], [:])
+  PKG_CHECK_MODULES([LIBPNG], [$libpng_pkg],have_libpng="yes (pkg-config)"], [:])
 
   if test $have_libpng_pkg = yes; then
     # we have libpng.pc
@@ -438,8 +406,7 @@ if test x"$with_png" = xyes -o x"$with_png" = xauto; then
       libpng_libspriv="$LIBPNG_LIBS"
       libpng_libsstaticconf="$LIBPNG_LIBS"
       have_libpng="yes (LIBPNG_CFLAGS and LIBPNG_LIBS)"
-    else
-      # fall back to config script.
+  fall back to config script.
       AC_MSG_CHECKING([for libpng-config])
       if which libpng-config > /dev/null 2>&1; then
         LIBPNG_CFLAGS=`libpng-config --cflags`
@@ -448,8 +415,7 @@ if test x"$with_png" = xyes -o x"$with_png" = xauto; then
         libpng_libsstaticconf="$libpng_libspriv"
         have_libpng="yes (libpng-config)"
         AC_MSG_RESULT([yes])
-      else
-        AC_MSG_RESULT([no])
+    AC_MSG_RESULT([no])
       fi
     fi
   fi
@@ -463,8 +429,7 @@ fi
 # check for system libharfbuzz
 
 AC_ARG_WITH([harfbuzz],
-  [AS_HELP_STRING([--with-harfbuzz=@<:@yes|no|auto@:>@],
-                  [improve auto-hinting of OpenType fonts @<:@default=auto@:>@])],
+  [AS_HELP_STRING([--with-harfbuzz=@<:@yes|no|auto@:>@],        [improve auto-hinting of OpenType fonts @<:@default=auto@:>@])],
   [], [with_harfbuzz=auto])
 
 have_harfbuzz=no
@@ -475,8 +440,7 @@ if test x"$with_harfbuzz" = xyes -o x"$with_harfbuzz" = xauto; then
   if test x"$HARFBUZZ_CFLAGS" = x -a x"$HARFBUZZ_LIBS" = x; then
     PKG_CHECK_EXISTS([$harfbuzz_pkg], [have_harfbuzz_pkg=yes])
   fi
-  PKG_CHECK_MODULES([HARFBUZZ], [$harfbuzz_pkg],
-                    [have_harfbuzz="yes (pkg-config)"], [:])
+  PKG_CHECK_MODULES([HARFBUZZ], [$harfbuzz_pkg],have_harfbuzz="yes (pkg-config)"], [:])
 
   if test $have_harfbuzz_pkg = yes; then
     # we have harfbuzz.pc
@@ -491,8 +455,7 @@ if test x"$with_harfbuzz" = xyes -o x"$with_harfbuzz" = xauto; then
       harfbuzz_libspriv="$HARFBUZZ_LIBS"
       harfbuzz_libsstaticconf="$HARFBUZZ_LIBS"
       have_harfbuzz="yes (HARFBUZZ_CFLAGS and HARFBUZZ_LIBS)"
-    else
-      # since HarfBuzz is quite a new library we don't fall back to a
+  since HarfBuzz is quite a new library we don't fall back to a
       # different test; additionally, it has too many dependencies
       :
     fi
@@ -553,8 +516,7 @@ set ${save_config_args}
 ftmac_c="" # src/base/ftmac.c should not be included in makefiles by default
 
 AC_ARG_WITH([old-mac-fonts],
-  AS_HELP_STRING([--with-old-mac-fonts],
-                 [allow Mac resource-based fonts to be used]))
+  AS_HELP_STRING([--with-old-mac-fonts],       [allow Mac resource-based fonts to be used]))
 if test x$with_old_mac_fonts = xyes; then
   orig_LDFLAGS="${LDFLAGS}"
   AC_MSG_CHECKING([CoreServices & ApplicationServices of Mac OS X])
@@ -595,18 +557,11 @@ if test x$with_old_mac_fonts = xyes; then
 # include <ConditionalMacros.h>
 # include <Files.h>
 #endif
+,
+ /* OSHostByteOrder() is typed as OS_INLINE */ int32_t  os_byte_order = OSHostByteOrder();
 
-         ],
-         [
-
-           /* OSHostByteOrder() is typed as OS_INLINE */
-           int32_t  os_byte_order = OSHostByteOrder();
-
-
-           if ( OSBigEndian != os_byte_order )
-             return 1;
-
-         ])],
+ if ( OSBigEndian != os_byte_order )   return 1;
+)],
        [AC_MSG_RESULT([ok])
         CFLAGS="$orig_CFLAGS"
         CFLAGS="$CFLAGS -DHAVE_ANSI_OS_INLINE=1"
@@ -628,14 +583,9 @@ if test x$with_old_mac_fonts = xyes; then
 # include <Files.h>
 # include <Resources.h>
 #endif
-
-         ],
-         [
-
-           ResourceIndex i = 0;
-           return i;
-
-         ])],
+,
+ ResourceIndex i = 0; return i;
+)],
        [AC_MSG_RESULT([ok])
         CFLAGS="$orig_CFLAGS"
         CFLAGS="$CFLAGS -DHAVE_TYPE_RESOURCE_INDEX=1"
@@ -663,8 +613,7 @@ fi
 # Whether to use FileManager, which is deprecated since Mac OS X 10.4.
 
 AC_ARG_WITH([fsspec],
-  AS_HELP_STRING([--with-fsspec],
-                 [use obsolete FSSpec API of MacOS, if available (default=yes)]))
+  AS_HELP_STRING([--with-fsspec],       [use obsolete FSSpec API of MacOS, if available (default=yes)]))
 if test x$with_fsspec = xno; then
   CFLAGS="$CFLAGS -DHAVE_FSSPEC=0"
 elif test x$with_old_mac_fonts = xyes -a x$with_fsspec != x; then
@@ -683,14 +632,13 @@ elif test x$with_old_mac_fonts = xyes -a x$with_fsspec != x; then
       ],
       [
 
-        FCBPBPtr          paramBlock;
-        short             vRefNum;
-        long              dirID;
+       paramBlock;
+          vRefNum;
+           dirID;
         ConstStr255Param  fileName;
-        FSSpec*           spec;
+         spec;
 
-
-        /* FSSpec functions: deprecated since Mac OS X 10.4 */
+ FSSpec functions: deprecated since Mac OS X 10.4 */
         PBGetFCBInfoSync( paramBlock );
         FSMakeFSSpec( vRefNum, dirID, fileName, spec );
 
@@ -705,8 +653,7 @@ fi
 # Whether to use FileManager in Carbon since MacOS 9.x.
 
 AC_ARG_WITH([fsref],
-  AS_HELP_STRING([--with-fsref],
-                 [use Carbon FSRef API of MacOS, if available (default=yes)]))
+  AS_HELP_STRING([--with-fsref],       [use Carbon FSRef API of MacOS, if available (default=yes)]))
 if test x$with_fsref = xno; then
   AC_MSG_WARN([
 *** WARNING
@@ -730,36 +677,32 @@ elif test x$with_old_mac_fonts = xyes -a x$with_fsref != x; then
       ],
       [
 
-        short                vRefNum;
-        long                 dirID;
+             vRefNum;
+              dirID;
         ConstStr255Param     fileName;
 
-        Boolean*             isDirectory;
-        UInt8*               path;
-        SInt16               desiredRefNum;
-        SInt16*              iterator;
-        SInt16*              actualRefNum;
+           isDirectory;
+        UInt8     path;
+        SInt16    desiredRefNum;
+        SInt16    iterator;
+        SInt16    actualRefNum;
         HFSUniStr255*        outForkName;
-        FSVolumeRefNum       volume;
+     
         FSCatalogInfoBitmap  whichInfo;
-        FSCatalogInfo*       catalogInfo;
-        FSForkInfo*          forkInfo;
-        FSRef*               ref;
+     catalogInfo;
+        forkInfo;
+             ref;
 
 #if HAVE_FSSPEC
-        FSSpec*              spec;
+            spec;
 #endif
-
-        /* FSRef functions: no need to check? */
-        FSGetForkCBInfo( desiredRefNum, volume, iterator,
-                         actualRefNum, forkInfo, ref,
-                         outForkName );
+ FSRef functions: no need to check? */
+        FSGetForkCBInfo( desiredRefNum, volume, iterator,    actualRefNum, forkInfo, ref,    outForkName );
         FSPathMakeRef( path, ref, isDirectory );
 
 #if HAVE_FSSPEC
         FSpMakeFSRef ( spec, ref );
-        FSGetCatalogInfo( ref, whichInfo, catalogInfo,
-                          outForkName, spec, ref );
+        FSGetCatalogInfo( ref, whichInfo, catalogInfo,     outForkName, spec, ref );
 #endif
       ])],
     [AC_MSG_RESULT([ok])
@@ -773,8 +716,7 @@ fi
 # Mac OS X 10.4.
 
 AC_ARG_WITH([quickdraw-toolbox],
-  AS_HELP_STRING([--with-quickdraw-toolbox],
-                 [use MacOS QuickDraw in ToolBox, if available (default=yes)]))
+  AS_HELP_STRING([--with-quickdraw-toolbox],       [use MacOS QuickDraw in ToolBox, if available (default=yes)]))
 if test x$with_quickdraw_toolbox = xno; then
   CFLAGS="$CFLAGS -DHAVE_QUICKDRAW_TOOLBOX=0"
 elif test x$with_old_mac_fonts = xyes -a x$with_quickdraw_toolbox != x; then
@@ -795,8 +737,8 @@ elif test x$with_old_mac_fonts = xyes -a x$with_quickdraw_toolbox != x; then
 
         Str255     familyName;
         SInt16     familyID   = 0;
-        FMInput*   fmIn       = NULL;
-        FMOutput*  fmOut      = NULL;
+        FMInput* NULL;
+        FMOutputNULL;
 
 
         GetFontName( familyID, familyName );
@@ -815,8 +757,7 @@ fi
 # Mac OS X 10.4.
 
 AC_ARG_WITH([quickdraw-carbon],
-  AS_HELP_STRING([--with-quickdraw-carbon],
-                 [use MacOS QuickDraw in Carbon, if available (default=yes)]))
+  AS_HELP_STRING([--with-quickdraw-carbon],       [use MacOS QuickDraw in Carbon, if available (default=yes)]))
 if test x$with_quickdraw_carbon = xno; then
   CFLAGS="$CFLAGS -DHAVE_QUICKDRAW_CARBON=0"
 elif test x$with_old_mac_fonts = xyes -a x$with_quickdraw_carbon != x; then
@@ -835,18 +776,17 @@ elif test x$with_old_mac_fonts = xyes -a x$with_quickdraw_carbon != x; then
       ],
       [
 
-        FMFontFamilyIterator          famIter;
-        FMFontFamily                  family;
-        Str255                        famNameStr;
+       famIter;
+     
+        Str255  famNameStr;
         FMFontFamilyInstanceIterator  instIter;
-        FMFontStyle                   style;
-        FMFontSize                    size;
-        FMFont                        font;
-        FSSpec*                       pathSpec;
+     style;
+      size;
+          font;
+          pathSpec;
 
 
-        FMCreateFontFamilyIterator( NULL, NULL, kFMUseGlobalScopeOption,
-                                    &famIter );
+        FMCreateFontFamilyIterator( NULL, NULL, kFMUseGlobalScopeOption,    &famIter );
         FMGetNextFontFamily( &famIter, &family );
         FMGetFontFamilyName( family, famNameStr );
         FMCreateFontFamilyInstanceIterator( family, &instIter );
@@ -866,8 +806,7 @@ fi
 # Whether to use AppleTypeService since Mac OS X.
 
 AC_ARG_WITH([ats],
-  AS_HELP_STRING([--with-ats],
-                 [use AppleTypeService, if available (default=yes)]))
+  AS_HELP_STRING([--with-ats],       [use AppleTypeService, if available (default=yes)]))
 if test x$with_ats = xno; then
   CFLAGS="$CFLAGS -DHAVE_ATS=0"
 elif test x$with_old_mac_fonts = xyes -a x$with_ats != x; then
@@ -916,45 +855,18 @@ esac
 
 
 # entries in Requires.private are separated by commas;
-REQUIRES_PRIVATE="$zlib_reqpriv,     \
-                  $bzip2_reqpriv,    \
-                  $libpng_reqpriv,   \
-                  $harfbuzz_reqpriv"
+REQUIRES_PRIVATE="$zlib_reqpriv,   $bzip2_reqpriv,  $libpng_reqpriv, $harfbuzz_reqpriv"
 # beautify
-REQUIRES_PRIVATE=`echo "$REQUIRES_PRIVATE" \
-                  | sed -e 's/^  *//'      \
-                        -e 's/  *$//'      \
-                        -e 's/, */,/g'     \
-                        -e 's/,,*/,/g'     \
-                        -e 's/^,*//'       \
-                        -e 's/,*$//'       \
-                        -e 's/,/, /g'`
+REQUIRES_PRIVATE=`echo "$REQUIRES_PRIVATE| sed -e 's/^  *//'          -e 's/  *$//'          -e 's/, */,/g'         -e 's/,,*/,/g'         -e 's/^,*//'           -e 's/,*$//'           -e 's/,/, /g'`
 
-LIBS_PRIVATE="$zlib_libspriv     \
-              $bzip2_libspriv    \
-              $libpng_libspriv   \
-              $harfbuzz_libspriv \
-              $ft2_extra_libs"
+LIBS_PRIVATE="$zlib_libspriv          $bzip2_libspriv         $libpng_libspriv        $harfbuzz_libspriv \    $ft2_extra_libs"
 # beautify
-LIBS_PRIVATE=`echo "$LIBS_PRIVATE"  \
-              | sed -e 's/^  *//'   \
-                    -e 's/  *$//'   \
-                    -e 's/  */ /g'`
+LIBS_PRIVATE=`echo "$LIBS_PRIVATE"       | sed -e 's/^  *//'   -e 's/  *$//'   -e 's/  */ /g'`
 
-LIBSSTATIC_CONFIG="-lfreetype               \
-                   $zlib_libsstaticconf     \
-                   $bzip2_libsstaticconf    \
-                   $libpng_libsstaticconf   \
-                   $harfbuzz_libsstaticconf \
-                   $ft2_extra_libs"
+LIBSSTATIC_CONFIG="-lfreetype   $zlib_libsstaticconf    $bzip2_libsstaticconf   $libpng_libsstaticconf  $harfbuzz_libsstaticconf \         $ft2_extra_libs"
 # remove -L/usr/lib and -L/usr/lib64 since `freetype-config' adds them later
 # on if necessary; also beautify
-LIBSSTATIC_CONFIG=`echo "$LIBSSTATIC_CONFIG"          \
-                   | sed -e 's|-L */usr/lib64/* | |g' \
-                         -e 's|-L */usr/lib/* | |g'   \
-                         -e 's/^  *//'                \
-                         -e 's/  *$//'                \
-                         -e 's/  */ /g'`
+LIBSSTATIC_CONFIG=`echo "$LIBSSTATIC_CONFIG\sed -e 's|-L */usr/lib64/* | |g       -e 's|-L */usr/lib/* | |g'        -e 's/^  *//           -e 's/  *$//           -e 's/  */ /g'`
 
 
 AC_SUBST([ftmac_c])
@@ -1004,8 +916,7 @@ AC_CONFIG_HEADERS([ftconfig.h:ftconfig.in],
 # create the Unix-specific sub-Makefiles `builds/unix/unix-def.mk'
 # and `builds/unix/unix-cc.mk' that will be used by the build system
 #
-AC_CONFIG_FILES([unix-cc.mk:unix-cc.in
-                 unix-def.mk:unix-def.in])
+AC_CONFIG_FILES([unix-cc.mk:unix-cc.in       unix-def.mk:unix-def.in])
 
 # re-generate the Jamfile to use libtool now
 #
@@ -1017,9 +928,7 @@ AC_MSG_NOTICE([
 
 Library configuration:
   external zlib: $have_zlib
-  bzip2:         $have_bzip2
-  libpng:        $have_libpng
-  harfbuzz:      $have_harfbuzz
+  bzip2have_bzip2 $have_libpnghave_harfbuzz
 ])
 
 # end of configure.raw

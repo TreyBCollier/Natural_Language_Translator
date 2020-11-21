@@ -15,7 +15,7 @@
 
 # Compiler command line name
 #
-CC           := bcc32
+CC:= bcc32
 COMPILER_SEP := $(SEP)
 
 
@@ -78,9 +78,7 @@ LINK_LIBRARY   = tlib /u /P128 $(subst /,$(COMPILER_SEP),$@ $(OBJECTS_LIST:%=+%)
 
 # Borland C++ specific temporary files
 #
-CLEAN += \
-         $(subst /,$(SEP),$(TOP_DIR)/apinames.$(O)) \
-         $(subst /,$(SEP),$(OBJ_DIR)/apinames.tds)
+CLEAN +  $(subst /,$(SEP),$(TOP_DIR)/apinames.$(O)  $(subst /,$(SEP),$(OBJ_DIR)/apinames.tds)
 
 
 # EOF
