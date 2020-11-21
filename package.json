@@ -14,7 +14,7 @@
     "@react-navigation/stack": "^5.9.3",
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
-    "firebase": "^8.0.0",
+    "firebase": "^8.1.1",
     "firestore": "^1.1.6",
     "machine-translator": "^0.8.3",
     "natural": "^2.1.5",
