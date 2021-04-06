@@ -1,41 +1,82 @@
 import React from "react";
 import {
-  StyleSheet,
   Text,
   View,
   ScrollView,
-  Dimensions,
-  Image,
   SafeAreaView,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  ActivityIndicator,
+  Alert
 } from "react-native";
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import { Button, Card, Input, CheckBox, Overlay } from "react-native-elements";
-import { BarPasswordStrengthDisplay } from "react-native-password-strength-meter";
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { Input } from "react-native-elements";
+import { RFPercentage } from "react-native-responsive-fontsize";
 import { MaterialCommunityIcons as Icon } from "@expo/vector-icons";
-import colours from "../config/colours";
+import * as Speech from 'expo-speech';
+import styles from "../styles/translateScreen"
 
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-
-class SignUpScreen extends React.Component {
+class EnglishToFrench extends React.Component {
   constructor(props) {
     super(props);
-
+    // Setting state variables
     this.state = {
       english_input: null,
-      englush_output: null,
-      french_input: null,
       french_output: null,
     };
   }
 
   render() {
+
+    // Function handles text to speech - usees French result
+    const speak = (phrase) => {
+      if(phrase != null){
+        const thingToSay = phrase;
+        Speech.speak(thingToSay, {
+          language: "fr"});
+      }
+    };
+
+    // Function uses  http request to  get translation from VM
+    const fetchTranslation = async (page=1) => {
+        var input = this.state.english_input;
+        try{
+          var replaced = input.replace(' ', '%20');
+          // Translation is handled by python model on Google VM and Flask to output the result
+          // to the external IP provided by the VM
+          const searchUrl = `http://34.69.191.129:9090/translateEnglish/`+replaced;
+          const response = await fetch(searchUrl);   // fetch page
+          const htmlString = await response.text();
+          var output = htmlString.slice(0, -6);
+          // Encoding removed apostrophes so need to be added back
+          var correctOutput = addApostrophe(output);
+          this.setState({
+            french_output: correctOutput
+          })
+        }
+        // If no translation generated, prompt user to ensure language is correct
+        catch(err){
+          Alert.alert("Please enter English text")
+        }
+    }
+
+    // Adding missing apostrophes to words
+    const addApostrophe = (string) => {
+      var output = ""
+      var words = string.split(" ");
+      for(let i in words){
+        if((words[i].length == 1) && (words[i] != "y")){
+          words[i] = words[i] + "'";
+        }
+      }
+      for(let i in words){
+        if(words[i].includes("'")){
+          output = output + words[i]
+        }
+        else{
+          output = output + words[i] + " "
+        }
+      }
+      return output
+    }
+
     return (
       <SafeAreaView
         style={{ flex: 1, alignContent: "center", justifyContent: "center" }}
@@ -79,6 +120,7 @@ class SignUpScreen extends React.Component {
               English
             </Text>
             <TouchableOpacity activeOpacity={0.8}>
+              {/* Icon to navigate/switch to 'FrenchToEnglish' translating */}
               <Icon
                 color="black"
                 name="swap-horizontal"
@@ -97,7 +139,7 @@ class SignUpScreen extends React.Component {
               French
             </Text>
           </View>
-
+          {/* Text field for entering English text to be translated */}
           <TouchableOpacity onPress={() => this.refs.english.focus()}>
             <View style={styles.fieldContainer}>
               <Input
@@ -112,20 +154,46 @@ class SignUpScreen extends React.Component {
                 placeholderTextColor="#929292"
               />
             </View>
-            <View style={styles.fieldContainerBottom} />
+            
           </TouchableOpacity>
-          <View pointerEvents={"none"} style={styles.fieldContainer}>
-            <Input
-              ref="french"
-              containerStyle={styles.inputContainer}
-              value={this.state.french_output}
-              onChangeText={(text) => this.setState({ french_output: text })}
-              inputStyle={styles.input}
-              inputContainerStyle={{ borderBottomWidth: 0 }}
-              multiline
-              placeholder="French output"
-              placeholderTextColor="#929292"
-            />
+
+          {/* Calling 'fetchTranslation' to translate the input text */}
+          <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => fetchTranslation()}
+              style={[styles.buttonContainer, styles.translateButton]}
+          >
+              <Text style={styles.appButtonText}>Translate</Text>
+          </TouchableOpacity>
+
+          {/* Text field for translation output */}
+          <View style={{flexDirection: "row"}}>
+            <View pointerEvents={"none"} style={styles.fieldContainer}>
+              <Input
+                ref="french"
+                containerStyle={styles.inputContainer}
+                value={this.state.french_output}
+                onChangeText={(text) => this.setState({ french_output: text })}
+                inputStyle={styles.input}
+                inputContainerStyle={{ borderBottomWidth: 0 }}
+                multiline
+                placeholder="French output"
+                placeholderTextColor="#929292"
+              />
+            </View>
+            
+            {/* Icon to activate 'Text-to-Speech' */}
+            <TouchableOpacity activeOpacity={0.8}  style ={styles.microphone}>
+                <Icon
+                  color="#929292"
+                  name="microphone"
+                  size={25}
+                  style={{
+                    marginRight: "10%",
+                  }}
+                  onPress={() => speak(this.state.french_output)}
+                />
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -133,125 +201,4 @@ class SignUpScreen extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-  },
-  titleText: {
-    fontSize: 30,
-    paddingTop: 20,
-    textAlign: "center",
-  },
-  buttonContainer: {
-    marginTop: 1,
-
-    borderRadius: 10,
-    paddingVertical: 0,
-    paddingHorizontal: 5,
-    width: "90%",
-    height: "5%",
-    alignSelf: "center",
-    justifyContent: "center",
-    backgroundColor: colours.email,
-  },
-  appButtonText: {
-    fontSize: RFPercentage(2),
-    color: "#fff",
-    fontWeight: "bold",
-    alignSelf: "center",
-  },
-  boldText: {
-    color: "grey",
-    fontSize: 18,
-    paddingLeft: "7%",
-    paddingTop: "6%",
-    paddingBottom: "5%",
-  },
-
-  buttonTitle: {
-    color: "white",
-    fontSize: 22,
-    textAlign: "center",
-    alignSelf: "center",
-    bottom: "51%",
-  },
-
-  input: {
-    color: "#929292",
-    fontSize: 15,
-    textAlign: "left",
-    paddingLeft: "0%",
-  },
-  textOutput: {
-    color: "#929292",
-    width: "100%",
-  },
-
-  fieldContainer: {
-    flexDirection: "row",
-    paddingTop: "10%",
-    alignItems: "center",
-  },
-  fieldContainerBottom: {
-    backgroundColor: "#929292",
-    height: 1,
-    width: "100%",
-    marginTop: "0%",
-    alignSelf: "center",
-  },
-});
-
-const barlevels = [
-  {
-    label: "Pathetically weak",
-    labelColor: "#01a7a6",
-    activeBarColor: "#01a7a6",
-  },
-  {
-    label: "Extremely weak",
-    labelColor: "#01a7a6",
-    activeBarColor: "#01a7a6",
-  },
-  {
-    label: "Very weak",
-    labelColor: "#01a7a6",
-    activeBarColor: "#01a7a6",
-  },
-  {
-    label: "Weak",
-    labelColor: "#01a7a6",
-    activeBarColor: "#01a7a6",
-  },
-  {
-    label: "So-so",
-    labelColor: "#01a7a6",
-    activeBarColor: "#01a7a6",
-  },
-  {
-    label: "Average",
-    labelColor: "#01a7a6",
-    activeBarColor: "#01a7a6",
-  },
-  {
-    label: "Fair",
-    labelColor: "#01a7a6",
-    activeBarColor: "#01a7a6",
-  },
-  {
-    label: "Strong",
-    labelColor: "#01a7a6",
-    activeBarColor: "#01a7a6",
-  },
-  {
-    label: "Very strong",
-    labelColor: "#01a7a6",
-    activeBarColor: "#01a7a6",
-  },
-  {
-    label: "Unbelievably strong",
-    labelColor: "#01a7a6",
-    activeBarColor: "#01a7a6",
-  },
-];
-
-export default SignUpScreen;
+export default EnglishToFrench;
