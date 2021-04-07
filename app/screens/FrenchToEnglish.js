@@ -48,14 +48,36 @@ class FrenchToEnglish extends React.Component {
 
           const htmlString = await response.text();
           var output = htmlString.slice(0, -6);
+          // Encoding removed apostrophes so need to be added back
+          var correctOutput = addApostrophe(output);
           this.setState({
-            english_output: output
+            english_output: correctOutput
           })
         }
         // If no translation generated, prompt user to ensure language is correct
         catch(err){
           Alert.alert("Please enter French text")
         }
+    }
+
+    // Adding missing apostrophes to words
+    const addApostrophe = (string) => {
+      var output = ""
+      var words = string.split(" ");
+      for(let i in words){
+        if((words[i].length == 1) && ((words[i] == "s") || (words[i] == "d"))){
+          words[i] = "'" + words[i];
+        }
+      }
+      for(let i = 0; i < words.length-1; i++){
+        if(words[i+1].includes("'")){
+          output = output + words[i]
+        }
+        else{
+          output = output + words[i] + " "
+        }
+      }
+      return output
     }
 
     return (
