@@ -1,13 +1,4 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
-import {
-  Text,
-  View,
-  Image,
-  ImageBackground,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 
@@ -15,11 +6,11 @@ import { createStackNavigator } from "react-navigation-stack";
 import engFre from "./app/screens/EnglishToFrench";
 import freEng from "./app/screens/FrenchToEnglish";
 import StartScreen from "./app/screens/StartScreen"
-import styles from "./app/styles/homeScreeen"
 
 class App extends React.Component {
   render() {
     return (
+      // Using the  'StartScreen' component as the default 'Home' screen for the app
       <StartScreen/>
     );
   }
