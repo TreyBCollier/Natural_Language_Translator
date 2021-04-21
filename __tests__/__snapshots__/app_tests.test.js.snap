@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StartScreen renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    accessibilityIgnoresInvertColors={true}
+    style={
+      Object {
+        "alignContent": "center",
+        "bottom": 0,
+        "flex": 1,
+        "height": "100%",
+        "width": "100%",
+      }
+    }
+  >
+    <Image
+      resizeMode="cover"
+      source={
+        Object {
+          "testUri": "../../../app/assets/paris.jpeg",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "height": "100%",
+            "width": "100%",
+          },
+          undefined,
+        ]
+      }
+    />
+    <RCTSafeAreaView
+      emulateUnlessSupported={true}
+      style={
+        Array [
+          Object {
+            "alignContent": "center",
+            "alignItems": "center",
+            "flex": 1,
+            "justifyContent": "center",
+          },
+        ]
+      }
+    >
+      <Image
+        source={
+          Object {
+            "testUri": "../../../app/assets/logo_white.png",
+          }
+        }
+        style={
+          Object {
+            "alignSelf": "center",
+            "height": "30%",
+            "marginBottom": "-2.5%",
+            "resizeMode": "contain",
+            "width": "90%",
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "height": "100%",
+            "position": "absolute",
+            "top": "80%",
+            "width": "100%",
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignSelf": "center",
+              "backgroundColor": "transparent",
+              "borderColor": "white",
+              "borderRadius": 10,
+              "borderWidth": 1.5,
+              "elevation": 8,
+              "height": "5%",
+              "justifyContent": "center",
+              "marginTop": 15,
+              "opacity": 1,
+              "paddingHorizontal": 5,
+              "paddingVertical": 0,
+              "width": "90%",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "color": "#fff",
+                "fontSize": 27,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Translate English to French
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignSelf": "center",
+              "backgroundColor": "transparent",
+              "borderColor": "white",
+              "borderRadius": 10,
+              "borderWidth": 1.5,
+              "elevation": 8,
+              "height": "5%",
+              "justifyContent": "center",
+              "marginTop": 15,
+              "opacity": 1,
+              "paddingHorizontal": 5,
+              "paddingVertical": 0,
+              "width": "90%",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "color": "#fff",
+                "fontSize": 27,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            Translate French to English
+          </Text>
+        </View>
+      </View>
+    </RCTSafeAreaView>
+  </View>
+</View>
+`;

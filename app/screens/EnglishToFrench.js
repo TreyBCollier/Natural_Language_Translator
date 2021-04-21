@@ -44,7 +44,7 @@ class EnglishToFrench extends React.Component {
           const searchUrl = `http://34.69.191.129:9090/translateEnglish/`+replaced;
           const response = await fetch(searchUrl);   // fetch page
           const htmlString = await response.text();
-          var output = htmlString.slice(0, -6);
+          var output = htmlString.slice(0, -5);
           // Encoding removed apostrophes so need to be added back
           var correctOutput = addApostrophe(output);
           this.setState({
@@ -62,7 +62,10 @@ class EnglishToFrench extends React.Component {
       var output = ""
       var words = string.split(" ");
       for(let i in words){
-        if((words[i].length == 1) && (words[i] != "y")){
+        if(words[i] == "."){
+          words[i] = ""
+        }
+        if((words[i].length == 1) && (words[i] != "y" && words[i] != ".")){
           words[i] = words[i] + "'";
         }
       }
