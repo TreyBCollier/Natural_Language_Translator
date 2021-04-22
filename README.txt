@@ -25,4 +25,8 @@ From here, you can access the English to French translation screen (EnglishToFre
 
 On the screen, you can enter text in the respective language into a textbox, and translate this text using the 'Translate' button.
 
-Once a translation has bee n processed, you can press the microphone icon to enable text-to-speech
+Once a translation has been processed, you can press the microphone icon to enable text-to-speech
+
+Words and sentences must be correctly spelt.
+
+It may appear at first when pressing the 'Translate' button, that it does not translate. The first press of this button deactivates the keyboard, and the second press will be registered and will then translate.
